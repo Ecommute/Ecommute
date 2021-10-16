@@ -15,3 +15,62 @@ buildscript {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+apply plugin: 'jacoco'
+...
+android {
+     
+    buildTypes {
+        debug {
+            ...
+            testCoverageEnabled true
+        }
+        ...
+    }
+    ...
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+    }
+}
+ 
+sonarqube {
+    properties {
+        ...
+        property "sonar.tests", "./src/test/, ./src/androidTest/"
+        property "sonar.sources", "./src/main"
+        property "sonar.java.binaries", "build/intermediates/classes/debug"
+        property "sonar.jacoco.reportPaths", fileTree(dir: project.projectDir, includes: ['**/*.exec', '**/*.ec'])
+    }
+}
+ 
+task createTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+    group = "Reporting"
+ 
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+ 
+    def fileFilter = ['**/R.class',
+                     '**/R$*.class',
+                     '**/BuildConfig.*',
+                     '**/*$ViewInjector*.*',
+                     '**/*$ViewBinder*.*',
+                     '**/*$MembersInjector*.*',
+                     '**/Manifest*.*',
+                     '**/*Test*.*',
+                     'android/**/*.*']
+ 
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+ 
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: project.projectDir, includes: ['**/*.exec', '**/*.ec'])
+}
+tasks.sonarqube.dependsOn createTestReport
