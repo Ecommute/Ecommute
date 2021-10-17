@@ -1,16 +1,16 @@
-package com.example.ecommute.ui.dashboard;
+package com.example.ecommute.ui.perfil;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DashboardViewModel extends ViewModel {
+public class PerfilViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public DashboardViewModel() {
+    public PerfilViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("Esta es la pestaña del perfil");
     }
 
     public LiveData<String> getText() {

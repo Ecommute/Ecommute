@@ -1,16 +1,16 @@
-package com.example.ecommute.ui.home;
+package com.example.ecommute.ui.foro;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class ForoViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public ForoViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("Esta es la pestaña del foro");
     }
 
     public LiveData<String> getText() {

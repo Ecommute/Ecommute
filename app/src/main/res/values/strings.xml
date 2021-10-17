@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Ecommute</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_foro">Foro</string>
+    <string name="title_huella">Huella</string>
+    <string name="title_ruta">Ruta</string>
+    <string name="title_perfil">Perfil</string>
+    <string name="title_puntos">Puntos</string>
 </resources>

@@ -1,16 +1,16 @@
-package com.example.ecommute.ui.notifications;
+package com.example.ecommute.ui.puntos;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class PuntosViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public NotificationsViewModel() {
+    public PuntosViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("Esta es la pestaña de los puntos");
     }
 
     public LiveData<String> getText() {
