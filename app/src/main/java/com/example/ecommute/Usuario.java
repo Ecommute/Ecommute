@@ -15,10 +15,14 @@ public class Usuario {
     private Integer puntos;
     private Integer co2Ahorrado;
     //set de rutasRealizadas, de momento como array de ids de rutas para poder usarlo
-    private Integer[] rutasRealizadas;
+    private Vector<Integer> rutasRealizadas = new Vector();
 
 
     public Usuario() {
+    }
+
+    public Usuario(Integer idPersona) {
+        this.idPersona = idPersona;
     }
 
     public Usuario(Integer idPersona, String nombreUsuario,
@@ -112,12 +116,11 @@ public class Usuario {
         this.co2Ahorrado = co2Ahorrado;
     }
 
-
-    public Integer[] getRutasRealizadas() {
+    public Vector<Integer> getRutasRealizadas() {
         return rutasRealizadas;
     }
 
-    public void setRutasRealizadas(Integer[] rutasRealizadas) {
-        this.rutasRealizadas = rutasRealizadas;
+    public void añadirRutaRealizada(Integer idRuta) {
+        rutasRealizadas.add(idRuta);
     }
 }

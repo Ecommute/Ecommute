@@ -14,6 +14,8 @@ import com.example.ecommute.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
+    public Integer activeUserId;
+
     private ActivityMainBinding binding;
 
     @Override

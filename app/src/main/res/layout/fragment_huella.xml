@@ -46,6 +46,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/historial"
         android:layout_width="403dp"
         android:layout_height="401dp"
         android:layout_marginStart="1dp"

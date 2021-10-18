@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void validate(){
-        //instanciar usuari i passarli id a la main activity
 
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);

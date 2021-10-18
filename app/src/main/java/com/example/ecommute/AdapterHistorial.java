@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyViewHolder> {
     Context mContext;
-    String[] mStrOrigenes, mStrDestinos, mStrPuntos;
+    String[] mStrOrigenes, mStrDestinos;
+    Integer[] mStrPuntos;
 
-    public AdapterHistorial(Context context, String[] strOrigenes, String[] strDestinos, String[] strPuntos){
+    public AdapterHistorial(Context context, String[] strOrigenes, String[] strDestinos, Integer[] strPuntos){
         mContext = context;
         mStrOrigenes = strOrigenes;
         mStrDestinos = strDestinos;
