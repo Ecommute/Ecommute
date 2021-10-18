@@ -64,6 +64,8 @@ public class RutaFragment extends Fragment {
 
         //Intento fallido de pasar a un fragmento nuevo para mostrar el mapa
         //getFragmentManager().beginTransaction().replace(R.id.navigation_ruta, new PerfilFragment()).addToBackStack(null).commit();
+
+        //afegir id al set de rutasRealizadas del currentUser
     }
 
 
