@@ -10,7 +10,7 @@ public class HuellaViewModel extends ViewModel {
 
     public HuellaViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("Esta es la pestaña de la huella");
+        mText.setValue("Pestaña de la huella");
     }
 
     public LiveData<String> getText() {
