@@ -19,18 +19,17 @@ public class Usuario {
 
     public Usuario(Integer idPersona, String nombreUsuario,
                    String contraseña, String email, String nombre,
-                   String apellidos, boolean isAdmin, String credencialesRRSS,
-                   Integer puntos, Integer co2Ahorrado) {
+                   String apellidos) {
         this.idPersona = idPersona;
         this.nombreUsuario = nombreUsuario;
         this.contraseña = contraseña;
         this.email = email;
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.isAdmin = isAdmin;
-        this.credencialesRRSS = credencialesRRSS;
-        this.puntos = puntos;
-        this.co2Ahorrado = co2Ahorrado;
+        this.isAdmin = false;
+        this.credencialesRRSS = null;
+        this.puntos = 0;
+        this.co2Ahorrado = 0;
     }
 
     public void setIdPersona(Integer idPersona) {
