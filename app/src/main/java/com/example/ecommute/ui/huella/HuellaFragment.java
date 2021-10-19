@@ -45,15 +45,13 @@ public class HuellaFragment extends Fragment{
         binding = FragmentHuellaBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
+        /*final TextView textView = binding.textDashboard;
         huellaViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
-        });
-
-
+        });*/
 
 
         //Recogemos origenes, destinos y puntos
@@ -63,8 +61,7 @@ public class HuellaFragment extends Fragment{
     }
 
     private void setUpHistorial() {
-        //Per instanciar els arrays mirar el size de rutasRealizadas de l'usuari, que estarà
-        //ben posat i no amb el lio del for
+        //Per instanciar els arrays mirar el size de rutasRealizadas de l'usuari
         int n = 10;
 
         String[] arrayOrigenes = new String[n];
@@ -81,13 +78,17 @@ public class HuellaFragment extends Fragment{
         }
 
         /*CODI SEMI DEFINITIU
-        --Comptant que la resta està implementada--
+        //Comptant que la resta està implementada--
         Vector<Integer> rutasRealizadas = usuarioActivo.getRutasRealizadas();
         for(int i = 0; i < rutasRealizadas.size(); ++i){
             ruta = getRutaById(rutasRealizadas[i]) -> algo així, not yet implemented
-            origen = ruta.getOrigen
-            destino = ruta.getDestino
+            origen = ruta.getOrigen();
+            destino = ruta.getDestino();
+            puntos = ruta.getPuntos();
 
+            arrayOrigenes[i] = origen;
+            arrayDestinos[i] = destino;
+            arrayPuntos[i] = puntos;
         }*/
 
         historial = binding.historial;
@@ -96,6 +97,8 @@ public class HuellaFragment extends Fragment{
 
         mLayoutManager=new LinearLayoutManager(this.getActivity());
         historial.setLayoutManager(mLayoutManager);
+
+
 
     }
 

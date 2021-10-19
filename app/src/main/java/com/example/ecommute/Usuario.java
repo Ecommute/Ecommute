@@ -14,15 +14,8 @@ public class Usuario {
     private String credencialesRRSS;
     private Integer puntos;
     private Integer co2Ahorrado;
-    //set de rutasRealizadas, de momento como array de ids de rutas para poder usarlo
-    private Vector<Integer> rutasRealizadas = new Vector();
-
 
     public Usuario() {
-    }
-
-    public Usuario(Integer idPersona) {
-        this.idPersona = idPersona;
     }
 
     public Usuario(Integer idPersona, String nombreUsuario,
@@ -114,13 +107,5 @@ public class Usuario {
 
     public void setCo2Ahorrado(Integer co2Ahorrado) {
         this.co2Ahorrado = co2Ahorrado;
-    }
-
-    public Vector<Integer> getRutasRealizadas() {
-        return rutasRealizadas;
-    }
-
-    public void añadirRutaRealizada(Integer idRuta) {
-        rutasRealizadas.add(idRuta);
     }
 }
