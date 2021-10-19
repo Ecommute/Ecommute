@@ -37,16 +37,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private void validate(){
         //Revisar si los elementos deberían estar en otro sitio
-        EditText editUsuario = binding.usuario;
+        /*EditText editUsuario = binding.usuario;
         EditText editPassword = binding.password;
         TextView aviso = binding.aviso;
 
-        if(editUsuario.getText().toString().equals("ecommute") && editPassword.getText().toString().equals("1234")) {
+        if(editUsuario.getText().toString().equals("ecommute") && editPassword.getText().toString().equals("1234")) {*/
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
-        }else{
+        /*}else{
             aviso.setText("Los datos de acceso son incorrectos");
-        }
+        }*/
     }
 
 }

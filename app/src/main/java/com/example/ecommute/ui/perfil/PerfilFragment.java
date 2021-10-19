@@ -2,12 +2,10 @@ package com.example.ecommute.ui.perfil;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,12 +49,21 @@ public class PerfilFragment extends Fragment {
             }
         });
 
+        Button eliminarb = binding.eliminar;
+
+        eliminarb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout();
+            }
+        });
+
         return root;
     }
 
     private void logout(){
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
     }
 
     @Override
