@@ -3,7 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/fragment_huella.xml" value="0.1" />
+        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.2296875" />
+        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/fragment_huella.xml" value="0.25" />
         <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/item_historial.xml" value="0.5" />
       </map>
     </option>
