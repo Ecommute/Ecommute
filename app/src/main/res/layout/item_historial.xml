@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorButtonNormal"
-    android:backgroundTint="?attr/colorButtonNormal"
-    android:clickable="true"
+    android:background="#00FFFFFF"
+    android:backgroundTint="#00FFFFFF"
+    android:clickable="false"
     android:foregroundTint="?attr/colorButtonNormal">
 
     <TextView
@@ -62,5 +62,26 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/rectangle_at_the_top"
+        android:layout_width="373dp"
+        android:layout_height="63dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:radius="20dp"
+        android:background="#DDDDDD"
+        android:clickable="true"
+        android:hapticFeedbackEnabled="true"
+        android:translationZ="-10dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
