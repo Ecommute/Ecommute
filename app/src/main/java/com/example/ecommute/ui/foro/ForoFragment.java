@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.ecommute.PopUpClass;
 import com.example.ecommute.databinding.FragmentForoBinding;
 
 public class ForoFragment extends Fragment {
@@ -34,8 +36,22 @@ public class ForoFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+        Button detalles = binding.detalles;
+        detalles.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                PopUpClass popUpClass = new PopUpClass();
+                popUpClass.showPopupWindow(v);
+            }
+        });
+
         return root;
     }
+
+
 
     @Override
     public void onDestroyView() {
