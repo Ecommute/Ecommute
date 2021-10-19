@@ -66,7 +66,6 @@ public class RutaFragment extends Fragment {
         //getFragmentManager().beginTransaction().replace(R.id.navigation_ruta, new PerfilFragment()).addToBackStack(null).commit();
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
