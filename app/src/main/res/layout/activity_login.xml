@@ -46,6 +46,20 @@
         app:layout_constraintTop_toBottomOf="@+id/usuario"
         app:layout_constraintVertical_bias="0.466" />
 
+    <Button
+        android:id="@+id/botonRegistro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="158dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="159dp"
+        android:layout_marginBottom="202dp"
+        android:text="SignUp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login" />
+
     <TextView
         android:id="@+id/aviso"
         android:layout_width="wrap_content"

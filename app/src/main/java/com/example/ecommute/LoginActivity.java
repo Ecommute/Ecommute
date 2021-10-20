@@ -24,16 +24,24 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Button loginb = findViewById(R.id.login);
+        Button signupb = findViewById(R.id.botonRegistro);
 
         loginb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validate();
+                validateLogin();
+            }
+        });
+
+        signupb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validateSignup();
             }
         });
     }
 
-    private void validate(){
+    private void validateLogin(){
         //Revisar si los elementos deberían estar en otro sitio
         /*EditText editUsuario = binding.usuario;
         EditText editPassword = binding.password;
@@ -45,6 +53,11 @@ public class LoginActivity extends AppCompatActivity {
         /*}else{
             aviso.setText("Los datos de acceso son incorrectos");
         }*/
+    }
+
+    private void validateSignup(){
+        Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+        startActivity(intent);
     }
 
 }
