@@ -17,7 +17,7 @@ public class Ruta {
 
         //Posibilidad de guardar la hora / distancia (el segundo necesita API o algo por el estilo)
         this.consumo = dist * 143; //(143 g/km coche de gasolina medio)
-        this.comparacion = getComparacio(consumo);
+        this.comparacion = comparar(consumo);
     }
 
     public String getOrigen(){
@@ -49,7 +49,7 @@ public class Ruta {
         return this.comparacion;
     }
 
-    public String getComparacio(int cons){
+    public String comparar(int cons){
         String comp = "La cantidad de CO2 expulsada en este viaje equivale a: "
                 + cons/200 + " botellas de plastico de 1.5L, o a "
                 + cons/10 + " bolsas de plastico, y ademas se necesitarian "
