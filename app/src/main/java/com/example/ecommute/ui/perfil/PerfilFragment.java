@@ -1,9 +1,11 @@
 package com.example.ecommute.ui.perfil;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.ecommute.LoginActivity;
+import com.example.ecommute.MainActivity;
+import com.example.ecommute.R;
 import com.example.ecommute.databinding.FragmentPerfilBinding;
 
 public class PerfilFragment extends Fragment {
@@ -34,7 +39,31 @@ public class PerfilFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+        Button logoutb = binding.logout;
+
+        logoutb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout();
+            }
+        });
+
+        Button eliminarb = binding.eliminar;
+
+        eliminarb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout();
+            }
+        });
+
         return root;
+    }
+
+    private void logout(){
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
     }
 
     @Override

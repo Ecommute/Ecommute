@@ -63,7 +63,6 @@ public class RutaFragment extends Fragment {
         //afegir id al set de rutasRealizadas del currentUser
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
