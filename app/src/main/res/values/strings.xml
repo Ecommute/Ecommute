@@ -7,6 +7,6 @@
     <string name="title_puntos">Puntos</string>
     <string name="pre_origen">De: </string>
     <string name="pre_destino">A: </string>
-    <string name="textTitle">Detalles Ruta</string>
+    <string name="textTitle">Detalles ruta</string>
     <string name="textButton">Eliminar</string>
 </resources>
