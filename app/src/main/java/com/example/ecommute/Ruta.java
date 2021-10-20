@@ -5,8 +5,9 @@ public class Ruta {
     private String destino;
 
     public Ruta(String origen, String destino){
-        this.origen = origen;
+        this.origen = this.origen;
         this.destino = destino;
+
         //Posibilidad de guardar la hora / distancia (el segundo necesita API o algo por el estilo)
     }
 

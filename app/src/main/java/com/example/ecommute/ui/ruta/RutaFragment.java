@@ -1,6 +1,5 @@
 package com.example.ecommute.ui.ruta;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.ecommute.LoginActivity;
-import com.example.ecommute.MainActivity;
-import com.example.ecommute.R;
 import com.example.ecommute.Ruta;
 import com.example.ecommute.databinding.FragmentRutaBinding;
-import com.example.ecommute.ui.perfil.PerfilFragment;
 
 public class RutaFragment extends Fragment {
 
@@ -64,6 +59,8 @@ public class RutaFragment extends Fragment {
 
         //Intento fallido de pasar a un fragmento nuevo para mostrar el mapa
         //getFragmentManager().beginTransaction().replace(R.id.navigation_ruta, new PerfilFragment()).addToBackStack(null).commit();
+
+        //afegir id al set de rutasRealizadas del currentUser
     }
 
 

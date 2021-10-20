@@ -15,6 +15,9 @@
         <entry key="..\:/Users/nacho/AndroidStudioProjects/Ecommute/app/src/main/res/layout/fragment_puntos.xml" value="0.259375" />
         <entry key="..\:/Users/nacho/AndroidStudioProjects/Ecommute/app/src/main/res/layout/fragment_ruta.xml" value="0.176" />
         <entry key="..\:/Users/nacho/AndroidStudioProjects/Ecommute/app/src/main/res/menu/bottom_nav_menu.xml" value="0.259375" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.14356884057971014" />
+        <entry key="app/src/main/res/layout/fragment_huella.xml" value="0.2140625" />
+        <entry key="app/src/main/res/layout/item_historial.xml" value="0.2140625" />
       </map>
     </option>
   </component>

@@ -32,8 +32,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void validate(){
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
+
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
 }
