@@ -19,7 +19,6 @@ public class PopUpClass {
 
     public void showPopupWindow(final View view) {
 
-
         //Create a View object yourself through inflater
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.detalles_ruta, null);

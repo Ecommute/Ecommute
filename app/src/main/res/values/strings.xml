@@ -5,4 +5,6 @@
     <string name="title_ruta">Ruta</string>
     <string name="title_perfil">Perfil</string>
     <string name="title_puntos">Puntos</string>
+    <string name="textButton">Eliminar Ruta</string>
+    <string name="textTitle">Detalles Ruta</string>
 </resources>
