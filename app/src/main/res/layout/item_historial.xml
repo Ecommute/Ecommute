@@ -6,7 +6,9 @@
     android:layout_height="wrap_content"
     android:background="#00FFFFFF"
     android:backgroundTint="#FF9800"
-    android:clickable="false"
+    android:focusableInTouchMode="true"
+    android:clickable="true"
+    android:focusable="true"
     android:foregroundTint="#00EDEDED">
 
     <TextView
@@ -17,8 +19,9 @@
         android:layout_marginEnd="76dp"
         android:layout_marginBottom="34dp"
         android:text="TextView"
-        android:textColor="#4CAF50"
+        android:textColor="@color/teal_700"
         android:textStyle="bold"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,8 +30,10 @@
         android:id="@+id/origen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="TextView"
+        android:textColor="?android:attr/textColorHint"
+        android:translationZ="10dp"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,9 +42,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="@string/pre_origen"
         android:textStyle="bold"
+        android:translationZ="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,8 +53,9 @@
         android:id="@+id/destino"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:text="TextView"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView3" />
 
@@ -57,30 +64,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/pre_destino"
         android:textStyle="bold"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <View
-        android:id="@+id/item_box"
-        android:layout_width="373dp"
-        android:layout_height="63dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="#DDDDDD"
-        android:backgroundTint="#ECECEC"
+    <Button
+        android:id="@+id/item_button"
+        android:layout_width="379dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="#DADADA"
         android:clickable="true"
-        android:focusable="true"
-        android:foregroundTint="#3F51B5"
-        android:hapticFeedbackEnabled="true"
-        android:radius="16dp"
         android:translationZ="-10dp"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

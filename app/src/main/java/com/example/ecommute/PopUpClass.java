@@ -1,5 +1,6 @@
 package com.example.ecommute;
 
+import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,11 +18,12 @@ public class PopUpClass {
 
     //PopupWindow display method
 
-    public void showPopupWindow(final View view) {
+    public void showPopupWindow(final View view, Context mContext) {
 
         //Create a View object yourself through inflater
-        LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.detalles_ruta, null);
+        /*LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.detalles_ruta, null);*/
+        View popupView = LayoutInflater.from(mContext).inflate(R.layout.detalles_ruta, null);
 
         //Specify the length and width through constants
         int width = LinearLayout.LayoutParams.MATCH_PARENT;

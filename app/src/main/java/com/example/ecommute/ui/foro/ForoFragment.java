@@ -37,7 +37,7 @@ public class ForoFragment extends Fragment {
             }
         });
 
-        Button detalles = binding.detalles;
+        /*Button detalles = binding.detalles;
         detalles.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -46,7 +46,7 @@ public class ForoFragment extends Fragment {
                 PopUpClass popUpClass = new PopUpClass();
                 popUpClass.showPopupWindow(v);
             }
-        });
+        });*/
 
         return root;
     }

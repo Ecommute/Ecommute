@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecommute.AdapterHistorial;
 import com.example.ecommute.PopUpClass;
-import com.example.ecommute.databinding.FragmentForoBinding;
 import com.example.ecommute.databinding.FragmentHuellaBinding;
 import com.example.ecommute.databinding.ItemHistorialBinding;
 
@@ -71,10 +70,10 @@ public class HuellaFragment extends Fragment{
         //POP-UP VER DETALLES
 
         bindingI = ItemHistorialBinding.inflate(inflater, container, false);
-        View rootI = bindingI.getRoot();
+        //View rootI = bindingI.getRoot();
 
-        View iBox = bindingI.itemBox;
-        iBox.setOnClickListener(new View.OnClickListener() {
+        /*Button iButton = bindingI.itemButton;
+        iButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -82,7 +81,7 @@ public class HuellaFragment extends Fragment{
                 PopUpClass popUpClass = new PopUpClass();
                 popUpClass.showPopupWindow(v);
             }
-        });
+        });*/
 
         return root;
     }

@@ -4,15 +4,20 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+
+import com.example.ecommute.databinding.ItemHistorialBinding;
+
 public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyViewHolder> {
     Context mContext;
     String[] mStrOrigenes, mStrDestinos;
     Integer[] mStrPuntos;
+    private ItemHistorialBinding bindingI;
 
     public AdapterHistorial(Context context, String[] strOrigenes, String[] strDestinos, Integer[] strPuntos){
         mContext = context;
@@ -26,6 +31,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
     public AdapterHistorial.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View v = inflater.inflate(R.layout.item_historial, parent, false);
+
         return new MyViewHolder(v);
     }
 
@@ -49,6 +55,20 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
             mTextOrigen = itemView.findViewById(R.id.origen);
             mTextDestino = itemView.findViewById(R.id.destino);
             mTextPuntos = itemView.findViewById(R.id.puntos);
+
+            Button iButton = itemView.findViewById(R.id.item_button);
+            iButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View vp) {
+
+                    PopUpClass popUpClass = new PopUpClass();
+                    popUpClass.showPopupWindow(vp, mContext);
+                }
+            });
+
         }
+
+
     }
 }
