@@ -198,6 +198,9 @@ public class SignUpActivity extends AppCompatActivity {
 
         binding.regApellidos.setText(response[0].body().string());
 
+        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+        startActivity(intent);
+
     }
 
 }
