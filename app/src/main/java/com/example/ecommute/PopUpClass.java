@@ -1,5 +1,6 @@
 package com.example.ecommute;
 
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -40,14 +41,32 @@ public class PopUpClass {
         TextView test2 = popupView.findViewById(R.id.titleText);
         test2.setText(R.string.textTitle);
 
-        Button buttonEdit = popupView.findViewById(R.id.messageButton);
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
+        TextView origen = popupView.findViewById(R.id.dorigen);
+        test2.setText(R.string.textTitle);
+        TextView destino = popupView.findViewById(R.id.ddestino);
+        test2.setText(R.string.textTitle);
+        TextView consumo = popupView.findViewById(R.id.dconsumo);
+        test2.setText(R.string.textTitle);
+        TextView comparacion = popupView.findViewById(R.id.dcomparacion);
+        test2.setText(R.string.textTitle);
+
+        Button buttonClose = popupView.findViewById(R.id.messageButton);
+        buttonClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //popupWindow.dismiss();
                 //As an example, display the message
                 Toast.makeText(view.getContext(), "Wow, popup window closed", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        Button buttonEdit = popupView.findViewById(R.id.editar);
+        buttonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( v.getContext(), EditActivity.class);
+                v.getContext().startActivity(intent);
             }
         });
 

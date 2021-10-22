@@ -50,10 +50,10 @@
         android:layout_marginBottom="16dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView3" />
+        app:layout_constraintStart_toEndOf="@+id/dconsumo" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/dconsumo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"

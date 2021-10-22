@@ -9,4 +9,6 @@
     <string name="pre_destino">A: </string>
     <string name="textTitle">Detalles ruta</string>
     <string name="textButton">Eliminar</string>
+    <string name="textEditar">Editar</string>
+    <string name="textGuardar">Guardar</string>
 </resources>

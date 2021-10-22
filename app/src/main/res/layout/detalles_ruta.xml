@@ -41,22 +41,34 @@
 
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/dorigen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/ddestino"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/dconsumo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView" />
+
+            <TextView
+                android:id="@+id/dcomparacion"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:text="TextView" />
+
+            <Button
+                android:id="@+id/editar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/textEditar" />
 
             <Button
                 android:id="@+id/messageButton"
