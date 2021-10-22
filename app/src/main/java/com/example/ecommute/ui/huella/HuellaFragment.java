@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecommute.AdapterHistorial;
+import com.example.ecommute.GlobalVariables;
 import com.example.ecommute.PopUpClass;
 import com.example.ecommute.databinding.FragmentHuellaBinding;
 import com.example.ecommute.databinding.ItemHistorialBinding;
@@ -89,12 +90,15 @@ public class HuellaFragment extends Fragment{
 
     private void setUpHistorial() throws Exception {
 
+        String username = GlobalVariables.username;
+        String password = GlobalVariables.password;
+
         final Response[] response = new Response[1];
 
         OkHttpClient client = new OkHttpClient().newBuilder().build();
 
         Request request = new Request.Builder()
-                .url("http://10.4.41.35:3000/routes/list?username=marcelurpi&password=password")
+                .url("http://10.4.41.35:3000/routes/list?username=" + username + "&password=" + password)
                 .method("GET", null)
                 .build();
 
@@ -117,7 +121,6 @@ public class HuellaFragment extends Fragment{
             arrayDestinos[i] = object.getString("destination");
             arrayPuntos[i] = Integer.valueOf(object.getString("points"));
         }
-
     }
 
     @Override
