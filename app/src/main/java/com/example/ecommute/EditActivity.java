@@ -40,6 +40,7 @@ public class EditActivity extends AppCompatActivity{
             public void onClick(View v) {
                 EditText origen = binding.editOrigen;
                 EditText destino = binding.editDestino;
+                int idRuta = (int) savedInstanceState.getSerializable("idRuta");
 
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
@@ -52,7 +53,7 @@ public class EditActivity extends AppCompatActivity{
                 MediaType mediaType = MediaType.parse("text/plain");
                 RequestBody body = RequestBody.create(mediaType, "");
                 Request request = new Request.Builder()
-                        .url("http://10.4.41.35:3000/routes/edit/1?username=marcelurpi&password=password&origin="+ origen.getText().toString() +"&destination="+ destino.getText().toString() +"&time=0&mode=walking&points=0&favourite=0&id=1")
+                        .url("http://10.4.41.35:3000/routes/edit/"+ idRuta +"?username="+ GlobalVariables.username +"&password="+ GlobalVariables.password +"&origin="+ origen.getText().toString() +"&destination="+ destino.getText().toString() +"&time=0&mode=walking&points=0&favourite=0&id=1")
                         .method("PUT", body)
                         .build();
 

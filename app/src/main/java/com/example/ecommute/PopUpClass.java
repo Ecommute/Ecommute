@@ -23,8 +23,8 @@ import okhttp3.Response;
 public class PopUpClass {
 
     //PopupWindow display method
-    String origen = "a";
-    String destino = "a";
+    String origen = "Origen";
+    String destino = "Destino";
 
 
     public void showPopupWindow(final View view, Context mContext, Integer idRuta) {
@@ -82,6 +82,8 @@ public class PopUpClass {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent( v.getContext(), EditActivity.class);
+                int idR = idRuta;
+                intent.putExtra("idRuta", idR);
                 v.getContext().startActivity(intent);
                 popupWindow.dismiss();
             }
@@ -118,7 +120,7 @@ public class PopUpClass {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
-                .url("http://10.4.41.35:3000/routes/show/" + id +"?username=marcelurpi&password=password")
+                .url("http://10.4.41.35:3000/routes/show/" + id +"?username="+ GlobalVariables.username +"&password="+GlobalVariables.password)
                 .method("GET", null)
                 .build();
         response[0] = client.newCall(request).execute();
