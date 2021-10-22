@@ -1,6 +1,7 @@
 package com.example.ecommute;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -35,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
     }
 
