@@ -1,25 +1,33 @@
 package com.example.ecommute;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ecommute.databinding.ActivityEditBinding;
-import com.example.ecommute.databinding.ActivityLoginBinding;
-import com.example.ecommute.databinding.ActivityMainBinding;
 
-public class EditActivity extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+public class EditActivity extends AppCompatActivity{
 
     private ActivityEditBinding binding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
@@ -32,7 +40,49 @@ public class EditActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText origen = binding.editOrigen;
                 EditText destino = binding.editDestino;
-                //Editar Ruta mitjançant crida backend + id!
+
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+
+                final Response[] response = new Response[1];
+
+                OkHttpClient client = new OkHttpClient().newBuilder()
+                        .build();
+
+                MediaType mediaType = MediaType.parse("text/plain");
+                RequestBody body = RequestBody.create(mediaType, "");
+                Request request = new Request.Builder()
+                        .url("http://10.4.41.35:3000/routes/edit/1?username=marcelurpi&password=password&origin="+ origen.getText().toString() +"&destination="+ destino.getText().toString() +"&time=0&mode=walking&points=0&favourite=0&id=1")
+                        .method("PUT", body)
+                        .build();
+
+                try {
+                    response[0] = client.newCall(request).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String jsonData = null;
+                try {
+                    jsonData = response[0].body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                JSONObject Jobject = null;
+                try {
+                    Jobject = new JSONObject(jsonData);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    JSONObject Jarray = new JSONObject(Jobject.getString("result"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                Intent intent = new Intent(EditActivity.this,MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
             }
         });
     }

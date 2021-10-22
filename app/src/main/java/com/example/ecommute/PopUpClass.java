@@ -1,10 +1,9 @@
 package com.example.ecommute;
 
-import android.content.Intent;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -13,11 +12,20 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 //Extracted from https://medium.com/@evanbishop/popupwindow-in-android-tutorial-6e5a18f49cc7
 
 public class PopUpClass {
 
     //PopupWindow display method
+    String origen = "a";
+    String destino = "a";
+
 
     public void showPopupWindow(final View view, Context mContext, Integer idRuta) {
 
@@ -43,14 +51,20 @@ public class PopUpClass {
         TextView test2 = popupView.findViewById(R.id.titleText);
         test2.setText(R.string.textTitle);
 
-        TextView origen = popupView.findViewById(R.id.dorigen);
-        test2.setText(R.string.textTitle);
-        TextView destino = popupView.findViewById(R.id.ddestino);
-        test2.setText(R.string.textTitle);
+        try {
+            setUpBackend(idRuta);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        TextView origen1 = popupView.findViewById(R.id.dorigen);
+        origen1.setText(origen);
+        TextView destino1 = popupView.findViewById(R.id.ddestino);
+        destino1.setText(destino);
         TextView consumo = popupView.findViewById(R.id.dconsumo);
-        test2.setText(R.string.textTitle);
+        consumo.setText("consumo");
         TextView comparacion = popupView.findViewById(R.id.dcomparacion);
-        test2.setText(R.string.textTitle);
+        comparacion.setText("comparacion");
 
         Button buttonClose = popupView.findViewById(R.id.messageButton);
         buttonClose.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +83,9 @@ public class PopUpClass {
             public void onClick(View v) {
                 Intent intent = new Intent( v.getContext(), EditActivity.class);
                 v.getContext().startActivity(intent);
+                popupWindow.dismiss();
             }
+
         });
 
         ImageButton cerrar = popupView.findViewById(R.id.cerrar);
@@ -95,6 +111,22 @@ public class PopUpClass {
                 return true;
             }
         });*/
+    }
+    public void setUpBackend(int id) throws Exception{
+        final Response[] response = new Response[1];
+
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/routes/show/" + id +"?username=marcelurpi&password=password")
+                .method("GET", null)
+                .build();
+        response[0] = client.newCall(request).execute();
+        String jsonData = response[0].body().string();
+        JSONObject Jobject = new JSONObject(jsonData);
+        JSONObject Jarray = new JSONObject(Jobject.getString("route"));
+        origen = Jarray.getString("origin");
+        destino = Jarray.getString("destination");
     }
 
 }
