@@ -30,8 +30,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
 
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class RutaFragment extends Fragment {
@@ -79,15 +81,28 @@ public class RutaFragment extends Fragment {
         EditText destino = binding.editDestino;
 
         final Response[] response = new Response[1];
-
+        final Response[] response2 = new Response[1];
         OkHttpClient client = new OkHttpClient().newBuilder().build();
 
-        Request request = new Request.Builder().url("http://10.4.41.35:3000/routes/stats?origin=Barcelona&destination=Albacete&mode=driving&username=marcelurpi&password=password")
+        Request request = new Request.Builder().url("http://10.4.41.35:3000/routes/stats?origin="+origen.getText().toString()+"&destination="+destino.getText().toString()+"&mode=driving&username=marcelurpi&password=password")
                 .method("GET", null).build();
         response[0] = client.newCall(request).execute();
         JSONObject respuesta = new JSONObject(response[0].body().string());
         JSONObject stats = new JSONObject(respuesta.getString("stats"));
-        confirmacion.setText("Duración: " + stats.getString("timeValue"));
+        String duracion = stats.getString("timeValue");
+        confirmacion.setText("Duración: " + duracion);
+
+        OkHttpClient client2 = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("text/plain");
+        RequestBody body = RequestBody.create("", mediaType);
+        Request request2 = new Request.Builder()
+                .url("http://10.4.41.35:3000/routes/add?origin="+origen.getText().toString()+"&destination="+destino.getText().toString()+"&time="+duracion+"&mode=walking&username=marcelurpi&password=password")
+                .method("POST", body)
+                .build();
+        response2[0] = client2.newCall(request2).execute();
+        JSONObject respuesta2 = new JSONObject(response2[0].body().string());
+        confirmacion.setText("Resultado: " + respuesta2.getString("result"));
 
         /*AsyncTask<Void, Void, String> asyncTask = new AsyncTask<Void, Void, String>() {
             @Override
