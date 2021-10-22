@@ -193,6 +193,9 @@ public class SignUpActivity extends AppCompatActivity {
         final Response[] response = new Response[1];
         response[0] = client.newCall(request).execute();
 
+        GlobalVariables.password = pass;
+        GlobalVariables.username = username;
+
         binding.regApellidos.setText(response[0].body().string());
 
     }

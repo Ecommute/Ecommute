@@ -1,7 +1,7 @@
 package com.example.ecommute;
 
-public class GlobasVariables {
-    String username, password;
+public class GlobalVariables {
+    public static String username, password;
 
     public void setPassword(String password) {
         this.password = password;
