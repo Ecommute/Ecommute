@@ -16,14 +16,15 @@ import com.example.ecommute.databinding.ItemHistorialBinding;
 public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyViewHolder> {
     Context mContext;
     String[] mStrOrigenes, mStrDestinos;
-    Integer[] mStrPuntos;
+    Integer[] mStrPuntos, mIntIds;
     private ItemHistorialBinding bindingI;
 
-    public AdapterHistorial(Context context, String[] strOrigenes, String[] strDestinos, Integer[] strPuntos){
+    public AdapterHistorial(Context context, String[] strOrigenes, String[] strDestinos, Integer[] strPuntos, Integer[] intIds){
         mContext = context;
         mStrOrigenes = strOrigenes;
         mStrDestinos = strDestinos;
         mStrPuntos = strPuntos;
+        mIntIds = intIds;
     }
 
     @NonNull
@@ -37,6 +38,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull AdapterHistorial.MyViewHolder holder, int position) {
+        holder.setId(mIntIds[position]);
         holder.mTextOrigen.setText(mStrOrigenes[position]);
         holder.mTextDestino.setText(mStrDestinos[position]);
         holder.mTextPuntos.setText(new StringBuilder().append(mStrPuntos[position]).append(" kg de CO2").toString());
@@ -49,6 +51,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView mTextOrigen, mTextDestino, mTextPuntos;
+        Integer id;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,12 +66,14 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
                 public void onClick(View vp) {
 
                     PopUpClass popUpClass = new PopUpClass();
-                    popUpClass.showPopupWindow(vp, mContext);
+                    popUpClass.showPopupWindow(vp, mContext, id);
                 }
             });
 
         }
 
-
+        public void setId(Integer id) {
+            this.id = id;
+        }
     }
 }

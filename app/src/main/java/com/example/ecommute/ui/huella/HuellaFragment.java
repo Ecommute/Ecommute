@@ -92,11 +92,13 @@ public class HuellaFragment extends Fragment{
         String[] arrayOrigenes = new String[n];
         String[] arrayDestinos = new String[n];
         Integer[] arrayPuntos = new Integer[n];
+        Integer[] arrayIds = new Integer[n];
 
 
         //CODI DE PROVES: omplim els 3 arrays amb filler només per provar el recycler
 
         Arrays.fill(arrayPuntos, 0);
+        Arrays.fill(arrayIds, 1);
 
         for(int i = 0; i<n; ++i){
            arrayOrigenes[i] = "o" + i;
@@ -132,7 +134,7 @@ public class HuellaFragment extends Fragment{
         }*/
 
         historial = bindingH.historial;
-        AdapterHistorial mAdapter = new AdapterHistorial(this.getActivity(), arrayOrigenes, arrayDestinos, arrayPuntos);
+        AdapterHistorial mAdapter = new AdapterHistorial(this.getActivity(), arrayOrigenes, arrayDestinos, arrayPuntos, arrayIds);
         historial.setAdapter(mAdapter);
 
         mLayoutManager=new LinearLayoutManager(this.getActivity());
