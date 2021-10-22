@@ -2,24 +2,27 @@ package com.example.ecommute;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ecommute.databinding.ActivitySignupBinding;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.*;
-import java.nio.charset.StandardCharsets;
+
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -96,6 +99,8 @@ public class SignUpActivity extends AppCompatActivity {
         }
         */
         //String urlParameters  = "name="+nombre+ "&surname="+apellidos+ "&username="+username+ "&password="+pass+ "&email="+email;
+
+        /*
         String urlParameters  = "name=tatihard&surname=tatihard&username=tatihard&password=tatihard&email=g@gmail.com";
         byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
         int    postDataLength = postData.length;
@@ -113,8 +118,80 @@ public class SignUpActivity extends AppCompatActivity {
             wr.write( postData );
         }
 
+         */
+        /*
+            RequestBody formBody = new FormBody.Builder()
+                    .add("name", "prueba")
+                    .add("surname", "prueba")
+                    .add("username", "prueba")
+                    .add("password", "prueba")
+                    .add("email", "prueba")
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url("https://10.4.41.35:3000/users/register")
+                    .post(formBody)
+                    .build();
+
+            OkHttpClient client = new OkHttpClient();
+            Call call = client.newCall(request);
+            Response response = call.execute();
+
+            //if(response.code()==200);
+
+         */
+/*
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        MediaType mediaType = MediaType.parse("text/plain");
+        RequestBody body = RequestBody.create(mediaType, "name=aguacate&surname=aguacate&username=aguacate&password=aguacate&email=aguacate@gmail.com");
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/users/register?")
+                .method("POST", body)
+                .build();
+        Response response = client.newCall(request).execute();
+        //response.body().toString();
+
+        JSONObject respuesta = null;
+        try {
+            respuesta = new JSONObject(response.body().string());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //binding.textView4.setText(response.body().string());
+
+ */
+
+        /*
+        final Response[] response = new Response[1];
+
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+
+        Request request = new Request.Builder().url("http://10.4.41.35:3000/users/register?name=aguacate&surname=aguacate&username=aguacate&password=aguacate&email=aguacate@gmail.com")
+                .method("POST", null).build();
+        response[0] = client.newCall(request).execute();
+
         Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
         startActivity(intent);
+
+         */
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("text/plain");
+        RequestBody body = RequestBody.create("", mediaType);
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/users/register?name=castor&surname=castor&username=poolo&password=poolo&email=castor")
+                .method("POST", body)
+                .build();
+        Response response = client.newCall(request).execute();
+
+        binding.textView4.setText(response.body().string());
+
     }
 
 }
