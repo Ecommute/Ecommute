@@ -64,7 +64,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <View
-        android:id="@+id/rectangle_at_the_top"
+        android:id="@+id/item_box"
         android:layout_width="373dp"
         android:layout_height="63dp"
         android:layout_alignParentTop="true"

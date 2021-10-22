@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -12,7 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecommute.AdapterHistorial;
+import com.example.ecommute.PopUpClass;
+import com.example.ecommute.databinding.FragmentForoBinding;
 import com.example.ecommute.databinding.FragmentHuellaBinding;
+import com.example.ecommute.databinding.ItemHistorialBinding;
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,7 +39,8 @@ import java.util.Vector;
 public class HuellaFragment extends Fragment{
 
     private HuellaViewModel huellaViewModel;
-    private FragmentHuellaBinding binding;
+    private FragmentHuellaBinding bindingH;
+    private ItemHistorialBinding bindingI;
     RecyclerView historial;
     RecyclerView.LayoutManager mLayoutManager;
 
@@ -43,8 +49,8 @@ public class HuellaFragment extends Fragment{
         huellaViewModel =
                 new ViewModelProvider(this).get(HuellaViewModel.class);
 
-        binding = FragmentHuellaBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        bindingH = FragmentHuellaBinding.inflate(inflater, container, false);
+        View root = bindingH.getRoot();
 
         /*final TextView textView = binding.textDashboard;
         huellaViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -62,12 +68,26 @@ public class HuellaFragment extends Fragment{
             e.printStackTrace();
         }
 
+        //POP-UP VER DETALLES
+
+        bindingI = ItemHistorialBinding.inflate(inflater, container, false);
+        View rootI = bindingI.getRoot();
+
+        View iBox = bindingI.itemBox;
+        iBox.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                PopUpClass popUpClass = new PopUpClass();
+                popUpClass.showPopupWindow(v);
+            }
+        });
+
         return root;
     }
 
     private void setUpHistorial() throws Exception {
-        //Per instanciar els arrays mirar el size de rutasRealizadas de l'usuari
-
         int n = 10;
 
         String[] arrayOrigenes = new String[n];
@@ -85,12 +105,9 @@ public class HuellaFragment extends Fragment{
         }
 
         /*CODI SEMI DEFINITIU
-        //Comptant que la resta està implementada
-        HttpURLConnection urlConnection = null;
-
 
         URL url = new URL("10.4.41.35:3000/routes/list?username=marcelurpi&password=password");
-        urlConnection = (HttpURLConnection) url.openConnection();
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
         urlConnection.setRequestMethod("GET");
             //urlConnection.setRequestProperty("User-Agent", USER_AGENT);
@@ -115,19 +132,22 @@ public class HuellaFragment extends Fragment{
             arrayPuntos[i] = Integer.valueOf(arr.getJSONObject(i).getString("points"));
         }*/
 
-        historial = binding.historial;
+        historial = bindingH.historial;
         AdapterHistorial mAdapter = new AdapterHistorial(this.getActivity(), arrayOrigenes, arrayDestinos, arrayPuntos);
         historial.setAdapter(mAdapter);
 
         mLayoutManager=new LinearLayoutManager(this.getActivity());
         historial.setLayoutManager(mLayoutManager);
 
-        //if(urlConnection != null) urlConnection.disconnect();
+        //urlConnection.disconnect();
+
+
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+        bindingH = null;
+        bindingI = null;
     }
 }
