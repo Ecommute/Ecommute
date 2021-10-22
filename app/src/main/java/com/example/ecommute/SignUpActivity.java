@@ -44,6 +44,7 @@ public class SignUpActivity extends AppCompatActivity {
                     validate();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    binding.regApellidos.setText(e.toString());
                 }
             }
         });
@@ -52,11 +53,11 @@ public class SignUpActivity extends AppCompatActivity {
     private void validate() throws IOException {
 
 
-        String pass = binding.regPassword.toString();
-        String email = binding.regEmail.toString();
-        String nombre = binding.regNombre.toString();
-        String apellidos = binding.regApellidos.toString();
-        String username = binding.regUsername.toString();
+        String pass = binding.regPassword.getText().toString();
+        String email = binding.regEmail.getText().toString();
+        String nombre = binding.regNombre.getText().toString();
+        String apellidos = binding.regApellidos.getText().toString();
+        String username = binding.regUsername.getText().toString();
         //Usuario usuario = new Usuario(1, nombre.toString(), pass.toString(), email.toString(), nombre.toString(), apellidos.toString());
 
         // Create a neat value object to hold the URL
@@ -180,17 +181,19 @@ public class SignUpActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
+        String urlParameters  = "name="+nombre+ "&surname="+apellidos+ "&username="+username+ "&password="+pass+ "&email="+email;
+
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
         MediaType mediaType = MediaType.parse("text/plain");
         RequestBody body = RequestBody.create("", mediaType);
         Request request = new Request.Builder()
-                .url("http://10.4.41.35:3000/users/register?name=castor&surname=castor&username=poolo&password=poolo&email=castor")
+                .url("http://10.4.41.35:3000/users/register?"+urlParameters)
                 .method("POST", body)
                 .build();
-        Response response = client.newCall(request).execute();
+        final Response[] response = new Response[1];
+        response[0] = client.newCall(request).execute();
 
-        binding.textView4.setText(response.body().string());
+        binding.regApellidos.setText(response[0].body().string());
 
     }
 
