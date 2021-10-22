@@ -27,19 +27,6 @@ public class Ruta {
         return this.destino;
     }
 
-    public void setOrigen(String or){
-        this.origen = or;
-    }
-
-    public void setDestino(String dest){
-        this.destino = dest;
-    }
-
-    public void updateRuta(String origen, String destino){
-        this.origen = origen;
-        this.destino = destino;
-    }
-
     public int getConsumo(){
         return this.consumo;
     }
