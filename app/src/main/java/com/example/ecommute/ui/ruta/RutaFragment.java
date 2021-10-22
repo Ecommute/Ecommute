@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.ecommute.GlobalVariables;
 import com.example.ecommute.Ruta;
 import com.example.ecommute.databinding.FragmentRutaBinding;
 import com.google.android.gms.common.util.IOUtils;
@@ -79,12 +80,14 @@ public class RutaFragment extends Fragment {
         TextView confirmacion = binding.confirmador;
         EditText origen = binding.editOrigen;
         EditText destino = binding.editDestino;
+        String username = GlobalVariables.username;
+        String password = GlobalVariables.password;
 
         final Response[] response = new Response[1];
         final Response[] response2 = new Response[1];
         OkHttpClient client = new OkHttpClient().newBuilder().build();
 
-        Request request = new Request.Builder().url("http://10.4.41.35:3000/routes/stats?origin="+origen.getText().toString()+"&destination="+destino.getText().toString()+"&mode=driving&username=marcelurpi&password=password")
+        Request request = new Request.Builder().url("http://10.4.41.35:3000/routes/stats?origin="+origen.getText().toString()+"&destination="+destino.getText().toString()+"&mode=driving&username="+username+"&password="+password)
                 .method("GET", null).build();
         response[0] = client.newCall(request).execute();
         JSONObject respuesta = new JSONObject(response[0].body().string());
@@ -97,7 +100,7 @@ public class RutaFragment extends Fragment {
         MediaType mediaType = MediaType.parse("text/plain");
         RequestBody body = RequestBody.create("", mediaType);
         Request request2 = new Request.Builder()
-                .url("http://10.4.41.35:3000/routes/add?origin="+origen.getText().toString()+"&destination="+destino.getText().toString()+"&time="+duracion+"&mode=walking&username=marcelurpi&password=password")
+                .url("http://10.4.41.35:3000/routes/add?origin="+origen.getText().toString()+"&destination="+destino.getText().toString()+"&time="+duracion+"&mode=walking&username="+username+"&password="+password)
                 .method("POST", body)
                 .build();
         response2[0] = client2.newCall(request2).execute();

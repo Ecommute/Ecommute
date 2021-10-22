@@ -12,10 +12,15 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 //Extracted from https://medium.com/@evanbishop/popupwindow-in-android-tutorial-6e5a18f49cc7
@@ -66,14 +71,21 @@ public class PopUpClass {
         TextView comparacion = popupView.findViewById(R.id.dcomparacion);
         comparacion.setText("comparacion");
 
-        Button buttonClose = popupView.findViewById(R.id.messageButton);
-        buttonClose.setOnClickListener(new View.OnClickListener() {
+        Button buttonEliminar = popupView.findViewById(R.id.messageButton);
+        buttonEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //popupWindow.dismiss();
                 //As an example, display the message
-                Toast.makeText(view.getContext(), "Wow, popup window closed", Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(view.getContext(), "Wow, popup window closed", Toast.LENGTH_SHORT).show();
+                try {
+                    eliminarRuta(idRuta);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                popupWindow.dismiss();
             }
         });
 
@@ -129,6 +141,19 @@ public class PopUpClass {
         JSONObject Jarray = new JSONObject(Jobject.getString("route"));
         origen = Jarray.getString("origin");
         destino = Jarray.getString("destination");
+    }
+
+    private void eliminarRuta(int id) throws IOException, JSONException {
+
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("text/plain");
+        RequestBody body = RequestBody.create("", mediaType);
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/routes/remove/"+id+"?username="+ GlobalVariables.username +"&password="+GlobalVariables.password)
+                .method("DELETE", body)
+                .build();
+        Response response = client.newCall(request).execute();
     }
 
 }

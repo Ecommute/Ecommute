@@ -68,12 +68,13 @@ public class PerfilFragment extends Fragment {
     }
 
     private void logout(){
+        GlobalVariables.password = "";
+        GlobalVariables.username = "";
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
-
-
     }
     private void eliminarPerfil(){
+
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -91,7 +92,8 @@ public class PerfilFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        GlobalVariables.password = "";
+        GlobalVariables.username = "";
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
     }
