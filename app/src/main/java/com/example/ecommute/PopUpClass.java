@@ -1,5 +1,6 @@
 package com.example.ecommute;
 
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -46,6 +47,8 @@ public class PopUpClass {
             public void onClick(View v) {
                 //popupWindow.dismiss();
                 //As an example, display the message
+                Intent intent = new Intent(null, LoginActivity.class);
+                v.getContext().startActivity(intent);
                 Toast.makeText(view.getContext(), "Wow, popup window closed", Toast.LENGTH_SHORT).show();
 
             }

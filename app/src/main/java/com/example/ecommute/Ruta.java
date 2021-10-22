@@ -6,7 +6,6 @@ public class Ruta {
     private int consumo;
     private int dist = 990; //Se quita y se cambia por llamada a API
     private String comparacion;
-
     public Ruta(){
 
     }
