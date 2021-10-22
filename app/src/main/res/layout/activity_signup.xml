@@ -6,6 +6,18 @@
     android:layout_height="match_parent">
 
     <EditText
+        android:id="@+id/reg_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="username"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="@+id/reg_email"
+        app:layout_constraintTop_toBottomOf="@+id/reg_email" />
+
+    <EditText
         android:id="@+id/reg_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +27,6 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,8 +51,10 @@
         android:hint="Contraseña"
         android:inputType="textPassword"
         android:minHeight="48dp"
-        app:layout_constraintStart_toStartOf="@+id/reg_email"
-        app:layout_constraintTop_toBottomOf="@+id/reg_email" />
+        app:layout_constraintBottom_toTopOf="@+id/botonRegistro"
+        app:layout_constraintStart_toStartOf="@+id/reg_username"
+        app:layout_constraintTop_toBottomOf="@+id/reg_username"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/reg_apellidos"
@@ -59,10 +72,9 @@
         android:id="@+id/botonRegistro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_marginBottom="119dp"
         android:text="SignUp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_password" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
