@@ -26,6 +26,9 @@ import com.example.ecommute.databinding.FragmentHuellaBinding;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.PointsGraphSeries;
 
 import java.util.Arrays;
 import java.util.Vector;
@@ -53,11 +56,35 @@ public class HuellaFragment extends Fragment{
             }
         });*/
 
+        GraphView graph;
+        PointsGraphSeries<DataPoint> series;       //an Object of the PointsGraphSeries for plotting scatter graphs
+        graph = (GraphView) root.findViewById(R.id.graph);
+        series= new PointsGraphSeries<>(data());   //initializing/defining series to get the data from the method 'data()'
+        graph.addSeries(series);                   //adding the series to the GraphView
+        series.setShape(PointsGraphSeries.Shape.POINT);
+        series.setSize(5);
+
 
         //Recogemos origenes, destinos y puntos
         setUpHistorial();
 
         return root;
+    }
+
+    public DataPoint[] data(){
+        double[] x= new double[10];
+        double[] y= new double[10];
+        for (int i= 0; i<10; i++){
+            x[i]= i;
+            y[i]= i;
+        }
+        int n=10;     //to find out the no. of data-points
+        DataPoint[] values = new DataPoint[n];     //creating an object of type DataPoint[] of size 'n'
+        for(int i=0;i<n;i++){
+            DataPoint v = new DataPoint(Double.parseDouble(String.valueOf(x[i])),Double.parseDouble(String.valueOf(y[i])));
+            values[i] = v;
+        }
+        return values;
     }
 
     private void setUpHistorial() {
