@@ -1,4 +1,4 @@
-package com.example.ecommute.ui.home;
+package com.example.ecommute.ui.puntos;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,24 +12,23 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.ecommute.R;
-import com.example.ecommute.databinding.FragmentHomeBinding;
+import com.example.ecommute.databinding.FragmentPuntosBinding;
 
-public class HomeFragment extends Fragment {
+public class PuntosFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
-    private FragmentHomeBinding binding;
+    private PuntosViewModel puntosViewModel;
+    private FragmentPuntosBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        puntosViewModel =
+                new ViewModelProvider(this).get(PuntosViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentPuntosBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        final TextView textView = binding.textPuntos;
+        puntosViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

@@ -3,23 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_ruta">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.ecommute.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_foro"
+        android:name="com.example.ecommute.ui.foro.ForoFragment"
+        android:label="@string/title_foro"
+        tools:layout="@layout/fragment_foro" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.ecommute.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_huella"
+        android:name="com.example.ecommute.ui.huella.HuellaFragment"
+        android:label="@string/title_huella"
+        tools:layout="@layout/fragment_huella" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.ecommute.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_ruta"
+        android:name="com.example.ecommute.ui.ruta.RutaFragment"
+        android:label="@string/title_ruta"
+        tools:layout="@layout/fragment_ruta" />
+
+    <fragment
+        android:id="@+id/navigation_puntos"
+        android:name="com.example.ecommute.ui.puntos.PuntosFragment"
+        android:label="@string/title_puntos"
+        tools:layout="@layout/fragment_puntos" />
+
+    <fragment
+        android:id="@+id/navigation_perfil"
+        android:name="com.example.ecommute.ui.perfil.PerfilFragment"
+        android:label="@string/title_perfil"
+        tools:layout="@layout/fragment_perfil" />
 </navigation>
