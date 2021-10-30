@@ -15,12 +15,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ecommute.AdapterHistorial;
+import com.example.ecommute.AdapterRutasFav;
 import com.example.ecommute.GlobalVariables;
 import com.example.ecommute.Ruta;
 import com.example.ecommute.databinding.FragmentRutaBinding;
 import com.google.android.gms.common.util.IOUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,6 +46,12 @@ public class RutaFragment extends Fragment {
 
     private RutaViewModel rutaViewModel;
     private FragmentRutaBinding binding;
+
+    String[] arrayOrigenes;
+    String[] arrayDestinos;
+    Integer[] arrayIds;
+    RecyclerView rutasFav;
+    RecyclerView.LayoutManager mLayoutManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +84,55 @@ public class RutaFragment extends Fragment {
             }
         });
 
+        //START CODI RECYCLER RUTAS FAV
+        try {
+            setUpRutasFav();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        rutasFav = binding.recyclerRFavs;
+        AdapterRutasFav mAdapter = new AdapterRutasFav(this.getActivity(), arrayOrigenes, arrayDestinos, arrayIds);
+        rutasFav.setAdapter(mAdapter);
+
+        mLayoutManager=new LinearLayoutManager(this.getActivity());
+        rutasFav.setLayoutManager(mLayoutManager);
+        //END CODI
+
         return root;
+    }
+
+    private void setUpRutasFav() throws Exception {
+        String username = GlobalVariables.username;
+        String password = GlobalVariables.password;
+
+        final Response[] response = new Response[1];
+
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+
+        //CANVIAR CRIDA
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/routes/list?username=" + username + "&password=" + password)
+                .method("GET", null)
+                .build();
+
+        response[0] = client.newCall(request).execute();
+
+        String jsonData = response[0].body().string();
+        JSONObject Jobject = new JSONObject(jsonData);
+        JSONArray Jarray = Jobject.getJSONArray("routes");
+
+        int n = Jarray.length();
+        arrayOrigenes = new String[n];
+        arrayDestinos = new String[n];
+        arrayIds = new Integer[n];
+
+        for (int i = 0; i < n; i++) {
+            JSONObject object = Jarray.getJSONObject(i);
+            arrayIds[i] = Integer.valueOf(object.getString("id"));
+            arrayOrigenes[i] = object.getString("origin");
+            arrayDestinos[i] = object.getString("destination");
+        }
     }
 
     private void crearRuta() throws IOException, JSONException {
