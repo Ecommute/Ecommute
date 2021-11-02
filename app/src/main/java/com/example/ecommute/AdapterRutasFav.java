@@ -50,29 +50,21 @@ public class AdapterRutasFav extends RecyclerView.Adapter<AdapterRutasFav.ViewHo
     public class ViewHolderRF extends RecyclerView.ViewHolder {
         TextView mTextOrigen, mTextDestino;
         Integer id;
-        boolean fav = false;
+
 
         public ViewHolderRF(@NonNull View itemView) {
             super(itemView);
             mTextOrigen = itemView.findViewById(R.id.origen2);
             mTextDestino = itemView.findViewById(R.id.destino2);
 
-            Button starB = itemView.findViewById(R.id.starButton);
+            /*Button starB = itemView.findViewById(R.id.item_button2);
             starB.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View vp) {
-                    if(!fav){
-                        starB.setBackgroundResource(ic_baseline_star_24);
-                        //add ruta to favorites
-                    }
-                    else{
-                        starB.setBackgroundResource(ic_baseline_star_border_24);
-                        //remove from favorites
-                    }
-
+                   //Crida a backend
                 }
-            });
+            });*/
         }
 
         public void setId(Integer id) {

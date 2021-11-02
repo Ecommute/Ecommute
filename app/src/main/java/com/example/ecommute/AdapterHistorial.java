@@ -1,5 +1,8 @@
 package com.example.ecommute;
 
+import static com.example.ecommute.R.drawable.ic_baseline_star_24;
+import static com.example.ecommute.R.drawable.ic_baseline_star_border_24;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,6 +55,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView mTextOrigen, mTextDestino, mTextPuntos;
         Integer id;
+        boolean fav = false;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +73,27 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
                     popUpClass.showPopupWindow(vp, mContext, id);
                 }
             });
+
+            Button starB = itemView.findViewById(R.id.starButton);
+            starB.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View vp) {
+                    if(!fav){
+                        fav = true;
+                        starB.setBackgroundResource(ic_baseline_star_24);
+                        //add ruta to favorites
+                    }
+                    else{
+                        fav = false;
+                        starB.setBackgroundResource(ic_baseline_star_border_24);
+                        //remove from favorites
+                    }
+
+                }
+            });
+
+
 
         }
 
