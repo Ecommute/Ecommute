@@ -112,7 +112,7 @@ public class RutaFragment extends Fragment {
 
         //CANVIAR CRIDA
         Request request = new Request.Builder()
-                .url("http://10.4.41.35:3000/routes/list?username=" + username + "&password=" + password)
+                .url("http://10.4.41.35:3000/routes/favourites/list?username=" + username + "&password=" + password)
                 .method("GET", null)
                 .build();
 
@@ -122,7 +122,9 @@ public class RutaFragment extends Fragment {
         JSONObject Jobject = new JSONObject(jsonData);
         JSONArray Jarray = Jobject.getJSONArray("routes");
 
-        int n = Jarray.length();
+        int n;
+        if(Jarray != null) n = Jarray.length();
+        else n = 0;
         arrayOrigenes = new String[n];
         arrayDestinos = new String[n];
         arrayIds = new Integer[n];

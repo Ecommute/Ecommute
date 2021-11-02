@@ -44,7 +44,8 @@ public class AdapterRutasFav extends RecyclerView.Adapter<AdapterRutasFav.ViewHo
 
     @Override
     public int getItemCount() {
-        return mStrOrigenes.length;
+        if(mStrOrigenes != null) return mStrOrigenes.length;
+        else return 0;
     }
 
     public class ViewHolderRF extends RecyclerView.ViewHolder {
