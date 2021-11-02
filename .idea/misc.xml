@@ -3,10 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/fragment_huella.xml" value="0.2" />
-        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/fragment_ruta.xml" value="0.28541666666666665" />
-        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/item_historial.xml" value="0.26458333333333334" />
-        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/item_rutasfavs.xml" value="0.5" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_signup.xml" value="0.25" />
@@ -34,6 +30,7 @@
         <entry key="app/src/main/res/layout/fragment_foro.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/fragment_huella.xml" value="0.2140625" />
         <entry key="app/src/main/res/layout/item_historial.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/item_rutasfavs.xml" value="0.5" />
       </map>
     </option>
   </component>
