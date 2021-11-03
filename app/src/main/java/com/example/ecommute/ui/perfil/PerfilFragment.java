@@ -7,9 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
-
-import okhttp3.*;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,11 +18,15 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ecommute.GlobalVariables;
 import com.example.ecommute.LoginActivity;
-import com.example.ecommute.MainActivity;
-import com.example.ecommute.R;
 import com.example.ecommute.databinding.FragmentPerfilBinding;
 
 import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class PerfilFragment extends Fragment {
 
@@ -64,6 +67,14 @@ public class PerfilFragment extends Fragment {
             }
         });
 
+        ImageButton car = binding.car;
+        car.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                anadirCoche();
+            }
+        });
+
         return root;
     }
 
@@ -96,6 +107,10 @@ public class PerfilFragment extends Fragment {
         GlobalVariables.username = "";
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
+    }
+
+    private void anadirCoche(){
+
     }
 
     @Override
