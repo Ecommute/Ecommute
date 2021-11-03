@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ecommute">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="16" />
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
