@@ -45,3 +45,20 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
+
+// in below line we are adding configurations to to our project.
+configurations.all {
+    // in below line we are adding strategy for each dependency and requesting the details 
+    resolutionStrategy.eachDependency {DependencyResolveDetails details ->
+        // on below line we are getting to see the details using requested. 
+        def requested = details.requested
+        // in below line we are requesting a group. 
+        if (requested.group == 'com.android.support'){
+            // on below line we are checking if the request is a group and checking if it starts with com.android.support.
+            if(!requested.name.startsWith("multidex")){
+                // if the requested name starts with multi dex then we are displaying the use version which is given below. 
+                details.useVersion '25.3.0'
+            }
+        }
+    }
+} 
