@@ -2,7 +2,7 @@ name: Build
 on:
   push:
     branches:
-      - Sprint1
+      - Sprint2
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
