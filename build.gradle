@@ -13,9 +13,6 @@ buildscript {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
 plugins {
     id "org.sonarqube" version "3.3"
 }
@@ -27,3 +24,8 @@ sonarqube {
         property "sonar.host.url", "https://sonarcloud.io"
     }
 }
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
