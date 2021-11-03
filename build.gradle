@@ -17,15 +17,7 @@ buildscript {
 plugins {
     id "org.sonarqube" version "3.3"
 }
-android {
-    compileSdkVersion 17
-    buildToolsVersion "17.0.0"
 
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 16
-    }
-}
 sonarqube {
     properties {
         property "sonar.projectKey", "Ecommute_Ecommute"
