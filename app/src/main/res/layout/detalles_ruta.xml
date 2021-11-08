@@ -14,10 +14,11 @@
         app:cardCornerRadius="5dp">
 
         <LinearLayout
-            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -25,13 +26,14 @@
 
                 <TextView
                     android:id="@+id/titleText"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
                     android:text="@string/textTitle"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:padding="10dp"/>
+                    android:textStyle="bold" />
+
                 <ImageButton
                     android:id="@+id/cerrar"
                     android:layout_width="wrap_content"

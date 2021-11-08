@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecommute.AdapterHistorial;
 import com.example.ecommute.MainActivity;
+import com.example.ecommute.PopUpClass;
+import com.example.ecommute.PopupInformeSemanal;
 import com.example.ecommute.R;
 import com.example.ecommute.Ruta;
 import com.example.ecommute.Usuario;
@@ -59,6 +62,10 @@ public class HuellaFragment extends Fragment{
         GraphView graph;
         PointsGraphSeries<DataPoint> series;       //an Object of the PointsGraphSeries for plotting scatter graphs
         graph = (GraphView) root.findViewById(R.id.graph);
+        graph.getViewport().setScalable(true);  // activate horizontal zooming and scrolling
+        graph.getViewport().setScrollable(true);  // activate horizontal scrolling
+        graph.getViewport().setScalableY(true);  // activate horizontal and vertical zooming and scrolling
+        graph.getViewport().setScrollableY(true);  // activate vertical scrolling
         series= new PointsGraphSeries<>(data());   //initializing/defining series to get the data from the method 'data()'
         graph.addSeries(series);                   //adding the series to the GraphView
         series.setShape(PointsGraphSeries.Shape.POINT);
@@ -67,6 +74,17 @@ public class HuellaFragment extends Fragment{
 
         //Recogemos origenes, destinos y puntos
         setUpHistorial();
+
+        Button mostrarInfo = binding.mostrarInfo;
+        mostrarInfo.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                PopupInformeSemanal popUpClass = new PopupInformeSemanal();
+                popUpClass.showPopupWindow(v);
+            }
+        });
 
         return root;
     }
