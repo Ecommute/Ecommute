@@ -1,5 +1,6 @@
 package com.example.ecommute;
 
+import android.os.StrictMode;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,21 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.BarGraphSeries;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.DataPointInterface;
+import com.jjoe64.graphview.series.OnDataPointTapListener;
+import com.jjoe64.graphview.series.Series;
+
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class PopupInformeSemanal {
 
@@ -56,6 +72,54 @@ public class PopupInformeSemanal {
                 return true;
             }
         });*/
+
+        GraphView graph;
+        BarGraphSeries<DataPoint> series;       //an Object of the PointsGraphSeries for plotting scatter graphs
+        graph = (GraphView) popupView.findViewById(R.id.graph);
+
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setMaxX(7);
+        graph.getViewport().setScrollable(true); // enables horizontal scrolling
+        graph.getViewport().setScrollableY(true); // enables vertical scrolling
+        graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
+        graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
+        series= new BarGraphSeries(data());   //initializing/defining series to get the data from the method 'data()'
+        graph.addSeries(series);                   //adding the series to the GraphView
+
+    }
+
+    public DataPoint[] data(){
+        double[] x= new double[7];
+        double[] y= new double[7];
+        for (int i= 0; i<7; i++){
+            x[i]= i;
+            y[i]= i;
+        }
+        int n=7;     //to find out the no. of data-points
+        DataPoint[] values = new DataPoint[n];     //creating an object of type DataPoint[] of size 'n'
+        for(int i=0;i<n;i++){
+            DataPoint v = new DataPoint(Double.parseDouble(String.valueOf(x[i])),Double.parseDouble(String.valueOf(y[i])));
+            values[i] = v;
+        }
+        return values;
+    }
+
+    public void getDataGraficoGeneral() throws IOException {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        //String urlParameters  = "&username="+username+ "&password="+pass;
+        String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
+
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        MediaType mediaType = MediaType.parse("text/plain");
+        RequestBody body = RequestBody.create("", mediaType);
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/stats/week?"+urlParameters)
+                .method("GET", body)
+                .build();
+        final Response[] response = new Response[1];
+        response[0] = client.newCall(request).execute();
     }
 
 }
