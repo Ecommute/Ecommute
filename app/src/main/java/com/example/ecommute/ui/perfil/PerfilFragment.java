@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ecommute.GlobalVariables;
 import com.example.ecommute.LoginActivity;
+import com.example.ecommute.PopUpCoche;
 import com.example.ecommute.databinding.FragmentPerfilBinding;
 
 import java.io.IOException;
@@ -67,11 +67,12 @@ public class PerfilFragment extends Fragment {
             }
         });
 
-        ImageButton car = binding.car;
+        Button car = binding.car;
         car.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                anadirCoche();
+                Intent intent = new Intent(getActivity(), PopUpCoche.class);
+                startActivity(intent);
             }
         });
 
@@ -107,10 +108,6 @@ public class PerfilFragment extends Fragment {
         GlobalVariables.username = "";
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
-    }
-
-    private void anadirCoche(){
-
     }
 
     @Override
