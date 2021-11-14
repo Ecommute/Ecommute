@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/fragment_huella.xml" value="0.15555555555555556" />
+        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/fragment_huella.xml" value="0.33" />
+        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/fragment_ruta.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/item_historial.xml" value="0.5" />
+        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/item_rutasfavs.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_signup.xml" value="0.25" />

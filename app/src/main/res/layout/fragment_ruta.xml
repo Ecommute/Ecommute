@@ -34,7 +34,8 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.218" />
+        app:layout_constraintVertical_bias="0.218"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/editDestino"
@@ -48,7 +49,8 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editOrigen"
-        app:layout_constraintVertical_bias="0.081" />
+        app:layout_constraintVertical_bias="0.081"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/buscar_ruta"
@@ -75,10 +77,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerRFavs"
-        android:layout_width="406dp"
-        android:layout_height="247dp"
+        android:layout_width="match_parent"
+        android:layout_height="241dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
