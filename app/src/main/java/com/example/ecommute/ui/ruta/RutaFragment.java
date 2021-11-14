@@ -1,8 +1,8 @@
 package com.example.ecommute.ui.ruta;
 
-import android.os.AsyncTask;
+
 import android.os.Bundle;
-import android.os.StrictMode;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,23 +18,18 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ecommute.AdapterHistorial;
 import com.example.ecommute.AdapterRutasFav;
 import com.example.ecommute.GlobalVariables;
-import com.example.ecommute.Ruta;
+
 import com.example.ecommute.databinding.FragmentRutaBinding;
-import com.google.android.gms.common.util.IOUtils;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Scanner;
+
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -112,7 +107,7 @@ public class RutaFragment extends Fragment {
 
         //CANVIAR CRIDA
         Request request = new Request.Builder()
-                .url("http://10.4.41.35:3000/routes/favourites/list?username=" + username + "&password=" + password)
+                .url("http://10.4.41.35:3000/routes/list?username=" + username + "&password=" + password)
                 .method("GET", null)
                 .build();
 

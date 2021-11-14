@@ -59,6 +59,8 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         holder.fav = mIntFavs[position];
         holder.id = mIntIds[position];
 
+        holder.setUp();
+
         Log.d("RID BINDING", String.valueOf(mIntIds[position]));
         Log.d("RID BINDING F", String.valueOf(mIntFavs[position]));
     }
@@ -82,7 +84,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
             mTextDestino = itemView.findViewById(R.id.destino);
             mTextPuntos = itemView.findViewById(R.id.puntos);
 
-            setUp();
+            //setUp();
 
             /*final Response[] response = new Response[1];
 
@@ -114,7 +116,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         }
 
         private void setUp() {
-            Log.d("RID FAV", String.valueOf(fav));
+            Log.d("DEBUG SETUP FAV", String.valueOf(fav));
 
             Button starB = itemView.findViewById(R.id.starButton);
             if(fav == -1) starB.setBackgroundResource(R.drawable.ic_baseline_error_24);
@@ -127,7 +129,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
                 @Override
                 public void onClick(View vp) {
                     PopUpClass popUpClass = new PopUpClass();
-                    popUpClass.showPopupWindow(vp, mContext, id);
+                    popUpClass.showPopupWindow(vp, mContext, id, fav);
                 }
             });
 
