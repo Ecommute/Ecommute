@@ -1,4 +1,0 @@
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/ic_baseline_military_tech_24" android:state_="true" />
-    <item android:drawable="@drawable/ic_baseline_account_circle_24" android:state_checked="false" />
-</selector>
