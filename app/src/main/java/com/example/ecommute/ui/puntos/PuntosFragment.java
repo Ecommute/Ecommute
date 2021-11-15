@@ -27,13 +27,13 @@ public class PuntosFragment extends Fragment {
         binding = FragmentPuntosBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textPuntos;
+        /*final TextView textView = binding.textPuntos;
         puntosViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
-        });
+        });*/
         return root;
     }
 
