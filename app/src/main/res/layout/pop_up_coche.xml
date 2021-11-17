@@ -2,19 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:andoid="http://schemas.android.com/apk/res-auto">
 
 
-    <EditText
-        android:id="@+id/fuelType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/consumo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="200px"
-        android:ems="10"
-        android:hint="Combustible"
-        android:inputType="textPersonName" />
+
 
     <EditText
         android:id="@+id/consumo"
@@ -25,6 +17,17 @@
         android:ems="10"
         android:hint="Consumo"
         android:inputType="textPersonName" />
+
+    <Spinner
+        android:id="@+id/fuelType"
+        android:layout_width="307dp"
+        android:layout_height="37dp"
+        android:layout_above="@id/consumo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="63dp"
+        android:backgroundTint="#6CEF72"
+        android:ems="10"
+        android:hint="Combustible" />
 
     <Button
         android:id="@+id/guardar_coche"

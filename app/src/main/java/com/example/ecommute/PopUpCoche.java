@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 
@@ -17,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -44,8 +48,13 @@ public class PopUpCoche extends Activity {
 
         getWindow().setLayout((int)(width*0.6), (int)(height*0.6));
 
-        String fuel = null;
+        final String[] fuel = {null};
         String consumption = null;
+        ArrayList<String> options = new ArrayList<String>();
+        options.add("Diesel");
+        options.add("Gasolina");
+        ArrayAdapter adp = new ArrayAdapter(PopUpCoche.this, android.R.layout.simple_spinner_dropdown_item, options);
+
         final Response[] response = new Response[1];
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -56,25 +65,42 @@ public class PopUpCoche extends Activity {
         try {
             response[0] = client.newCall(request).execute();
             JSONObject respuesta = new JSONObject(response[0].body().string());
-            fuel =  respuesta.getString("fuelType");
+            fuel[0] =  respuesta.getString("fuelType");
             consumption = respuesta.getString("fuelConsumption");
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
-        if(fuel != null && consumption != null){
-            EditText editFuel = findViewById(R.id.fuelType);
+        if(consumption != null){
             EditText editConsumo = findViewById(R.id.consumo);
-            editFuel.setText(fuel);
             editConsumo.setText(consumption);
         }
 
+        //Selector opciones
+        final Spinner editFuel = findViewById(R.id.fuelType);
+        editFuel.setAdapter(adp);
+        if(fuel[0] != null){
+            editFuel.setSelection(options.indexOf(fuel[0]));
+        }
+        editFuel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String elemento = (String) editFuel.getAdapter().getItem(position);
+                fuel[0] = elemento;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         Button guardar = findViewById(R.id.guardar_coche);
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText editFuel = findViewById(R.id.fuelType);
+
+
                 EditText editConsumo = findViewById(R.id.consumo);
                 //API
 
@@ -84,7 +110,7 @@ public class PopUpCoche extends Activity {
                 MediaType mediaType = MediaType.parse("text/plain");
                 RequestBody body = RequestBody.create("", mediaType);
                 Request request2 = new Request.Builder()
-                        .url("http://10.4.41.35:3000/users/cardetails?username="+ GlobalVariables.username +"&password="+ GlobalVariables.password +"&fuelType="+ editFuel.getText().toString() +"&fuelConsumption="+ editConsumo.getText().toString())
+                        .url("http://10.4.41.35:3000/users/cardetails?username="+ GlobalVariables.username +"&password="+ GlobalVariables.password +"&fuelType="+ fuel[0] +"&fuelConsumption="+ editConsumo.getText().toString())
                         .method("PUT", body)
                         .build();
 
