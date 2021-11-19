@@ -196,7 +196,7 @@ public class SignUpActivity extends AppCompatActivity {
         GlobalVariables.password = pass;
         GlobalVariables.username = username;
 
-        binding.regApellidos.setText(response[0].body().string());
+        //binding.regApellidos.setText(response[0].body().string());
 
         Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
         startActivity(intent);
