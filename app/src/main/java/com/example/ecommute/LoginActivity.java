@@ -7,11 +7,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ecommute.databinding.ActivityLoginBinding;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.tasks.Task;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +32,9 @@ import okhttp3.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
+    SignInButton signInButton;
+    private GoogleSignInClient mSignInClient;
+    private static final int SIGN_IN = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +43,22 @@ public class LoginActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.server_client_id))
+                .requestEmail()
+                .build();
+
+        mSignInClient = GoogleSignIn.getClient(this, gso);
+
+         signInButton = findViewById(R.id.registroGoogle);
+         signInButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent intent = mSignInClient.getSignInIntent();
+                 startActivityForResult(intent, SIGN_IN);
+             }
+         });
 
         Button loginb = findViewById(R.id.login);
         Button signupb = findViewById(R.id.botonRegistro);
@@ -84,6 +110,26 @@ public class LoginActivity extends AppCompatActivity {
     private void validateSignup(){
         Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == SIGN_IN){
+            Task<GoogleSignInAccount> task =
+                    GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            if(task.isSuccessful()) {
+                GoogleSignInAccount account = task.getResult();
+                Toast.makeText(this, account.getEmail(), Toast.LENGTH_SHORT).show();
+                //API
+                //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                //startActivity(intent);
+            } else{
+                Toast.makeText(this, "Algo no ha salido como se esperaba!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }

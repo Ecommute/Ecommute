@@ -10,13 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ecommute.databinding.ActivitySignupBinding;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 
-import okhttp3.Call;
-import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -24,7 +19,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity{
 
     private ActivitySignupBinding binding;
 
@@ -44,7 +39,6 @@ public class SignUpActivity extends AppCompatActivity {
                     validate();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    binding.regApellidos.setText(e.toString());
                 }
             }
         });
@@ -202,5 +196,6 @@ public class SignUpActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
 
 }
