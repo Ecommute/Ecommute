@@ -27,5 +27,9 @@
     <string name="Logout">Cerrar Sesión</string>
     <string name="Eliminarperfil">Eliminar Perfil</string>
     <string name="Buscarrutas">Buscar rutas</string>
+    <string name="EditarPerfil">Editar Perfil</string>
+    <string name="ConsumoFuel">Consumo de Combustible</string>
+    <string name="TipoCombustible">Tipo de Combustible</string>
+    <string name="CambiarDatos">Editar Datos</string>
 
 </resources>
