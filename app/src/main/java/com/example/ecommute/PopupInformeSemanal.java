@@ -16,6 +16,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 
@@ -68,7 +69,7 @@ public class PopupInformeSemanal {
         });
 
         GraphView graph;
-        BarGraphSeries<DataPoint> series;       //an Object of the PointsGraphSeries for plotting scatter graphs
+        LineGraphSeries<DataPoint> series;       //an Object of the PointsGraphSeries for plotting scatter graphs
         graph = (GraphView) popupView.findViewById(R.id.graph);
 
         graph.getViewport().setXAxisBoundsManual(true);
@@ -88,13 +89,14 @@ public class PopupInformeSemanal {
             e.printStackTrace();
         }
         if (points != null){
-            series= new BarGraphSeries(dataGrafico(points));   //initializing/defining series to get the data from the method 'data()'
+            series= new LineGraphSeries(dataGrafico(points));   //initializing/defining series to get the data from the method 'data()'
 
         }else{
-            series= new BarGraphSeries(data());   //initializing/defining series to get the data from the method 'data()'
+            series= new LineGraphSeries(data());   //initializing/defining series to get the data from the method 'data()'
         }
 
         graph.addSeries(series);                   //adding the series to the GraphView
+
 
     }
 
@@ -143,7 +145,7 @@ public class PopupInformeSemanal {
         RequestBody body = RequestBody.create("", mediaType);
         Request request = new Request.Builder()
                 .url("http://10.4.41.35:3000/stats/week?"+urlParameters)
-                .method("GET", body)
+                .method("GET", null)
                 .build();
         Response response = client.newCall(request).execute();
 
@@ -153,11 +155,18 @@ public class PopupInformeSemanal {
         if(respuesta2.getString("result").equals("Success")) {
             String npuntos = respuesta2.getString("totalPoints");
             Log.d("requestSem", "puntos "+ npuntos);
-            JSONArray array = respuesta2.getJSONArray("months");
+            JSONObject days = respuesta2.getJSONObject("days");
             List<String> list = new ArrayList<String>();
-            for(int i = 0 ; i < array.length() ; i++){
-                list.add(array.getJSONObject(i).getJSONObject("totalDay").getString("points"));
-            }
+
+            //CAMBIAR ESTA COSA TAN HORRIBLE. HACER MONTHS ARRAY
+            list.add(days.getJSONObject("1").getJSONObject("totalDay").getString("points"));
+            list.add(days.getJSONObject("2").getJSONObject("totalDay").getString("points"));
+            list.add(days.getJSONObject("3").getJSONObject("totalDay").getString("points"));
+            list.add(days.getJSONObject("4").getJSONObject("totalDay").getString("points"));
+            list.add(days.getJSONObject("5").getJSONObject("totalDay").getString("points"));
+            list.add(days.getJSONObject("6").getJSONObject("totalDay").getString("points"));
+            list.add(days.getJSONObject("7").getJSONObject("totalDay").getString("points"));
+
             Log.d("requestSem", "list "+ list.toString());
             return list;
         }
