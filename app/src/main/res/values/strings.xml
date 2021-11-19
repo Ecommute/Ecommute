@@ -11,6 +11,23 @@
     <string name="textButton">Eliminar</string>
     <string name="textEditar">Editar</string>
     <string name="textGuardar">Guardar</string>
+    <string name="Usuario">Usuario</string>
+    <string name="Contraseña">Contraseña</string>
+    <string name="Login">Iniciar Sesión</string>
+    <string name="SignUp">Registrarse</string>
+    <string name="Origen">Origen</string>
+    <string name="Destino">Destino</string>
+    <string name="Nombre">Nombre</string>
+    <string name="Apellidos">Apellidos</string>
+    <string name="email">Email</string>
+    <string name="NombredeUsuario">Nombre de Usuario</string>
+    <string name="Detalles">Detalles</string>
+    <string name="Puntosacumulados">Puntos Acumulados</string>
+    <string name="Historial">Historial</string>
+    <string name="Logout">Cerrar Sesión</string>
+    <string name="Eliminarperfil">Eliminar Perfil</string>
+    <string name="Buscarrutas">Buscar rutas</string>
+
     <string name="textVRutasFav">Rutas Favoritas</string>
     <string name="server_client_id">60686683765-v58iemvsluk42sp8gd8co48tjk2mv5nk.apps.googleusercontent.com</string>
 </resources>
