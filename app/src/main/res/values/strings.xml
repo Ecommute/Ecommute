@@ -11,4 +11,5 @@
     <string name="textButton">Eliminar</string>
     <string name="textEditar">Editar</string>
     <string name="textGuardar">Guardar</string>
+    <string name="textVRutasFav">Rutas Favoritas</string>
 </resources>

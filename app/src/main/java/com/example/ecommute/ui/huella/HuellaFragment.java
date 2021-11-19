@@ -53,6 +53,7 @@ public class HuellaFragment extends Fragment{
     String[] arrayDestinos;
     Integer[] arrayPuntos;
     Integer[] arrayIds;
+    Integer[] arrayFavs;
 
     private HuellaViewModel huellaViewModel;
     private FragmentHuellaBinding bindingH;
@@ -79,7 +80,7 @@ public class HuellaFragment extends Fragment{
         }
 
         historial = bindingH.historial;
-        AdapterHistorial mAdapter = new AdapterHistorial(this.getActivity(), arrayOrigenes, arrayDestinos, arrayPuntos, arrayIds);
+        AdapterHistorial mAdapter = new AdapterHistorial(this.getActivity(), arrayOrigenes, arrayDestinos, arrayPuntos, arrayIds, arrayFavs);
         historial.setAdapter(mAdapter);
 
         mLayoutManager=new LinearLayoutManager(this.getActivity());
@@ -113,6 +114,7 @@ public class HuellaFragment extends Fragment{
         arrayDestinos = new String[n];
         arrayPuntos = new Integer[n];
         arrayIds = new Integer[n];
+        arrayFavs = new Integer[n];
 
         for (int i = 0; i < n; i++) {
             JSONObject object = Jarray.getJSONObject(i);
@@ -120,6 +122,7 @@ public class HuellaFragment extends Fragment{
             arrayOrigenes[i] = object.getString("origin");
             arrayDestinos[i] = object.getString("destination");
             arrayPuntos[i] = Integer.valueOf(object.getString("points"));
+            arrayFavs[i] = Integer.valueOf(object.getString("favourite"));
         }
     }
 

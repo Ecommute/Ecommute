@@ -2,6 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingLeft="10dp"
@@ -9,15 +10,16 @@
     android:gravity="center">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="5dp">
 
         <LinearLayout
-            android:padding="10dp"
-            android:layout_width="match_parent"
+            android:layout_width="258dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -25,18 +27,20 @@
 
                 <TextView
                     android:id="@+id/titleText"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
                     android:text="@string/textTitle"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:padding="10dp"/>
+                    android:textStyle="bold" />
+
                 <ImageButton
                     android:id="@+id/cerrar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_baseline_close_24" />
+                    app:srcCompat="@drawable/ic_baseline_close_24"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </LinearLayout>
 
 
@@ -65,6 +69,20 @@
                 android:text="TextView" />
 
             <Button
+                android:id="@+id/starButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="#00FFFFFF"
+                android:translationZ="100dp"
+                app:iconTint="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="@+id/item_button"
+                app:layout_constraintEnd_toEndOf="@+id/item_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <Button
                 android:id="@+id/editar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,6 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/textButton" />
+
 
         </LinearLayout>
 
