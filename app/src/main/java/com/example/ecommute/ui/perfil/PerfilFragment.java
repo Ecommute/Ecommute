@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -64,6 +66,15 @@ public class PerfilFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 eliminarPerfil();
+            }
+        });
+
+        Button linkGoogle = binding.linkGoogle;
+        linkGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //API
+                Toast.makeText(getActivity(), "Account linked succsesfully!", Toast.LENGTH_SHORT).show();
             }
         });
 
