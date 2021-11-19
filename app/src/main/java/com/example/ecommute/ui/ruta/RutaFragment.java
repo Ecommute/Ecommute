@@ -119,6 +119,11 @@ public class RutaFragment extends Fragment {
     }
 
     private void crearRuta2(){
+        EditText origen = binding.editOrigen;
+        EditText destino = binding.editDestino;
+        GlobalVariables.origen = origen.getText().toString();
+        GlobalVariables.destino = destino.getText().toString();
+
         Intent intent = new Intent(getActivity(), RutasActivity.class);
         startActivity(intent);
     }
