@@ -45,7 +45,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Vector;
 
 import okhttp3.MediaType;
@@ -69,13 +71,6 @@ public class HuellaFragment extends Fragment{
         binding = FragmentHuellaBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        /*final TextView textView = binding.textDashboard;
-        huellaViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
 
 
         GraphView graph;
@@ -88,7 +83,21 @@ public class HuellaFragment extends Fragment{
         graph.getViewport().setScrollableY(true); // enables vertical scrolling
         graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
         graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
-        series= new BarGraphSeries(data());   //initializing/defining series to get the data from the method 'data()'
+
+        List<String> points = new ArrayList<>();
+        try {
+            points = getDataGraficoGeneral();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (points != null){
+            series= new BarGraphSeries(dataGrafico(points));   //initializing/defining series to get the data from the method 'data()'
+        }else{
+            series= new BarGraphSeries(dataDefault());   //initializing/defining series to get the data from the method 'data()'
+        }
+
         graph.addSeries(series);                   //adding the series to the GraphView
 
 
@@ -116,7 +125,7 @@ public class HuellaFragment extends Fragment{
         return root;
     }
 
-    public void getDataGraficoGeneral() throws IOException, JSONException {
+    public List<String> getDataGraficoGeneral() throws IOException, JSONException {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -132,18 +141,36 @@ public class HuellaFragment extends Fragment{
         Response response = client.newCall(request).execute();
 
         JSONObject respuesta2 = new JSONObject(response.body().string());
-        JSONArray array = respuesta2.getJSONArray("months");
-        for(int i = 0 ; i < array.length() ; i++){
-            list.add(array.getJSONObject(i).getString("interestKey"));
-        }
+
         if(respuesta2.getString("result").equals("Success")) {
-
+            JSONArray array = respuesta2.getJSONArray("months");
+            String npuntos = respuesta2.getString("totalPoints");
+            List<String> list = new ArrayList<String>();
+            for(int i = 0 ; i < array.length() ; i++){
+                list.add(array.getJSONObject(i).getJSONObject("totalDay").getString("points"));
+            }
+            return list;
         }
-        double[] y= new double[12];
-
+        return null;
     }
 
-    public DataPoint[] data(){
+    public DataPoint[] dataGrafico(List<String> valores){
+        int nentradas = valores.size();
+        double[] x= new double[nentradas];
+        double[] y= new double[nentradas];
+        for (int i= 0; i<nentradas; i++){
+            x[i]= i;
+            y[i]= Double.parseDouble(valores.get(i));
+        }
+        DataPoint[] values = new DataPoint[nentradas];
+        for(int i=0;i<nentradas;i++){
+            DataPoint v = new DataPoint(x[i],y[i]);
+            values[i] = v;
+        }
+        return values;
+    }
+
+    public DataPoint[] dataDefault(){
         double[] x= new double[10];
         double[] y= new double[10];
         for (int i= 0; i<10; i++){
