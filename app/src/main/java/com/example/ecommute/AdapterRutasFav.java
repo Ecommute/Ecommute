@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecommute.R.drawable;
+import com.example.ecommute.ui.ruta.RutaFragment;
 
 public class AdapterRutasFav extends RecyclerView.Adapter<AdapterRutasFav.ViewHolderRF> {
     Context mContext;
@@ -32,14 +33,16 @@ public class AdapterRutasFav extends RecyclerView.Adapter<AdapterRutasFav.ViewHo
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View v = inflater.inflate(R.layout.item_rutasfavs, parent, false);
 
-        return new ViewHolderRF(v);
+        return new ViewHolderRF(v, parent);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AdapterRutasFav.ViewHolderRF holder, int position) {
-        holder.setId(mIntIds[position]);
+        holder.id = (mIntIds[position]);
         holder.mTextOrigen.setText(mStrOrigenes[position]);
         holder.mTextDestino.setText(mStrDestinos[position]);
+        holder.origen = mStrOrigenes[position];
+        holder.destino = mStrDestinos[position];
     }
 
     @Override
@@ -51,25 +54,22 @@ public class AdapterRutasFav extends RecyclerView.Adapter<AdapterRutasFav.ViewHo
     public class ViewHolderRF extends RecyclerView.ViewHolder {
         TextView mTextOrigen, mTextDestino;
         Integer id;
+        String origen, destino;
 
 
-        public ViewHolderRF(@NonNull View itemView) {
+        public ViewHolderRF(@NonNull View itemView, @NonNull View parent) {
             super(itemView);
             mTextOrigen = itemView.findViewById(R.id.origen2);
             mTextDestino = itemView.findViewById(R.id.destino2);
 
-            /*Button starB = itemView.findViewById(R.id.item_button2);
+            Button starB = itemView.findViewById(R.id.item_button2);
             starB.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View vp) {
-                   //Crida a backend
+                    RutaFragment.setRutaFromFavs(origen, destino);
                 }
-            });*/
-        }
-
-        public void setId(Integer id) {
-            this.id = id;
+            });
         }
     }
 }

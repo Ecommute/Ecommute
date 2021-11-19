@@ -128,6 +128,8 @@ public class PopUpClass {
                 return true;
             }
         });*/
+
+        setUpFavorito(favRuta, popupView, idRuta);
     }
 
     public void setUpBackend(int id) throws Exception{

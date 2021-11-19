@@ -10,7 +10,7 @@
     android:gravity="center">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="5dp">
 
@@ -80,7 +80,7 @@
                 app:iconTint="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="@+id/item_button"
                 app:layout_constraintEnd_toEndOf="@+id/item_button"
-                tools:ignore="SpeakableTextPresentCheck" />
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <Button
                 android:id="@+id/editar"

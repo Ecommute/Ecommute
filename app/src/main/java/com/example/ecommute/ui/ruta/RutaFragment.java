@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ecommute.AdapterRutasFav;
 import com.example.ecommute.GlobalVariables;
 
+import com.example.ecommute.R;
 import com.example.ecommute.databinding.FragmentRutaBinding;
 
 
@@ -40,13 +41,15 @@ import okhttp3.Response;
 public class RutaFragment extends Fragment {
 
     private RutaViewModel rutaViewModel;
-    private FragmentRutaBinding binding;
+    private static FragmentRutaBinding binding;
 
     String[] arrayOrigenes;
     String[] arrayDestinos;
     Integer[] arrayIds;
     RecyclerView rutasFav;
     RecyclerView.LayoutManager mLayoutManager;
+
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -205,5 +208,14 @@ public class RutaFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public static void setRutaFromFavs(String origen, String destino) {
+        View root = binding.getRoot();
+
+        TextView tvOrigen = root.findViewById(R.id.editOrigen);
+        TextView tvDestino = root.findViewById(R.id.editDestino);
+        tvOrigen.setText(origen);
+        tvDestino.setText(destino);
     }
 }
