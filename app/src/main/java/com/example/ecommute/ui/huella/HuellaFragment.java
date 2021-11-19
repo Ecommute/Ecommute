@@ -37,6 +37,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.jjoe64.graphview.series.Series;
@@ -75,14 +76,17 @@ public class HuellaFragment extends Fragment{
 
 
         GraphView graph;
-        BarGraphSeries<DataPoint> series;       //an Object of the PointsGraphSeries for plotting scatter graphs
+        LineGraphSeries<DataPoint> series;       //an Object of the PointsGraphSeries for plotting scatter graphs
         graph = (GraphView) root.findViewById(R.id.graph);
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setMaxX(12);
 
+/*
         graph.getViewport().setScrollable(true); // enables horizontal scrolling
         graph.getViewport().setScrollableY(true); // enables vertical scrolling
         graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
         graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
-
+*/
         List<String> points = new ArrayList<>();
         try {
             points = getDataGraficoGeneral();
@@ -93,19 +97,19 @@ public class HuellaFragment extends Fragment{
             e.printStackTrace();
         }
         if (points != null){
-            series= new BarGraphSeries(dataGrafico(points));   //initializing/defining series to get the data from the method 'data()'
+            series= new LineGraphSeries(dataGrafico(points));   //initializing/defining series to get the data from the method 'data()'
 
         }else{
-            series= new BarGraphSeries(dataDefault());   //initializing/defining series to get the data from the method 'data()'
+            series= new LineGraphSeries(dataDefault());   //initializing/defining series to get the data from the method 'data()'
         }
-
+        series.setDrawDataPoints(true);
         graph.addSeries(series);                   //adding the series to the GraphView
 
 
         series.setOnDataPointTapListener(new OnDataPointTapListener() {
             @Override
             public void onTap(Series series, DataPointInterface dataPoint) {
-                Toast.makeText(getActivity(), "Valor: "+dataPoint.getY(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Puntos: "+dataPoint.getY(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -150,11 +154,23 @@ public class HuellaFragment extends Fragment{
             Log.d("request", "inside");
             String npuntos = respuesta2.getString("totalPoints");
             Log.d("request", "puntos"+ npuntos);
-            JSONArray array = respuesta2.getJSONArray("months");
             List<String> list = new ArrayList<String>();
-            for(int i = 0 ; i < array.length() ; i++){
-                list.add(array.getJSONObject(i).getJSONObject("totalDay").getString("points"));
-            }
+            JSONObject months = respuesta2.getJSONObject("months");
+
+            //CAMBIAR ESTA COSA TAN HORRIBLE. HACER MONTHS ARRAY
+            list.add(months.getJSONObject("1").getJSONObject("totalDay").getString("points"));
+            list.add(months.getJSONObject("2").getJSONObject("totalDay").getString("points"));
+            list.add(months.getJSONObject("3").getJSONObject("totalDay").getString("points"));
+            list.add(months.getJSONObject("4").getJSONObject("totalDay").getString("points"));
+            list.add(months.getJSONObject("5").getJSONObject("totalDay").getString("points"));
+            list.add(months.getJSONObject("6").getJSONObject("totalDay").getString("points"));
+            list.add(months.getJSONObject("7").getJSONObject("totalDay").getString("points"));
+            list.add(months.getJSONObject("8").getJSONObject("totalDay").getString("points"));
+            list.add(months.getJSONObject("9").getJSONObject("totalDay").getString("points"));
+            list.add(months.getJSONObject("10").getJSONObject("totalDay").getString("points"));
+            list.add(months.getJSONObject("11").getJSONObject("totalDay").getString("points"));
+            list.add(months.getJSONObject("12").getJSONObject("totalDay").getString("points"));
+
             Log.d("request", "list "+ list.toString());
             return list;
         }
