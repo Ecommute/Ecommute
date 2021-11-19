@@ -1,6 +1,7 @@
 package com.example.ecommute;
 
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,13 @@ import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -60,19 +67,6 @@ public class PopupInformeSemanal {
             }
         });
 
-        //Handler for clicking on the inactive zone of the window
-        //Se cierra la ventana muy fácilmente, con lo cual lo he pasado a un boton
-
-        /*popupView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                //Close the window when clicked
-                popupWindow.dismiss();
-                return true;
-            }
-        });*/
-
         GraphView graph;
         BarGraphSeries<DataPoint> series;       //an Object of the PointsGraphSeries for plotting scatter graphs
         graph = (GraphView) popupView.findViewById(R.id.graph);
@@ -83,7 +77,23 @@ public class PopupInformeSemanal {
         graph.getViewport().setScrollableY(true); // enables vertical scrolling
         graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
         graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
-        series= new BarGraphSeries(data());   //initializing/defining series to get the data from the method 'data()'
+
+        List<String> points = new ArrayList<>();
+        try {
+            points = getDataGraficoGeneral();
+            Log.d("points en try catch Sem", points.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (points != null){
+            series= new BarGraphSeries(dataGrafico(points));   //initializing/defining series to get the data from the method 'data()'
+
+        }else{
+            series= new BarGraphSeries(data());   //initializing/defining series to get the data from the method 'data()'
+        }
+
         graph.addSeries(series);                   //adding the series to the GraphView
 
     }
@@ -104,12 +114,29 @@ public class PopupInformeSemanal {
         return values;
     }
 
-    public void getDataGraficoGeneral() throws IOException {
+    public DataPoint[] dataGrafico(List<String> valores){
+        int nentradas = valores.size();
+        double[] x= new double[nentradas];
+        double[] y= new double[nentradas];
+        for (int i= 0; i<nentradas; i++){
+            x[i]= i;
+            y[i]= Double.parseDouble(valores.get(i));
+        }
+        DataPoint[] values = new DataPoint[nentradas];
+        for(int i=0;i<nentradas;i++){
+            DataPoint v = new DataPoint(x[i],y[i]);
+            values[i] = v;
+        }
+        return values;
+    }
+
+    public List<String> getDataGraficoGeneral() throws IOException, JSONException {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         //String urlParameters  = "&username="+username+ "&password="+pass;
-        String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
+        //String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
+        String urlParameters  = "&username=marcelurpi&password=password";
 
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         MediaType mediaType = MediaType.parse("text/plain");
@@ -118,8 +145,23 @@ public class PopupInformeSemanal {
                 .url("http://10.4.41.35:3000/stats/week?"+urlParameters)
                 .method("GET", body)
                 .build();
-        final Response[] response = new Response[1];
-        response[0] = client.newCall(request).execute();
+        Response response = client.newCall(request).execute();
+
+        JSONObject respuesta2 = new JSONObject(response.body().string());
+        Log.d("requestSemanal", respuesta2.toString());
+
+        if(respuesta2.getString("result").equals("Success")) {
+            String npuntos = respuesta2.getString("totalPoints");
+            Log.d("requestSem", "puntos "+ npuntos);
+            JSONArray array = respuesta2.getJSONArray("months");
+            List<String> list = new ArrayList<String>();
+            for(int i = 0 ; i < array.length() ; i++){
+                list.add(array.getJSONObject(i).getJSONObject("totalDay").getString("points"));
+            }
+            Log.d("requestSem", "list "+ list.toString());
+            return list;
+        }
+        return null;
     }
 
 }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,8 +78,6 @@ public class HuellaFragment extends Fragment{
         BarGraphSeries<DataPoint> series;       //an Object of the PointsGraphSeries for plotting scatter graphs
         graph = (GraphView) root.findViewById(R.id.graph);
 
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMaxX(10);
         graph.getViewport().setScrollable(true); // enables horizontal scrolling
         graph.getViewport().setScrollableY(true); // enables vertical scrolling
         graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
@@ -87,6 +86,7 @@ public class HuellaFragment extends Fragment{
         List<String> points = new ArrayList<>();
         try {
             points = getDataGraficoGeneral();
+            Log.d("points en try catch", points.toString());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -94,6 +94,7 @@ public class HuellaFragment extends Fragment{
         }
         if (points != null){
             series= new BarGraphSeries(dataGrafico(points));   //initializing/defining series to get the data from the method 'data()'
+
         }else{
             series= new BarGraphSeries(dataDefault());   //initializing/defining series to get the data from the method 'data()'
         }
@@ -104,7 +105,7 @@ public class HuellaFragment extends Fragment{
         series.setOnDataPointTapListener(new OnDataPointTapListener() {
             @Override
             public void onTap(Series series, DataPointInterface dataPoint) {
-                Toast.makeText(getActivity(), "Valor: "+dataPoint, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Valor: "+dataPoint.getY(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -130,25 +131,31 @@ public class HuellaFragment extends Fragment{
         StrictMode.setThreadPolicy(policy);
 
         //String urlParameters  = "&username="+username+ "&password="+pass;
-        String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
+        //String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
+        String urlParameters  = "&username=marcelurpi&password=password";
 
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
-                .url("10.4.41.35:3000/stats/progress?"+urlParameters)
+                .url("http://10.4.41.35:3000/stats/progress?"+urlParameters)
                 .method("GET", null)
                 .build();
         Response response = client.newCall(request).execute();
 
         JSONObject respuesta2 = new JSONObject(response.body().string());
+        Log.d("request", respuesta2.toString());
 
         if(respuesta2.getString("result").equals("Success")) {
-            JSONArray array = respuesta2.getJSONArray("months");
+
+            Log.d("request", "inside");
             String npuntos = respuesta2.getString("totalPoints");
+            Log.d("request", "puntos"+ npuntos);
+            JSONArray array = respuesta2.getJSONArray("months");
             List<String> list = new ArrayList<String>();
             for(int i = 0 ; i < array.length() ; i++){
                 list.add(array.getJSONObject(i).getJSONObject("totalDay").getString("points"));
             }
+            Log.d("request", "list "+ list.toString());
             return list;
         }
         return null;
