@@ -10,13 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ecommute.databinding.ActivitySignupBinding;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 
-import okhttp3.Call;
-import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -48,6 +43,8 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Button signupG = findViewById(R.id.botonRegistro);
     }
 
     private void validate() throws IOException {
