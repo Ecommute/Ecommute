@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,6 +35,12 @@ public class RutasActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         binding = ActivityRutasBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        String iframe = "<iframe\n        width=\"450\"\n        height=\"250\"\n        frameborder=\"0\" style=\"border:0\"\n        src=https://www.google.com/maps/embed/v1/directions?key=AIzaSyApUk0xJoZuc46YAjVQEhF1ul67ObY80Sk&origin=Barcelona&destination=Madrid&mode=driving&region=es allowfullscreen>\n    </iframe>";
+        WebView googleMapWebView = binding.googlemapWebView;
+        googleMapWebView.getSettings().setJavaScriptEnabled(true);
+        googleMapWebView.loadData(iframe, "text/html", "utf-8");
+
     }
 
 }
