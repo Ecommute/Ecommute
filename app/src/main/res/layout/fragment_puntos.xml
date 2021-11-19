@@ -63,7 +63,7 @@
             android:id="@+id/iconoNivel"
             android:layout_width="211dp"
             android:layout_height="349dp"
-            android:src="@drawable/nivel1"
+            android:src="@drawable/nivel2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
