@@ -105,9 +105,8 @@ public class RutaFragment extends Fragment {
 
         OkHttpClient client = new OkHttpClient().newBuilder().build();
 
-        //CANVIAR CRIDA
         Request request = new Request.Builder()
-                .url("http://10.4.41.35:3000/routes/list?username=" + username + "&password=" + password)
+                .url("http://10.4.41.35:3000/routes/favourites/list?username=" + username + "&password=" + password)
                 .method("GET", null)
                 .build();
 
