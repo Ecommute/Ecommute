@@ -1,5 +1,6 @@
 package com.example.ecommute.ui.ruta;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -17,7 +18,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ecommute.GlobalVariables;
+import com.example.ecommute.LoginActivity;
 import com.example.ecommute.Ruta;
+import com.example.ecommute.RutasActivity;
 import com.example.ecommute.databinding.FragmentRutaBinding;
 import com.google.android.gms.common.util.IOUtils;
 
@@ -64,6 +67,13 @@ public class RutaFragment extends Fragment {
         buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                crearRuta2();
+            }
+        });
+
+        /*buscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 try {
                     crearRuta();
                 } catch (IOException | JSONException e) {
@@ -71,7 +81,7 @@ public class RutaFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
 
         return root;
     }
@@ -106,44 +116,16 @@ public class RutaFragment extends Fragment {
         response2[0] = client2.newCall(request2).execute();
         JSONObject respuesta2 = new JSONObject(response2[0].body().string());
         confirmacion.setText("Resultado: " + respuesta2.getString("result"));
+    }
 
-        /*AsyncTask<Void, Void, String> asyncTask = new AsyncTask<Void, Void, String>() {
-            @Override
-            protected String doInBackground(Void... params) {
-                try {
-                    response[0] = client.newCall(request).execute();
-                    /*if (!response.isSuccessful()) {
-                        return null;
-                    }    aqui habia comment
-                    confirmacion.setText(response[0].body().string());
-                    return null;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            }
+    private void crearRuta2(){
+        EditText origen = binding.editOrigen;
+        EditText destino = binding.editDestino;
+        GlobalVariables.origen = origen.getText().toString();
+        GlobalVariables.destino = destino.getText().toString();
 
-            /*@Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                if (s != null) {
-                    destino.setText(s);
-                }
-            } aqui habia comment
-        };
-
-        asyncTask.execute();*/
-
-
-
-        //Ruta nuevaRuta = new Ruta(origen.getText().toString(), destino.getText().toString());
-        //confirmacion.setText(response.body().string());
-        //confirmacion.setText("Se ha creado la ruta:\n" + origen.getText().toString() + " -> " + destino.getText().toString());
-
-        //Intento fallido de pasar a un fragmento nuevo para mostrar el mapa
-        //getFragmentManager().beginTransaction().replace(R.id.navigation_ruta, new PerfilFragment()).addToBackStack(null).commit();
-
-        //afegir id al set de rutasRealizadas del currentUser
+        Intent intent = new Intent(getActivity(), RutasActivity.class);
+        startActivity(intent);
     }
 
     @Override

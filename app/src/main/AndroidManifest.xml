@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Ecommute">
 
         <activity
+            android:name=".RutasActivity"
+            android:exported="true" />
+        <activity
             android:name=".EditActivity"
             android:exported="true" />
         <activity
