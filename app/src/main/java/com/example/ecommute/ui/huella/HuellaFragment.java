@@ -99,9 +99,22 @@ public class HuellaFragment extends Fragment{
         huellaViewModel =
                 new ViewModelProvider(this).get(HuellaViewModel.class);
 
-        binding = FragmentHuellaBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        bindingH = FragmentHuellaBinding.inflate(inflater, container, false);
+        View root = bindingH.getRoot();
 
+        //Recogemos origenes, destinos y puntos
+        try {
+            setUpHistorial();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        historial = bindingH.historial;
+        AdapterHistorial mAdapter = new AdapterHistorial(this.getActivity(), arrayOrigenes, arrayDestinos, arrayPuntos, arrayIds, arrayFavs);
+        historial.setAdapter(mAdapter);
+
+        mLayoutManager=new LinearLayoutManager(this.getActivity());
+        historial.setLayoutManager(mLayoutManager);
 
 
         GraphView graph;
@@ -141,19 +154,11 @@ public class HuellaFragment extends Fragment{
                 Toast.makeText(getActivity(), "Puntos: "+dataPoint.getY(), Toast.LENGTH_SHORT).show();
             }
         });
-        bindingH = FragmentHuellaBinding.inflate(inflater, container, false);
-        View root = bindingH.getRoot();
 
 
-        //Recogemos origenes, destinos y puntos
-        try {
-            setUpHistorial();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        setUpHistorial();
 
-        Button mostrarInfo = binding.mostrarInfo;
+
+        Button mostrarInfo = bindingH.mostrarInfo;
         mostrarInfo.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -163,6 +168,8 @@ public class HuellaFragment extends Fragment{
                 popUpClass.showPopupWindow(v);
             }
         });
+
+
 
         return root;
     }
@@ -244,49 +251,6 @@ public class HuellaFragment extends Fragment{
             values[i] = v;
         }
         return values;
-    }
-
-    private void setUpHistorial() {
-        //Per instanciar els arrays mirar el size de rutasRealizadas de l'usuari
-        int n = 10;
-
-        String[] arrayOrigenes = new String[n];
-        String[] arrayDestinos = new String[n];
-        Integer[] arrayPuntos = new Integer[n];
-
-        //CODI DE PROVES: omplim els 3 arrays amb filler només per provar el recycler
-
-        Arrays.fill(arrayPuntos, 0);
-
-        for(int i = 0; i<n; ++i){
-           arrayOrigenes[i] = "o" + i;
-           arrayDestinos[i] = "d" + i;
-        }
-
-        /*CODI SEMI DEFINITIU
-        //Comptant que la resta està implementada--
-        Vector<Integer> rutasRealizadas = usuarioActivo.getRutasRealizadas();
-        for(int i = 0; i < rutasRealizadas.size(); ++i){
-            ruta = getRutaById(rutasRealizadas[i]) -> algo així, not yet implemented
-            origen = ruta.getOrigen();
-            destino = ruta.getDestino();
-            puntos = ruta.getPuntos();
-
-            arrayOrigenes[i] = origen;
-            arrayDestinos[i] = destino;
-            arrayPuntos[i] = puntos;
-        }*/
-
-        historial = binding.historial;
-        AdapterHistorial mAdapter = new AdapterHistorial(this.getActivity(), arrayOrigenes, arrayDestinos, arrayPuntos);
-        historial = bindingH.historial;
-        AdapterHistorial mAdapter = new AdapterHistorial(this.getActivity(), arrayOrigenes, arrayDestinos, arrayPuntos, arrayIds, arrayFavs);
-        historial.setAdapter(mAdapter);
-
-        mLayoutManager=new LinearLayoutManager(this.getActivity());
-        historial.setLayoutManager(mLayoutManager);
-
-        return root;
     }
 
     private void setUpHistorial() throws Exception {

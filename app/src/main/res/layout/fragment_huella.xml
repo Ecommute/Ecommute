@@ -8,7 +8,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/historial"
-        android:layout_width="279dp"
+        android:layout_width="match_parent"
         android:layout_height="177dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -44,7 +44,12 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.15" /><![CDATA[
+
+    app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.295" />
+
+    ]]>
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"
@@ -52,11 +57,9 @@
         android:layout_height="216dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.295" />
-
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.295" />
+        app:layout_constraintVertical_bias="0.289" />
 
     <Button
         android:id="@+id/mostrar_info"
