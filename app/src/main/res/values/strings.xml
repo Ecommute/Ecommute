@@ -27,6 +27,10 @@
     <string name="Logout">Cerrar Sesión</string>
     <string name="Eliminarperfil">Eliminar Perfil</string>
     <string name="Buscarrutas">Buscar rutas</string>
+    <string name="EditarPerfil">Editar Perfil</string>
+    <string name="ConsumoFuel">Consumo de Combustible</string>
+    <string name="TipoCombustible">Tipo de Combustible</string>
+    <string name="CambiarDatos">Editar Datos</string>
 
     <string name="textVRutasFav">Rutas Favoritas</string>
     <string name="server_client_id">60686683765-v58iemvsluk42sp8gd8co48tjk2mv5nk.apps.googleusercontent.com</string>

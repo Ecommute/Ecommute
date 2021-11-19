@@ -17,9 +17,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.ecommute.EditUserActivity;
 import com.example.ecommute.GlobalVariables;
 import com.example.ecommute.LoginActivity;
 import com.example.ecommute.PopUpCoche;
+import com.example.ecommute.MainActivity;
+import com.example.ecommute.R;
+import com.example.ecommute.SignUpActivity;
 import com.example.ecommute.databinding.FragmentPerfilBinding;
 
 import java.io.IOException;
@@ -87,6 +91,15 @@ public class PerfilFragment extends Fragment {
             }
         });
 
+        Button editb = binding.EditProfile;
+
+        editb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validateedit();
+            }
+        });
+
         return root;
     }
 
@@ -118,6 +131,11 @@ public class PerfilFragment extends Fragment {
         GlobalVariables.password = "";
         GlobalVariables.username = "";
         Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+    }
+
+    private void validateedit(){
+        Intent intent = new Intent(getActivity(), EditUserActivity.class);
         startActivity(intent);
     }
 

@@ -28,4 +28,8 @@
     <string name="Logout">Tancar Sessió</string>
     <string name="Eliminarperfil">Eliminar Perfil</string>
     <string name="Buscarrutas">Buscar rutas</string>
+    <string name="EditarPerfil">Editar Perfil</string>
+    <string name="ConsumoFuel">Consum de Combustible</string>
+    <string name="TipoCombustible">Tipus de Combustible</string>
+    <string name="CambiarDatos">Editar Dades</string>
 </resources>
