@@ -40,6 +40,10 @@ import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.jjoe64.graphview.series.Series;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Vector;
@@ -112,22 +116,31 @@ public class HuellaFragment extends Fragment{
         return root;
     }
 
-    public void getDataGraficoGeneral() throws IOException {
+    public void getDataGraficoGeneral() throws IOException, JSONException {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         //String urlParameters  = "&username="+username+ "&password="+pass;
         String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
 
-        OkHttpClient client = new OkHttpClient().newBuilder().build();
-        MediaType mediaType = MediaType.parse("text/plain");
-        RequestBody body = RequestBody.create("", mediaType);
-        Request request = new Request.Builder()
-                .url("http://10.4.41.35:3000/stats/progress?"+urlParameters)
-                .method("GET", body)
+        OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
-        final Response[] response = new Response[1];
-        response[0] = client.newCall(request).execute();
+        Request request = new Request.Builder()
+                .url("10.4.41.35:3000/stats/progress?"+urlParameters)
+                .method("GET", null)
+                .build();
+        Response response = client.newCall(request).execute();
+
+        JSONObject respuesta2 = new JSONObject(response.body().string());
+        JSONArray array = respuesta2.getJSONArray("months");
+        for(int i = 0 ; i < array.length() ; i++){
+            list.add(array.getJSONObject(i).getString("interestKey"));
+        }
+        if(respuesta2.getString("result").equals("Success")) {
+
+        }
+        double[] y= new double[12];
+
     }
 
     public DataPoint[] data(){
