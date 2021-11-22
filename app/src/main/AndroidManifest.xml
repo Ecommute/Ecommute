@@ -18,6 +18,9 @@
             android:name=".RutasActivity"
             android:exported="true" />
         <activity
+            android:name=".EditUserActivity"
+            android:exported="true" />
+        <activity
             android:name=".EditActivity"
             android:exported="true" />
         <activity

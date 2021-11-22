@@ -3,6 +3,7 @@ package com.example.ecommute;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -38,7 +39,7 @@ public class EditUserActivity extends AppCompatActivity {
         binding = ActivityEdituserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Button bedit = findViewById(R.id.edituser);
+        Button bedit = binding.edituser;
 
         bedit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +54,8 @@ public class EditUserActivity extends AppCompatActivity {
     }
 
     private void validate() throws IOException {
-
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         String newpass = binding.regPassword.getText().toString();
         String email = binding.regEmail.getText().toString();
@@ -62,29 +64,28 @@ public class EditUserActivity extends AppCompatActivity {
         String newusername = binding.regUsername.getText().toString();
         String fuel_cons = binding.fuelConsumption.getText().toString(); //creo que tiene que ser un int
         String fuel_type = binding.TipoCombustible.getText().toString(); //creo que tiene que ser un int
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
 
-        String urlParameters  = "username="+GlobalVariables.username + "password="+GlobalVariables.password;
+        Log.d("llamadauseredit", "hola");
+        String urlParameters  = "username="+GlobalVariables.username + "&password="+GlobalVariables.password;
 
-        if(newpass != "") urlParameters += "&newpassword="+newpass;
-        if(email != "") urlParameters += "&email="+email;
-        if(nombre != "") urlParameters += "name="+nombre;
-        if(apellidos != "") urlParameters += "&surname="+apellidos;
-        if(newusername != "") urlParameters += "&newusername="+newusername;
-        if(fuel_cons != "") urlParameters += "&fuelConsumption="+ fuel_cons;
-        if(fuel_type != "") urlParameters += "&fuelType=" + fuel_type;
-
+        if(!newpass.equals("")) urlParameters += "&newPassword="+newpass;
+        if(!email.equals("")) urlParameters += "&email="+email;
+        if(!nombre.equals("")) urlParameters += "&name="+nombre;
+        if(!apellidos.equals("")) urlParameters += "&surname="+apellidos;
+        if(!newusername.equals("")) urlParameters += "&newUsername="+newusername;
+        if(!fuel_cons.equals("")) urlParameters += "&fuelConsumption="+ fuel_cons;
+        if(!fuel_type.equals("")) urlParameters += "&fuelType=" + fuel_type;
+        Log.d("llamadauseredit", urlParameters);
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("text/plain");
-        RequestBody body = RequestBody.create(mediaType, "");
+        RequestBody body = RequestBody.create("", mediaType);
         Request request = new Request.Builder()
-                .url("10.4.41.35:3000/users/edit?" + urlParameters)
+                .url("http://10.4.41.35:3000/users/edit?" + urlParameters)
                 .method("POST", body)
                 .build();
         Response response = client.newCall(request).execute();
-
+        Log.d("llamadauseredit", response.toString());
 
         Intent intent = new Intent(EditUserActivity.this, PerfilFragment.class);
         startActivity(intent);

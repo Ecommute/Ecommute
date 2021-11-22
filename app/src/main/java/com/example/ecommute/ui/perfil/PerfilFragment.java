@@ -91,12 +91,12 @@ public class PerfilFragment extends Fragment {
             }
         });
 
-        Button editb = binding.EditProfile;
-
-        editb.setOnClickListener(new View.OnClickListener() {
+        Button edit = binding.EditProfile;
+        edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validateedit();
+                Intent intent = new Intent(getActivity(), EditUserActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -134,10 +134,6 @@ public class PerfilFragment extends Fragment {
         startActivity(intent);
     }
 
-    private void validateedit(){
-        Intent intent = new Intent(getActivity(), EditUserActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public void onDestroyView() {
