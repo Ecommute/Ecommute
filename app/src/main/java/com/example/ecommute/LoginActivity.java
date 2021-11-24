@@ -74,6 +74,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+        EditText editUsuario = binding.usuario;
+        editUsuario.setText("marcelurpi");
+        EditText editPassword = binding.password;
+        editPassword.setText("password");
+
         signupb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
