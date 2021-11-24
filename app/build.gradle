@@ -33,32 +33,18 @@ android {
 dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation "androidx.cardview:cardview:1.0.0"
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
+    implementation 'com.google.android.gms:play-services-maps:18.0.0'
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+    implementation 'com.jjoe64:graphview:4.2.1'
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-}
-
-// in below line we are adding configurations to to our project.
-configurations.all {
-    // in below line we are adding strategy for each dependency and requesting the details 
-    resolutionStrategy.eachDependency {DependencyResolveDetails details ->
-        // on below line we are getting to see the details using requested. 
-        def requested = details.requested
-        // in below line we are requesting a group. 
-        if (requested.group == 'com.android.support'){
-            // on below line we are checking if the request is a group and checking if it starts with com.android.support.
-            if(!requested.name.startsWith("multidex")){
-                // if the requested name starts with multi dex then we are displaying the use version which is given below. 
-                details.useVersion '25.3.0'
-            }
-        }
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     }
-} 

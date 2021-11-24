@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import okhttp3.*;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,13 +17,22 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.ecommute.EditUserActivity;
 import com.example.ecommute.GlobalVariables;
 import com.example.ecommute.LoginActivity;
+import com.example.ecommute.PopUpCoche;
 import com.example.ecommute.MainActivity;
 import com.example.ecommute.R;
+import com.example.ecommute.SignUpActivity;
 import com.example.ecommute.databinding.FragmentPerfilBinding;
 
 import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class PerfilFragment extends Fragment {
 
@@ -64,6 +73,33 @@ public class PerfilFragment extends Fragment {
             }
         });
 
+        Button linkGoogle = binding.linkGoogle;
+        linkGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //API
+                Toast.makeText(getActivity(), "Account linked succsesfully!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button car = binding.car;
+        car.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), PopUpCoche.class);
+                startActivity(intent);
+            }
+        });
+
+        Button editb = binding.EditProfile;
+
+        editb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validateedit();
+            }
+        });
+
         return root;
     }
 
@@ -95,6 +131,11 @@ public class PerfilFragment extends Fragment {
         GlobalVariables.password = "";
         GlobalVariables.username = "";
         Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+    }
+
+    private void validateedit(){
+        Intent intent = new Intent(getActivity(), EditUserActivity.class);
         startActivity(intent);
     }
 

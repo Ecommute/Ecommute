@@ -27,21 +27,54 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
-        android:text="Eliminar perfil"
+        android:text="@string/Eliminarperfil"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logout" />
-
+        app:layout_constraintTop_toBottomOf="@+id/text_perfil"
+        app:layout_constraintVertical_bias="0.766" />
 
     <Button
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/red"
-        android:text="Logout"
+        android:text="@string/Logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_perfil"
         app:layout_constraintVertical_bias="0.29" />
+
+    <Button
+        android:id="@+id/EditProfile"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:text="@string/EditarPerfil"
+        tools:layout_editor_absoluteX="128dp"
+        tools:layout_editor_absoluteY="334dp" />
+
+    <Button
+        android:id="@+id/car"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF6004"
+        android:text="Coche"
+        app:layout_constraintBottom_toTopOf="@+id/eliminarPerfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logout"
+        app:layout_constraintVertical_bias="0.539"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/linkGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#8BC34A"
+        android:text="link"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eliminarPerfil" />
 </androidx.constraintlayout.widget.ConstraintLayout>

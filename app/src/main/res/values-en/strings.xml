@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ecommute</string>
+    <string name="title_foro">Forum</string>
+    <string name="title_huella">Footprint</string>
+    <string name="title_ruta">Route</string>
+    <string name="title_perfil">Profile</string>
+    <string name="title_puntos">Points</string>
+    <string name="textButton">Delete</string>
+    <string name="textEditar">Edit</string>
+    <string name="textGuardar">Save</string>
+    <string name="textTitle">Route Details</string>
+    <string name="pre_origen">From:</string>
+    <string name="pre_destino">To:</string>
+    <string name="Usuario">User</string>
+    <string name="Contraseña">Password</string>
+    <string name="Login">Log In</string>
+    <string name="SignUp">Sign Up</string>
+    <string name="Origen">Origin</string>
+    <string name="Destino">Destiny</string>
+    <string name="Nombre">Name</string>
+    <string name="Apellidos">Surname</string>
+    <string name="email">Email</string>
+    <string name="NombredeUsuario">Username</string>
+    <string name="Detalles">Details</string>
+    <string name="Puntosacumulados">Accumulated Points</string>
+    <string name="Historial">History</string>
+    <string name="Logout">Log Out</string>
+    <string name="Eliminarperfil">Delete Profile</string>
+    <string name="Buscarrutas">Search Routes</string>
+    <string name="EditarPerfil">Edit Profile</string>
+    <string name="ConsumoFuel">Fuel</string>
+    <string name="CambiarDatos">Edit</string>
+    <string name="TipoCombustible">Fuel Consumption</string>
+</resources>

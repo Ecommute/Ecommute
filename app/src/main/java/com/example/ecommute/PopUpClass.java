@@ -2,6 +2,7 @@ package com.example.ecommute;
 
 import android.content.Intent;
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,9 +31,11 @@ public class PopUpClass {
     //PopupWindow display method
     String origen = "Origen";
     String destino = "Destino";
+    public String username = GlobalVariables.username;
+    public String password = GlobalVariables.password;
 
 
-    public void showPopupWindow(final View view, Context mContext, Integer idRuta) {
+    public void showPopupWindow(final View view, Context mContext, Integer idRuta, Integer favRuta) {
 
         //Create a View object yourself through inflater
         /*LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
@@ -125,7 +128,10 @@ public class PopUpClass {
                 return true;
             }
         });*/
+
+        setUpFavorito(favRuta, popupView, idRuta);
     }
+
     public void setUpBackend(int id) throws Exception{
         final Response[] response = new Response[1];
 
@@ -154,6 +160,66 @@ public class PopUpClass {
                 .method("DELETE", body)
                 .build();
         Response response = client.newCall(request).execute();
+    }
+
+    private void setUpFavorito(Integer fav, View view, Integer id) {
+        final int rfav = fav;
+        Button starB = view.findViewById(R.id.starButton);
+        if(rfav == -1) starB.setBackgroundResource(R.drawable.ic_baseline_error_24);
+        if(rfav == 1) starB.setBackgroundResource(R.drawable.ic_baseline_star_24);
+        else starB.setBackgroundResource(R.drawable.ic_baseline_star_border_24);
+
+        starB.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View vp) {
+
+                if(rfav == 1){
+
+                    starB.setBackgroundResource(R.drawable.ic_baseline_star_24);
+
+                    Log.d("RID CLICK", String.valueOf(id));
+                    //add ruta to favorites
+                    final Response[] response = new Response[1];
+
+                    OkHttpClient client = new OkHttpClient().newBuilder().build();
+
+                    MediaType mediaType = MediaType.parse("text/plain");
+                    RequestBody body = RequestBody.create("", mediaType);
+                    Request request = new Request.Builder()
+                            .url("http://10.4.41.35:3000/routes/favourites/add/" + id + "?username=" + username + "&password=" + password)
+                            .method("POST", body)
+                            .build();
+                    try {
+                        response[0] = client.newCall(request).execute();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                else{
+
+                    starB.setBackgroundResource(R.drawable.ic_baseline_star_border_24);
+
+                    //remove from favorites
+                    final Response[] response2 = new Response[1];
+
+                    OkHttpClient client = new OkHttpClient().newBuilder().build();
+
+                    MediaType mediaType = MediaType.parse("text/plain");
+                    RequestBody body = RequestBody.create("", mediaType);
+                    Request request = new Request.Builder()
+                            .url("http://10.4.41.35:3000/routes/favourites/remove/" + id + "?username=" + username + "&password=" + password)
+                            .method("DELETE", body)
+                            .build();
+                    try {
+                        response2[0] = client.newCall(request).execute();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
 }

@@ -28,13 +28,14 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPostalAddress"
-        android:hint="Origen"
+        android:hint="@string/Origen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.287" />
+        app:layout_constraintVertical_bias="0.218"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/editDestino"
@@ -42,25 +43,26 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPostalAddress"
-        android:hint="Destino"
+        android:hint="@string/Destino"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editOrigen"
-        app:layout_constraintVertical_bias="0.09" />
+        app:layout_constraintVertical_bias="0.081"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/buscar_ruta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Buscar rutas"
+        android:text="@string/Buscarrutas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editDestino"
-        app:layout_constraintVertical_bias="0.164" />
+        app:layout_constraintVertical_bias="0.079" />
 
     <TextView
         android:id="@+id/confirmador"
@@ -71,5 +73,27 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buscar_ruta"
-        app:layout_constraintVertical_bias="0.187" />
+        app:layout_constraintVertical_bias="0.073" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerRFavs"
+        android:layout_width="match_parent"
+        android:layout_height="241dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textVRutasFav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/textVRutasFav"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerRFavs"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
