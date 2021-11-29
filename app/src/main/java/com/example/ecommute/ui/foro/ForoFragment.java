@@ -94,7 +94,7 @@ public class ForoFragment extends Fragment {
 
         //CANVIAR REQUEST!
         Request request = new Request.Builder()
-                .url("http://10.4.41.35:3000/routes/list?username=" + username + "&password=" + password)
+                .url("http://10.4.41.35:3000/articles/list?username=" + username + "&password=" + password)
                 .method("GET", null)
                 .build();
 
@@ -109,6 +109,7 @@ public class ForoFragment extends Fragment {
         String[] arrayTitulos = new String[n];
         String[] arrayContenido = new String[n];
         Integer[] arrayLiked = new Integer[n];
+        Integer[] arrayNumLikes = new Integer[n];
         Integer[] arrayIds = new Integer[n];;
 
         for (int i = 0; i < n; i++) {
@@ -117,6 +118,7 @@ public class ForoFragment extends Fragment {
             arrayTitulos[i] = object.getString("title");
             arrayContenido[i] = object.getString("content");
             arrayLiked[i] = Integer.valueOf(object.getString("liked"));
+            arrayNumLikes[i] = Integer.valueOf(object.getString("numLikes"));
         }
 
         forum = binding.forum;
