@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/fragment_foro.xml" value="0.2078125" />
+        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/item_forum.xml" value="0.33" />
+        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/item_historial.xml" value="0.15780141843971632" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_signup.xml" value="0.25" />

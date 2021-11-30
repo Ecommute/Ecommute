@@ -60,9 +60,6 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         holder.id = mIntIds[position];
 
         holder.setUp();
-
-        Log.d("RID BINDING", String.valueOf(mIntIds[position]));
-        Log.d("RID BINDING F", String.valueOf(mIntFavs[position]));
     }
 
     @Override
@@ -83,36 +80,6 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
             mTextOrigen = itemView.findViewById(R.id.origen);
             mTextDestino = itemView.findViewById(R.id.destino);
             mTextPuntos = itemView.findViewById(R.id.puntos);
-
-            //setUp();
-
-            /*final Response[] response = new Response[1];
-
-            OkHttpClient client = new OkHttpClient().newBuilder().build();
-            Request request = new Request.Builder()
-                    .url("http://10.4.41.35:3000/routes/show/" + id + "?username=" + username + "&password=" + password)
-                    .method("GET", null)
-                    .build();
-            try {
-                response[0] = client.newCall(request).execute();
-            } catch (IOException e) {
-
-                e.printStackTrace();
-            }
-            Log.d("RID:", String.valueOf(id));
-            String jsonData;
-
-            fav = -1;
-            try {
-                jsonData = Objects.requireNonNull(response[0].body()).string();
-                JSONObject jo = new JSONObject((jsonData));
-                JSONObject routes = jo.getJSONObject("route");
-
-                fav = Integer.parseInt(routes.getString("favourite"));
-
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-            }*/
         }
 
         private void setUp() {
