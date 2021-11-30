@@ -106,7 +106,7 @@ public class RutasActivity extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
-                .url("http://10.4.41.35:3000/routes/map?origin="+GlobalVariables.origen+"&destination="+GlobalVariables.destino+"&mode=driving&username="+GlobalVariables.username+"&password="+GlobalVariables.password)
+                .url("http://10.4.41.35:3000/routes/map?origin="+GlobalVariables.origen+"&destination="+GlobalVariables.destino+"&mode=driving&username="+GlobalVariables.username+"&password="+GlobalVariables.password+"&width=390&height=400")
                 .method("GET", null)
                 .build();
         Response response = client.newCall(request).execute();

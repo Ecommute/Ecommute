@@ -48,12 +48,13 @@ public class PerfilFragment extends Fragment {
         View root = binding.getRoot();
 
         final TextView textView = binding.textPerfil;
-        perfilViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        /*perfilViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
-        });
+        });*/
+        textView.setText(GlobalVariables.username);
 
         Button logoutb = binding.logout;
 
