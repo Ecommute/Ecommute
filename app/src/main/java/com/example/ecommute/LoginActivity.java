@@ -3,6 +3,7 @@ package com.example.ecommute;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
 
 import org.json.JSONException;
@@ -46,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.server_client_id))
-                .requestEmail()
+                .requestEmail().requestScopes(new Scope("https://www.googleapis.com/auth/calendar"), new Scope("https://www.googleapis.com/auth/calendar.events"))
                 .build();
 
         mSignInClient = GoogleSignIn.getClient(this, gso);
@@ -129,9 +131,12 @@ public class LoginActivity extends AppCompatActivity {
             if(task.isSuccessful()) {
                 GoogleSignInAccount account = task.getResult();
                 Toast.makeText(this, account.getEmail(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, account.getServerAuthCode(), Toast.LENGTH_LONG).show();
+                Log.e("Scopes", account.getRequestedScopes().toString());
                 //API
                 //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 //startActivity(intent);
+                mSignInClient.signOut();
             } else{
                 Toast.makeText(this, "Algo no ha salido como se esperaba!", Toast.LENGTH_SHORT).show();
             }
