@@ -49,17 +49,23 @@
     app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.295" />
 
+
+
+
+
+
+
+
+
     ]]>
 
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/graph"
-        android:layout_width="341dp"
-        android:layout_height="216dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.github.mikephil.charting.charts.HorizontalBarChart
+        android:layout_width="363dp"
+        android:layout_height="210dp"
+        app:layout_constraintBottom_toTopOf="@+id/ddestino"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.289" />
+        app:layout_constraintTop_toBottomOf="@+id/dorigen" />
 
     <Button
         android:id="@+id/mostrar_info"

@@ -62,6 +62,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
@@ -138,7 +139,7 @@ public class HuellaFragment extends Fragment{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (points != null){
+        if (!points.isEmpty()){
             series= new LineGraphSeries(dataGrafico(points));   //initializing/defining series to get the data from the method 'data()'
 
         }else{
@@ -165,7 +166,13 @@ public class HuellaFragment extends Fragment{
             public void onClick(View v) {
 
                 PopupInformeSemanal popUpClass = new PopupInformeSemanal();
-                popUpClass.showPopupWindow(v);
+                try {
+                    popUpClass.showPopupWindow(v);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -177,11 +184,12 @@ public class HuellaFragment extends Fragment{
     public List<String> getDataGraficoGeneral() throws IOException, JSONException {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
+        Log.d("request", "global variables "+ GlobalVariables.username);
+        Log.d("request", "global variables "+ GlobalVariables.password);
         //String urlParameters  = "&username="+username+ "&password="+pass;
         //String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
         String urlParameters  = "&username=marcelurpi&password=password";
-
+        Log.d("request urlParameters", urlParameters);
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
@@ -218,7 +226,7 @@ public class HuellaFragment extends Fragment{
             Log.d("request", "list "+ list.toString());
             return list;
         }
-        return null;
+        return Collections.emptyList();
     }
 
     public DataPoint[] dataGrafico(List<String> valores){

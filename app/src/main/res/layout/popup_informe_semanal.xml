@@ -17,6 +17,7 @@
         android:foregroundTint="#BCB9B9"
         android:gravity="center"
         android:orientation="vertical"
+        android:outlineProvider="paddedBounds"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,6 +36,12 @@
             app:layout_constraintBottom_toTopOf="@+id/textView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/cambiardatos"
+            android:layout_width="109dp"
+            android:layout_height="54dp"
+            android:text="cambiardatos" />
 
         <Button
             android:id="@+id/cerrar_popup"
