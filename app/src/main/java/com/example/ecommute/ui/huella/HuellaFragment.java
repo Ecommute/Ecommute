@@ -128,8 +128,6 @@ public class HuellaFragment extends Fragment{
 
 
         BarChart barchart = (BarChart) root.findViewById(R.id.graph);
-        if(barchart == null) Log.d("barchartRIP", "hihi");
-        else Log.d("barchartVIVE", "hihi");
         ArrayList<BarEntry> entries = null;
 
         try {
@@ -149,6 +147,12 @@ public class HuellaFragment extends Fragment{
         BarData barData = new BarData(barDataSet);
 
         barchart.setData(barData);
+        barchart.setFitBars(true);
+        barchart.animateY(2000);
+        barchart.getDescription().setText("CO2 consumido");
+        barchart.getLegend().setEnabled(false);
+        barchart.getXAxis().setEnabled(false);
+
         Log.d("Checkpoint", "hehe");
         //barchart.animateY(1000);
 
