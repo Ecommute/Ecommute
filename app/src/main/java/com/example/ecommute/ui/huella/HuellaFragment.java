@@ -152,51 +152,11 @@ public class HuellaFragment extends Fragment{
         barchart.getDescription().setText("CO2 consumido");
         barchart.getLegend().setEnabled(false);
         barchart.getXAxis().setEnabled(false);
+        barchart.getAxisLeft().setAxisMinimum(0.0f);
+        barchart.getAxisRight().setAxisMinimum(0.0f);
+        barchart.getAxisRight().setDrawLabels(false);
 
         Log.d("Checkpoint", "hehe");
-        //barchart.animateY(1000);
-
-/*
-        GraphView graph;
-        LineGraphSeries<DataPoint> series;       //an Object of the PointsGraphSeries for plotting scatter graphs
-        graph = (GraphView) root.findViewById(R.id.graph);
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMaxX(12);
-
-
-        graph.getViewport().setScrollable(true); // enables horizontal scrolling
-        graph.getViewport().setScrollableY(true); // enables vertical scrolling
-        graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
-        graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
-
-        List<String> points = new ArrayList<>();
-        try {
-            points = getDataGraficoGeneral();
-            Log.d("points en try catch", points.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if (!points.isEmpty()){
-            series= new LineGraphSeries(dataGrafico(points));   //initializing/defining series to get the data from the method 'data()'
-
-        }else{
-            series= new LineGraphSeries(dataDefault());   //initializing/defining series to get the data from the method 'data()'
-        }
-        series.setDrawDataPoints(true);
-        graph.addSeries(series);                   //adding the series to the GraphView
-
-
-        series.setOnDataPointTapListener(new OnDataPointTapListener() {
-            @Override
-            public void onTap(Series series, DataPointInterface dataPoint) {
-                Toast.makeText(getActivity(), "Puntos: "+dataPoint.getY(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-*/
-
 
         Button mostrarInfo = bindingH.mostrarInfo;
         mostrarInfo.setOnClickListener(new View.OnClickListener() {
@@ -220,63 +180,15 @@ public class HuellaFragment extends Fragment{
         return root;
     }
 
-    public List<String> getDataGraficoGeneral() throws IOException, JSONException {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        Log.d("request", "global variables "+ GlobalVariables.username);
-        Log.d("request", "global variables "+ GlobalVariables.password);
-        //String urlParameters  = "&username="+username+ "&password="+pass;
-        //String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
-        String urlParameters  = "&username=marcelurpi&password=password";
-        Log.d("request urlParameters", urlParameters);
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
-        Request request = new Request.Builder()
-                .url("http://10.4.41.35:3000/stats/progress?"+urlParameters)
-                .method("GET", null)
-                .build();
-        Response response = client.newCall(request).execute();
-
-        JSONObject respuesta2 = new JSONObject(response.body().string());
-        Log.d("requestLlamada", respuesta2.toString());
-
-        if(respuesta2.getString("result").equals("Success")) {
-
-            Log.d("request", "inside");
-            String npuntos = respuesta2.getString("totalPoints");
-            Log.d("request", "puntos"+ npuntos);
-            List<String> list = new ArrayList<String>();
-            JSONObject months = respuesta2.getJSONObject("months");
-
-            //CAMBIAR ESTA COSA TAN HORRIBLE. HACER MONTHS ARRAY
-            list.add(months.getJSONObject("1").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("2").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("3").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("4").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("5").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("6").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("7").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("8").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("9").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("10").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("11").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("12").getJSONObject("totalDay").getString("points"));
-
-            Log.d("request", "list "+ list.toString());
-            return list;
-        }
-        return Collections.emptyList();
-    }
-
     public ArrayList<BarEntry> entry() throws IOException, JSONException {
         ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        Log.d("request", "global variables "+ GlobalVariables.username);
-        Log.d("request", "global variables "+ GlobalVariables.password);
+        Log.d("variablesglobales", "global variables "+ GlobalVariables.username);
+        Log.d("variablesglobales", "global variables "+ GlobalVariables.password);
         //String urlParameters  = "&username="+username+ "&password="+pass;
-        //String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
-        String urlParameters  = "&username=marcelurpi&password=password";
+        String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
+        //String urlParameters  = "&username=marcelurpi&password=password";
         Log.d("request urlParameters", urlParameters);
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -310,47 +222,9 @@ public class HuellaFragment extends Fragment{
             }
         }
 
-        /*
-        for (int i = 0; i < ja.length(); i++){
-            Log.d("valorEntry", ja.getJSONArray(i).toString());
-            //entry.add( new Entry(i, ja.getJSONObject(i).))
-        }
-
-*/
         return entry;
     }
 
-    public DataPoint[] dataGrafico(List<String> valores){
-        int nentradas = valores.size();
-        double[] x= new double[nentradas];
-        double[] y= new double[nentradas];
-        for (int i= 0; i<nentradas; i++){
-            x[i]= i;
-            y[i]= Double.parseDouble(valores.get(i));
-        }
-        DataPoint[] values = new DataPoint[nentradas];
-        for(int i=0;i<nentradas;i++){
-            DataPoint v = new DataPoint(x[i],y[i]);
-            values[i] = v;
-        }
-        return values;
-    }
-
-    public DataPoint[] dataDefault(){
-        double[] x= new double[10];
-        double[] y= new double[10];
-        for (int i= 0; i<10; i++){
-            x[i]= i;
-            y[i]= i;
-        }
-        int n=10;     //to find out the no. of data-points
-        DataPoint[] values = new DataPoint[n];     //creating an object of type DataPoint[] of size 'n'
-        for(int i=0;i<n;i++){
-            DataPoint v = new DataPoint(Double.parseDouble(String.valueOf(x[i])),Double.parseDouble(String.valueOf(y[i])));
-            values[i] = v;
-        }
-        return values;
-    }
 
     private void setUpHistorial() throws Exception {
 
