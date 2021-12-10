@@ -59,7 +59,8 @@
 
     ]]>
 
-    <com.github.mikephil.charting.charts.HorizontalBarChart
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/graph"
         android:layout_width="363dp"
         android:layout_height="210dp"
         app:layout_constraintBottom_toTopOf="@+id/ddestino"
