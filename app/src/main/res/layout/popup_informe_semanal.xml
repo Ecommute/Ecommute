@@ -26,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.496">
 
-        <com.jjoe64.graphview.GraphView
+        <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/graph"
             android:layout_width="276dp"
             android:layout_height="365dp"
@@ -41,7 +41,7 @@
             android:id="@+id/cambiardatos"
             android:layout_width="109dp"
             android:layout_height="54dp"
-            android:text="cambiardatos" />
+            android:text="CO2" />
 
         <Button
             android:id="@+id/cerrar_popup"

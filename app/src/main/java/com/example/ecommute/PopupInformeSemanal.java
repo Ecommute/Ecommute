@@ -1,5 +1,6 @@
 package com.example.ecommute;
 
+import android.graphics.Color;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.Gravity;
@@ -12,6 +13,11 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
@@ -37,7 +43,12 @@ import okhttp3.Response;
 
 public class PopupInformeSemanal {
 
-    int datos = 0; //0 =puntos; 1=co2
+    int datos = 0; //0 =puntos; 1=co2; 2=distancia
+    JSONObject respostaRequest ;
+
+    public PopupInformeSemanal() throws IOException, JSONException {
+        respostaRequest = respostaRequest();
+    }
     public void showPopupWindow(final View view) throws IOException, JSONException {
 
         //Create a View object yourself through inflater
@@ -58,6 +69,106 @@ public class PopupInformeSemanal {
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
         popupWindow.setBackgroundDrawable(null);
 
+        //respostaRequest = respostaRequest();
+
+        BarChart barchart = (BarChart) popupView.findViewById(R.id.graph);
+        ArrayList<BarEntry> entries;
+        BarDataSet barDataSet = null;
+
+        if (datos == 0){ //cargo puntos
+            try {
+                entries = entryPoints(respostaRequest);
+                barDataSet = new BarDataSet(entries, "puntos");
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }else if (datos == 1){ // cargo co2
+            try {
+                entries = entryCo2(respostaRequest);
+                barDataSet = new BarDataSet(entries, "co2");
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        else{ //cargo distancia
+            try {
+                entries = entryDistance(respostaRequest);
+                barDataSet = new BarDataSet(entries, "distancia");
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setValueTextColor(Color.BLACK);
+
+        BarData barData = new BarData(barDataSet);
+
+        barchart.setData(barData);
+        barchart.setFitBars(true);
+        barchart.animateY(2000);
+
+        if (datos == 0) barchart.getDescription().setText("Puntos conseguidos");
+        else if (datos == 1) barchart.getDescription().setText("CO2 consumido");
+        else barchart.getDescription().setText("Distancia recorrida");
+
+        barchart.getLegend().setEnabled(false);
+        barchart.getXAxis().setEnabled(false);
+        barchart.getAxisLeft().setAxisMinimum(0.0f);
+        barchart.getAxisRight().setAxisMinimum(0.0f);
+        barchart.getAxisRight().setDrawLabels(false);
+
+        Button cambiar = popupView.findViewById(R.id.cambiardatos);
+        cambiar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (datos == 0){ //puntos
+                    datos++;
+                    cambiar.setText("Distancia");
+
+                    try {
+                        showPopupWindow(view);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    //popupWindow.dismiss();
+                }else if (datos ==1){ //co2
+                    datos++;
+                    cambiar.setText("Puntos");
+
+                    try {
+                        showPopupWindow(view);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    //popupWindow.dismiss();
+                }else if (datos == 2){ //distancia
+                    datos=0;
+                    cambiar.setText("Co2"); // dos mas
+
+                    try {
+                        showPopupWindow(view);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    //popupWindow.dismiss();
+                }
+            }
+        });
 
 
         Button cerrar = popupView.findViewById(R.id.cerrar_popup);
@@ -71,129 +182,100 @@ public class PopupInformeSemanal {
             }
         });
 
-        Button cambiar = popupView.findViewById(R.id.cambiardatos);
-        cambiar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (datos ==1) datos = 0;
-                else datos = 1;
-                view.refreshDrawableState();
-            }
-        });
 
-        GraphView graph;
-        LineGraphSeries<DataPoint> series;       //an Object of the PointsGraphSeries for plotting scatter graphs
-        graph = (GraphView) popupView.findViewById(R.id.graph);
 
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMaxX(7);
-        graph.getViewport().setScrollable(true); // enables horizontal scrolling
-        graph.getViewport().setScrollableY(true); // enables vertical scrolling
-        graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
-        graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
-
-        List<String> points = new ArrayList<>();
-        JSONObject respuesta = getDataGraficoGeneral();
-        points = cambiarDatos(respuesta);
-        if (!points.isEmpty()){
-            series= new LineGraphSeries(dataGrafico(points));   //initializing/defining series to get the data from the method 'data()'
-
-        }else{
-            series= new LineGraphSeries(data());   //initializing/defining series to get the data from the method 'data()'
-        }
-
-        graph.addSeries(series);                   //adding the series to the GraphView
 
 
     }
 
-    public DataPoint[] data(){
-        double[] x= new double[7];
-        double[] y= new double[7];
-        for (int i= 0; i<7; i++){
-            x[i]= i;
-            y[i]= i;
-        }
-        int n=7;     //to find out the no. of data-points
-        DataPoint[] values = new DataPoint[n];     //creating an object of type DataPoint[] of size 'n'
-        for(int i=0;i<n;i++){
-            DataPoint v = new DataPoint(Double.parseDouble(String.valueOf(x[i])),Double.parseDouble(String.valueOf(y[i])));
-            values[i] = v;
-        }
-        return values;
+    public void setData(){
+
     }
+    public JSONObject respostaRequest() throws JSONException, IOException {
 
-    public DataPoint[] dataGrafico(List<String> valores){
-        int nentradas = valores.size();
-        double[] x= new double[nentradas];
-        double[] y= new double[nentradas];
-        for (int i= 0; i<nentradas; i++){
-            x[i]= i;
-            y[i]= Double.parseDouble(valores.get(i));
-        }
-        DataPoint[] values = new DataPoint[nentradas];
-        for(int i=0;i<nentradas;i++){
-            DataPoint v = new DataPoint(x[i],y[i]);
-            values[i] = v;
-        }
-        return values;
-    }
 
-    public List<String> cambiarDatos(JSONObject respuesta2) throws JSONException {
-        if(respuesta2.getString("result").equals("Success")) {
-            String total;
-            List<String> list = new ArrayList<String>();
-            if(datos==0){   //puntos
-                total = respuesta2.getString("totalPoints");
-                JSONObject days = respuesta2.getJSONObject("days");
-
-                //CAMBIAR ESTA COSA TAN HORRIBLE. HACER MONTHS ARRAY
-                list.add(days.getJSONObject("1").getJSONObject("totalDay").getString("points"));
-                list.add(days.getJSONObject("2").getJSONObject("totalDay").getString("points"));
-                list.add(days.getJSONObject("3").getJSONObject("totalDay").getString("points"));
-                list.add(days.getJSONObject("4").getJSONObject("totalDay").getString("points"));
-                list.add(days.getJSONObject("5").getJSONObject("totalDay").getString("points"));
-                list.add(days.getJSONObject("6").getJSONObject("totalDay").getString("points"));
-                list.add(days.getJSONObject("7").getJSONObject("totalDay").getString("points"));
-            }if(datos==1){  //co2
-                total = respuesta2.getString("totalPoints");
-                JSONObject days = respuesta2.getJSONObject("days");
-
-                //CAMBIAR ESTA COSA TAN HORRIBLE. HACER MONTHS ARRAY
-                list.add(days.getJSONObject("1").getJSONObject("totalDay").getString("co2"));
-                list.add(days.getJSONObject("2").getJSONObject("totalDay").getString("co2"));
-                list.add(days.getJSONObject("3").getJSONObject("totalDay").getString("co2"));
-                list.add(days.getJSONObject("4").getJSONObject("totalDay").getString("co2"));
-                list.add(days.getJSONObject("5").getJSONObject("totalDay").getString("co2"));
-                list.add(days.getJSONObject("6").getJSONObject("totalDay").getString("co2"));
-                list.add(days.getJSONObject("7").getJSONObject("totalDay").getString("co2"));
-            }
-            return list;
-        }
-        return Collections.emptyList();
-    }
-
-    public JSONObject getDataGraficoGeneral() throws IOException, JSONException {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-        //String urlParameters  = "&username="+username+ "&password="+pass;
-        //String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
-        String urlParameters  = "&username=marcelurpi&password=password";
-
-        OkHttpClient client = new OkHttpClient().newBuilder().build();
-        MediaType mediaType = MediaType.parse("text/plain");
-        RequestBody body = RequestBody.create("", mediaType);
+        Log.d("variablesglobales", "global variables "+ GlobalVariables.username);
+        Log.d("variablesglobales", "global variables "+ GlobalVariables.password);
+        String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
+        Log.d("request urlParameters", urlParameters);
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
         Request request = new Request.Builder()
-                .url("http://10.4.41.35:3000/stats/week?"+urlParameters)
+                .url("http://10.4.41.35:3000/stats/progress?"+urlParameters)
                 .method("GET", null)
                 .build();
         Response response = client.newCall(request).execute();
 
         JSONObject respuesta2 = new JSONObject(response.body().string());
-        Log.d("requestSemanal", respuesta2.toString());
+        Log.d("requestLlamada", respuesta2.toString());
 
+        if(respuesta2.getString("result").equals("Success")) {
+
+            Log.d("request", "inside");
+            String npuntos = respuesta2.getString("totalPoints");
+            Log.d("request", "puntos" + npuntos);
+
+        }
         return respuesta2;
     }
+
+
+    public ArrayList<BarEntry> entryCo2(JSONObject respuesta2) throws IOException, JSONException {
+
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+        JSONObject ja = respuesta2.getJSONObject("days");
+        Log.d("numeroDias", String.valueOf(ja.length()));
+
+        JSONArray dias = ja.names();
+
+        for (int i = 0; i < ja.length(); i++){
+            Object dia = dias.get(i);
+            if (dia != null){       //no deberia serlo porque uso su lenght
+                String co2 = ja.getJSONObject((String) dia).getString("co2");
+                entry.add(new BarEntry(i, Float.parseFloat(co2)));
+            }
+        }
+
+        return entry;
+    }
+
+    public ArrayList<BarEntry> entryPoints(JSONObject respuesta2) throws IOException, JSONException {
+
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+        JSONObject ja = respuesta2.getJSONObject("days");
+
+        JSONArray dias = ja.names();
+
+        for (int i = 0; i < ja.length(); i++){
+            Object dia = dias.get(i);
+            if (dia != null){       //no deberia serlo porque uso su lenght
+                String co2 = ja.getJSONObject((String) dia).getString("points");
+                entry.add(new BarEntry(i, Float.parseFloat(co2)));
+            }
+        }
+
+        return entry;
+    }
+
+    public ArrayList<BarEntry> entryDistance(JSONObject respuesta2) throws IOException, JSONException {
+
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+        JSONObject ja = respuesta2.getJSONObject("days");
+
+        JSONArray dias = ja.names();
+
+        for (int i = 0; i < ja.length(); i++){
+            Object dia = dias.get(i);
+            if (dia != null){       //no deberia serlo porque uso su lenght
+                String co2 = ja.getJSONObject((String) dia).getString("distance");
+                entry.add(new BarEntry(i, Float.parseFloat(co2)));
+            }
+        }
+
+        return entry;
+    }
+
 
 }

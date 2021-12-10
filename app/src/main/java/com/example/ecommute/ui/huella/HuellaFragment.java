@@ -164,7 +164,14 @@ public class HuellaFragment extends Fragment{
             @Override
             public void onClick(View v) {
 
-                PopupInformeSemanal popUpClass = new PopupInformeSemanal();
+                PopupInformeSemanal popUpClass = null;
+                try {
+                    popUpClass = new PopupInformeSemanal();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 try {
                     popUpClass.showPopupWindow(v);
                 } catch (IOException e) {
