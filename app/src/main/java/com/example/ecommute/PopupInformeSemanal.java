@@ -75,36 +75,15 @@ public class PopupInformeSemanal {
         ArrayList<BarEntry> entries;
         BarDataSet barDataSet = null;
 
-        if (datos == 0){ //cargo puntos
-            try {
-                entries = entryPoints(respostaRequest);
-                barDataSet = new BarDataSet(entries, "puntos");
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }else if (datos == 1){ // cargo co2
-            try {
-                entries = entryCo2(respostaRequest);
-                barDataSet = new BarDataSet(entries, "co2");
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        try {
+            entries = entryPoints(respostaRequest);
+            barDataSet = new BarDataSet(entries, "puntos");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        else{ //cargo distancia
-            try {
-                entries = entryDistance(respostaRequest);
-                barDataSet = new BarDataSet(entries, "distancia");
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
-        }
 
 
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
@@ -115,11 +94,7 @@ public class PopupInformeSemanal {
         barchart.setData(barData);
         barchart.setFitBars(true);
         barchart.animateY(2000);
-
-        if (datos == 0) barchart.getDescription().setText("Puntos conseguidos");
-        else if (datos == 1) barchart.getDescription().setText("CO2 consumido");
-        else barchart.getDescription().setText("Distancia recorrida");
-
+        barchart.getDescription().setText("Puntos conseguidos");
         barchart.getLegend().setEnabled(false);
         barchart.getXAxis().setEnabled(false);
         barchart.getAxisLeft().setAxisMinimum(0.0f);
@@ -132,40 +107,65 @@ public class PopupInformeSemanal {
             public void onClick(View v) {
                 if (datos == 0){ //puntos
                     datos++;
-                    cambiar.setText("Distancia");
 
+                    cambiar.setText("Distancia");
+                    ArrayList<BarEntry> entries = null;
+                    BarDataSet barDataSet = null;
                     try {
-                        showPopupWindow(view);
+                        entries = entryCo2(respostaRequest);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //popupWindow.dismiss();
+                    barDataSet = new BarDataSet(entries, "co2");
+                    barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                    barDataSet.setValueTextColor(Color.BLACK);
+                    BarData barData = new BarData(barDataSet);
+                    barchart.setData(barData);
+                    barchart.getDescription().setText("CO2 consumido");
+                    barchart.invalidate();
+
                 }else if (datos ==1){ //co2
                     datos++;
-                    cambiar.setText("Puntos");
 
+                    cambiar.setText("Puntos");
+                    ArrayList<BarEntry> entries = null;
+                    BarDataSet barDataSet = null;
                     try {
-                        showPopupWindow(view);
+                        entries = entryDistance(respostaRequest);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //popupWindow.dismiss();
+                    barDataSet = new BarDataSet(entries, "distance");
+                    barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                    barDataSet.setValueTextColor(Color.BLACK);
+                    BarData barData = new BarData(barDataSet);
+                    barchart.setData(barData);
+                    barchart.getDescription().setText("Distancia recorrida");
+                    barchart.invalidate();
                 }else if (datos == 2){ //distancia
                     datos=0;
-                    cambiar.setText("Co2"); // dos mas
 
+                    cambiar.setText("Co2"); // dos mas
+                    ArrayList<BarEntry> entries = null;
+                    BarDataSet barDataSet = null;
                     try {
-                        showPopupWindow(view);
+                        entries = entryPoints(respostaRequest);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //popupWindow.dismiss();
+                    barDataSet = new BarDataSet(entries, "points");
+                    barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                    barDataSet.setValueTextColor(Color.BLACK);
+                    BarData barData = new BarData(barDataSet);
+                    barchart.setData(barData);
+                    barchart.getDescription().setText("Puntos conseguidos");
+                    barchart.invalidate();
                 }
             }
         });
