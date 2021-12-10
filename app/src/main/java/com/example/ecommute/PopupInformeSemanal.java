@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -36,7 +37,8 @@ import okhttp3.Response;
 
 public class PopupInformeSemanal {
 
-    public void showPopupWindow(final View view) {
+    int datos = 0; //0 =puntos; 1=co2
+    public void showPopupWindow(final View view) throws IOException, JSONException {
 
         //Create a View object yourself through inflater
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
@@ -57,6 +59,7 @@ public class PopupInformeSemanal {
         popupWindow.setBackgroundDrawable(null);
 
 
+
         Button cerrar = popupView.findViewById(R.id.cerrar_popup);
         cerrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +68,16 @@ public class PopupInformeSemanal {
                 //As an example, display the message
                 //Toast.makeText(view.getContext(), "Wow, popup window closed", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        Button cambiar = popupView.findViewById(R.id.cambiardatos);
+        cambiar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (datos ==1) datos = 0;
+                else datos = 1;
+                view.refreshDrawableState();
             }
         });
 
@@ -80,15 +93,9 @@ public class PopupInformeSemanal {
         graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
 
         List<String> points = new ArrayList<>();
-        try {
-            points = getDataGraficoGeneral();
-            Log.d("points en try catch Sem", points.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if (points != null){
+        JSONObject respuesta = getDataGraficoGeneral();
+        points = cambiarDatos(respuesta);
+        if (!points.isEmpty()){
             series= new LineGraphSeries(dataGrafico(points));   //initializing/defining series to get the data from the method 'data()'
 
         }else{
@@ -132,7 +139,41 @@ public class PopupInformeSemanal {
         return values;
     }
 
-    public List<String> getDataGraficoGeneral() throws IOException, JSONException {
+    public List<String> cambiarDatos(JSONObject respuesta2) throws JSONException {
+        if(respuesta2.getString("result").equals("Success")) {
+            String total;
+            List<String> list = new ArrayList<String>();
+            if(datos==0){   //puntos
+                total = respuesta2.getString("totalPoints");
+                JSONObject days = respuesta2.getJSONObject("days");
+
+                //CAMBIAR ESTA COSA TAN HORRIBLE. HACER MONTHS ARRAY
+                list.add(days.getJSONObject("1").getJSONObject("totalDay").getString("points"));
+                list.add(days.getJSONObject("2").getJSONObject("totalDay").getString("points"));
+                list.add(days.getJSONObject("3").getJSONObject("totalDay").getString("points"));
+                list.add(days.getJSONObject("4").getJSONObject("totalDay").getString("points"));
+                list.add(days.getJSONObject("5").getJSONObject("totalDay").getString("points"));
+                list.add(days.getJSONObject("6").getJSONObject("totalDay").getString("points"));
+                list.add(days.getJSONObject("7").getJSONObject("totalDay").getString("points"));
+            }if(datos==1){  //co2
+                total = respuesta2.getString("totalPoints");
+                JSONObject days = respuesta2.getJSONObject("days");
+
+                //CAMBIAR ESTA COSA TAN HORRIBLE. HACER MONTHS ARRAY
+                list.add(days.getJSONObject("1").getJSONObject("totalDay").getString("co2"));
+                list.add(days.getJSONObject("2").getJSONObject("totalDay").getString("co2"));
+                list.add(days.getJSONObject("3").getJSONObject("totalDay").getString("co2"));
+                list.add(days.getJSONObject("4").getJSONObject("totalDay").getString("co2"));
+                list.add(days.getJSONObject("5").getJSONObject("totalDay").getString("co2"));
+                list.add(days.getJSONObject("6").getJSONObject("totalDay").getString("co2"));
+                list.add(days.getJSONObject("7").getJSONObject("totalDay").getString("co2"));
+            }
+            return list;
+        }
+        return Collections.emptyList();
+    }
+
+    public JSONObject getDataGraficoGeneral() throws IOException, JSONException {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -152,25 +193,7 @@ public class PopupInformeSemanal {
         JSONObject respuesta2 = new JSONObject(response.body().string());
         Log.d("requestSemanal", respuesta2.toString());
 
-        if(respuesta2.getString("result").equals("Success")) {
-            String npuntos = respuesta2.getString("totalPoints");
-            Log.d("requestSem", "puntos "+ npuntos);
-            JSONObject days = respuesta2.getJSONObject("days");
-            List<String> list = new ArrayList<String>();
-
-            //CAMBIAR ESTA COSA TAN HORRIBLE. HACER MONTHS ARRAY
-            list.add(days.getJSONObject("1").getJSONObject("totalDay").getString("points"));
-            list.add(days.getJSONObject("2").getJSONObject("totalDay").getString("points"));
-            list.add(days.getJSONObject("3").getJSONObject("totalDay").getString("points"));
-            list.add(days.getJSONObject("4").getJSONObject("totalDay").getString("points"));
-            list.add(days.getJSONObject("5").getJSONObject("totalDay").getString("points"));
-            list.add(days.getJSONObject("6").getJSONObject("totalDay").getString("points"));
-            list.add(days.getJSONObject("7").getJSONObject("totalDay").getString("points"));
-
-            Log.d("requestSem", "list "+ list.toString());
-            return list;
-        }
-        return null;
+        return respuesta2;
     }
 
 }

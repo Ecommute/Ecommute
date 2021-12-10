@@ -1,5 +1,6 @@
 package com.example.ecommute.ui.huella;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -29,6 +30,13 @@ import com.example.ecommute.Usuario;
 import com.example.ecommute.databinding.FragmentHuellaBinding;
 import com.example.ecommute.databinding.ItemHistorialBinding;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -62,7 +70,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import okhttp3.Call;
@@ -117,18 +127,48 @@ public class HuellaFragment extends Fragment{
         historial.setLayoutManager(mLayoutManager);
 
 
+        BarChart barchart = (BarChart) root.findViewById(R.id.graph);
+        ArrayList<BarEntry> entries = null;
+
+        try {
+            entries = entry();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("Valores del dataset", entries.toString());
+
+        BarDataSet barDataSet = new BarDataSet(entries, "co2");
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setValueTextColor(Color.BLACK);
+
+        BarData barData = new BarData(barDataSet);
+
+        barchart.setData(barData);
+        barchart.setFitBars(true);
+        barchart.animateY(2000);
+        barchart.getDescription().setText("CO2 consumido");
+        barchart.getLegend().setEnabled(false);
+        barchart.getXAxis().setEnabled(false);
+
+        Log.d("Checkpoint", "hehe");
+        //barchart.animateY(1000);
+
+/*
         GraphView graph;
         LineGraphSeries<DataPoint> series;       //an Object of the PointsGraphSeries for plotting scatter graphs
         graph = (GraphView) root.findViewById(R.id.graph);
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMaxX(12);
 
-/*
+
         graph.getViewport().setScrollable(true); // enables horizontal scrolling
         graph.getViewport().setScrollableY(true); // enables vertical scrolling
         graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
         graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
-*/
+
         List<String> points = new ArrayList<>();
         try {
             points = getDataGraficoGeneral();
@@ -138,7 +178,7 @@ public class HuellaFragment extends Fragment{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (points != null){
+        if (!points.isEmpty()){
             series= new LineGraphSeries(dataGrafico(points));   //initializing/defining series to get the data from the method 'data()'
 
         }else{
@@ -155,7 +195,7 @@ public class HuellaFragment extends Fragment{
             }
         });
 
-
+*/
 
 
         Button mostrarInfo = bindingH.mostrarInfo;
@@ -165,7 +205,13 @@ public class HuellaFragment extends Fragment{
             public void onClick(View v) {
 
                 PopupInformeSemanal popUpClass = new PopupInformeSemanal();
-                popUpClass.showPopupWindow(v);
+                try {
+                    popUpClass.showPopupWindow(v);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -177,11 +223,12 @@ public class HuellaFragment extends Fragment{
     public List<String> getDataGraficoGeneral() throws IOException, JSONException {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
+        Log.d("request", "global variables "+ GlobalVariables.username);
+        Log.d("request", "global variables "+ GlobalVariables.password);
         //String urlParameters  = "&username="+username+ "&password="+pass;
         //String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
         String urlParameters  = "&username=marcelurpi&password=password";
-
+        Log.d("request urlParameters", urlParameters);
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
@@ -191,7 +238,7 @@ public class HuellaFragment extends Fragment{
         Response response = client.newCall(request).execute();
 
         JSONObject respuesta2 = new JSONObject(response.body().string());
-        Log.d("request", respuesta2.toString());
+        Log.d("requestLlamada", respuesta2.toString());
 
         if(respuesta2.getString("result").equals("Success")) {
 
@@ -218,7 +265,59 @@ public class HuellaFragment extends Fragment{
             Log.d("request", "list "+ list.toString());
             return list;
         }
-        return null;
+        return Collections.emptyList();
+    }
+
+    public ArrayList<BarEntry> entry() throws IOException, JSONException {
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        Log.d("request", "global variables "+ GlobalVariables.username);
+        Log.d("request", "global variables "+ GlobalVariables.password);
+        //String urlParameters  = "&username="+username+ "&password="+pass;
+        //String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
+        String urlParameters  = "&username=marcelurpi&password=password";
+        Log.d("request urlParameters", urlParameters);
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/stats/progress?"+urlParameters)
+                .method("GET", null)
+                .build();
+        Response response = client.newCall(request).execute();
+
+        JSONObject respuesta2 = new JSONObject(response.body().string());
+        Log.d("requestLlamada", respuesta2.toString());
+
+        if(respuesta2.getString("result").equals("Success")) {
+
+            Log.d("request", "inside");
+            String npuntos = respuesta2.getString("totalPoints");
+            Log.d("request", "puntos" + npuntos);
+        }
+
+        JSONObject ja = respuesta2.getJSONObject("days");
+        Log.d("numeroDias", String.valueOf(ja.length()));
+
+        JSONArray dias = ja.names();
+
+        for (int i = 0; i < ja.length(); i++){
+            Object dia = dias.get(i);
+            if (dia != null){       //no deberia serlo porque uso su lenght
+                String co2 = ja.getJSONObject((String) dia).getString("co2");
+                Log.d("Misco2", co2);
+                entry.add(new BarEntry(i, Float.parseFloat(co2)));
+            }
+        }
+
+        /*
+        for (int i = 0; i < ja.length(); i++){
+            Log.d("valorEntry", ja.getJSONArray(i).toString());
+            //entry.add( new Entry(i, ja.getJSONObject(i).))
+        }
+
+*/
+        return entry;
     }
 
     public DataPoint[] dataGrafico(List<String> valores){
