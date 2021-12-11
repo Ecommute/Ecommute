@@ -14,14 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder> {
     Context mContext;
     String[] mStrTitulos, mStrContenido;
-    Integer[] mIntLiked, mIntIds;
+    Integer[] mIntIds, mNumLikes;
+    Boolean[] mBoolLiked;
 
-    public AdapterForum(Context context, String[] strTitulos, String[] strContenido, Integer[] intLiked, Integer[] intIds){
+    public AdapterForum(Context context, String[] strTitulos, String[] strContenido, Boolean[] boolLiked, Integer[] intIds, Integer[] numLikes){
         mContext = context;
         mStrTitulos = strTitulos;
         mStrContenido = strContenido;
-        mIntLiked = intLiked;
+        mBoolLiked = boolLiked;
         mIntIds = intIds;
+        mNumLikes = numLikes;
     }
 
     @NonNull
@@ -38,7 +40,13 @@ public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder>
         holder.textTitulo.setText(mStrTitulos[position]);
         holder.textContenido.setText(mStrContenido[position]);
         holder.id = mIntIds[position];
-        holder.liked = mIntLiked[position];
+        holder.liked = mBoolLiked[position];
+
+        Integer nlikes = mNumLikes[position];
+        String s = null;
+        if(nlikes == 1) s = nlikes + " like";
+        else s = nlikes + " likes";
+        holder.textNumLikes.setText(s);
 
         holder.setUpLike();
 
@@ -53,13 +61,17 @@ public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder>
         public String username = GlobalVariables.username;
         public String password = GlobalVariables.password;
 
-        public TextView textTitulo, textContenido;
-        public Integer id, liked;
+        public TextView textTitulo, textContenido, textNumLikes;
+        public Integer id;
+        public Boolean liked;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textTitulo = itemView.findViewById(R.id.titulo);
-            textContenido = itemView.findViewById(R.id.contenido);
+            textTitulo = itemView.findViewById(R.id.titulo1);
+            textContenido = itemView.findViewById(R.id.contenido1);
+            textNumLikes = itemView.findViewById(R.id.numLikes);
+            textTitulo.bringToFront();
+            textContenido.bringToFront();
 
             Button comments = itemView.findViewById(R.id.comments);
             comments.setOnClickListener(new View.OnClickListener() {
@@ -70,13 +82,13 @@ public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder>
                 }
             });
 
-            ImageView background = itemView.findViewById(R.id.background);
+            /*ImageView background = itemView.findViewById(R.id.background);
             background.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                    //abrir post
                 }
-            });
+            });*/
         }
 
         public void setUpLike() {

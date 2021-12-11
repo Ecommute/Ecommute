@@ -2,6 +2,7 @@ package com.example.ecommute.ui.foro;
 
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public class ForoFragment extends Fragment {
         binding = FragmentForoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
+        //final TextView textView = binding.textHome;
 
         /* whats this?
         foroViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -73,7 +74,7 @@ public class ForoFragment extends Fragment {
                 "src=https://www.google.com/maps/embed/v1/directions?key=AIzaSyApUk0xJoZuc46YAjVQEhF1ul67ObY80Sk&origin=Barcelona&destination=Madrid&mode=driving&region=es " +
                 "allowfullscreen></iframe>"));*/
 
-        textView.setText("Route Map");
+        //textView.setText("Route Map");
 
         try {
             setUpRecycler();
@@ -85,6 +86,7 @@ public class ForoFragment extends Fragment {
     }
 
     private void setUpRecycler() throws IOException, JSONException {
+
         String username = GlobalVariables.username;
         String password = GlobalVariables.password;
 
@@ -92,7 +94,6 @@ public class ForoFragment extends Fragment {
 
         OkHttpClient client = new OkHttpClient().newBuilder().build();
 
-        //CANVIAR REQUEST!
         Request request = new Request.Builder()
                 .url("http://10.4.41.35:3000/articles/list?username=" + username + "&password=" + password)
                 .method("GET", null)
@@ -102,27 +103,28 @@ public class ForoFragment extends Fragment {
 
         String jsonData = response[0].body().string();
         JSONObject Jobject = new JSONObject(jsonData);
-        JSONArray Jarray = Jobject.getJSONArray("routes");
+        JSONArray Jarray = Jobject.getJSONArray("articles");
 
         int n = Jarray.length();
 
         String[] arrayTitulos = new String[n];
         String[] arrayContenido = new String[n];
-        Integer[] arrayLiked = new Integer[n];
+        Boolean[] arrayLiked = new Boolean[n];
         Integer[] arrayNumLikes = new Integer[n];
         Integer[] arrayIds = new Integer[n];;
 
         for (int i = 0; i < n; i++) {
+            Log.d("Forum", "Loop Json objects" + i);
             JSONObject object = Jarray.getJSONObject(i);
             arrayIds[i] = Integer.valueOf(object.getString("id"));
             arrayTitulos[i] = object.getString("title");
             arrayContenido[i] = object.getString("content");
-            arrayLiked[i] = Integer.valueOf(object.getString("liked"));
+            arrayLiked[i] = Boolean.valueOf(object.getString("liked"));
             arrayNumLikes[i] = Integer.valueOf(object.getString("numLikes"));
         }
 
         forum = binding.forum;
-        AdapterForum mAdapter = new AdapterForum(this.getActivity(), arrayTitulos, arrayContenido, arrayLiked, arrayIds);
+        AdapterForum mAdapter = new AdapterForum(this.getActivity(), arrayTitulos, arrayContenido, arrayLiked, arrayIds, arrayNumLikes);
         forum.setAdapter((mAdapter));
 
         mLayoutManager = new LinearLayoutManager(this.getActivity());
