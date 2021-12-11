@@ -5,8 +5,8 @@
     <string name="title_ruta">Ruta</string>
     <string name="title_perfil">Perfil</string>
     <string name="title_puntos">Puntos</string>
-    <string name="pre_origen">De: </string>
-    <string name="pre_destino">A: </string>
+    <string name="pre_origen">De: \u0020</string>
+    <string name="pre_destino">A: \u0020</string>
     <string name="textTitle">Detalles ruta</string>
     <string name="textButton">Eliminar</string>
     <string name="textEditar">Editar</string>
