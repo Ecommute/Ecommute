@@ -188,9 +188,6 @@ public class PopupInformeSemanal {
 
     }
 
-    public void setData(){
-
-    }
     public JSONObject respostaRequest() throws JSONException, IOException {
 
 
