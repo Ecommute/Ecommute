@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:andoid="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/EventosView"
+        android:layout_width="359dp"
+        android:layout_height="624dp"
+        andoid:layout_constraintBottom_toBottomOf="parent"
+        andoid:layout_constraintEnd_toEndOf="parent"
+        andoid:layout_constraintHorizontal_bias="0.0"
+        andoid:layout_constraintStart_toStartOf="parent"
+        andoid:layout_constraintTop_toTopOf="parent"
+        andoid:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/añadirEvento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        andoid:layout_constraintBottom_toBottomOf="parent"
+        andoid:layout_constraintEnd_toEndOf="@+id/EventosView"
+        andoid:layout_constraintHorizontal_bias="0.947"
+        andoid:layout_constraintStart_toStartOf="parent"
+        andoid:layout_constraintTop_toTopOf="parent"
+        andoid:layout_constraintVertical_bias="0.972"
+        andoid:srcCompat="@android:drawable/ic_input_add"
+        tools:ignore="SpeakableTextPresentCheck" />
+</androidx.constraintlayout.widget.ConstraintLayout>

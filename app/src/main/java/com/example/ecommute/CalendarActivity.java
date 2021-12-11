@@ -1,6 +1,7 @@
 package com.example.ecommute;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,28 +14,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CalendarActivity extends Activity {
+import com.example.ecommute.ui.perfil.PerfilFragment;
+
+public class CalendarActivity extends AppCompatActivity {
 
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
-        Log.d("eventos", "calendar view"+ calendarView.getDate());
+        Log.d("eventos", "calendar view"+ calendarView.getFirstDayOfWeek());
 
-        calendarView.setOnClickListener(new View.OnClickListener() {
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onClick(View v) {
-                Log.d("eventos", "normal click");
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                Log.d("eventos", "on day change!");
+                Intent intent = new Intent(CalendarActivity.this, PopUpEventos.class);
+                startActivity(intent);
             }
         });
 
-        calendarView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Log.d("eventos", "long click");
-                return true;
-            }
-        });
 
     }
 }

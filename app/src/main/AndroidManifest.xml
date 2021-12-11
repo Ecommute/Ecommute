@@ -36,6 +36,7 @@
             android:theme ="@style/PopUpCoche" >
         </activity>
         <activity android:name=".CalendarActivity"></activity>
+        <activity android:name=".PopUpEventos"></activity>
     </application>
 
 </manifest>
