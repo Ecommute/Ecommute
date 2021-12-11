@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 
 import androidx.annotation.NonNull;
@@ -15,16 +16,25 @@ import androidx.appcompat.app.AppCompatActivity;
 public class CalendarActivity extends Activity {
 
     protected void onCreate(@Nullable Bundle savedInstanceState){
-        Log.d("botonPulsado", "oncreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
+        Log.d("eventos", "calendar view"+ calendarView.getDate());
 
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        calendarView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-
+            public void onClick(View v) {
+                Log.d("eventos", "normal click");
             }
         });
+
+        calendarView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.d("eventos", "long click");
+                return true;
+            }
+        });
+
     }
 }

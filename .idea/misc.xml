@@ -5,7 +5,7 @@
       <map>
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.14166666666666666" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.14166666666666666" />
-        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_calendar.xml" value="0.33" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_calendar.xml" value="0.1" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_edit.xml" value="0.25" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_edituser.xml" value="0.25" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_login.xml" value="0.33" />
@@ -14,8 +14,10 @@
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/fragment_huella.xml" value="0.75" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/fragment_perfil.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/fragment_puntos.xml" value="0.1" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/item_evento.xml" value="0.5919282511210763" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/item_forum.xml" value="0.12552083333333333" />
-        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/item_historial.xml" value="0.1" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/item_historial.xml" value="0.25" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/pop_up_coche.xml" value="0.121875" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/popup_informe_semanal.xml" value="0.2" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/signup_login.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/menu/bottom_nav_menu.xml" value="0.12552083333333333" />
