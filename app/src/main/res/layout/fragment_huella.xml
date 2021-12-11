@@ -8,28 +8,27 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/historial"
-        android:layout_width="match_parent"
-        android:layout_height="177dp"
+        android:layout_width="405dp"
+        android:layout_height="192dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.853" />
+        app:layout_constraintVertical_bias="0.934" />
 
     <TextView
         android:id="@+id/ddestino"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
         android:text="Historial"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/mostrar_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.532" />
+        app:layout_constraintVertical_bias="0.977" />
 
     <TextView
         android:id="@+id/dorigen"
@@ -57,6 +56,10 @@
 
 
 
+
+
+
+
     ]]>
 
     <com.github.mikephil.charting.charts.BarChart
@@ -66,7 +69,8 @@
         app:layout_constraintBottom_toTopOf="@+id/ddestino"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dorigen" />
+        app:layout_constraintTop_toBottomOf="@+id/dorigen"
+        app:layout_constraintVertical_bias="0.317" />
 
     <Button
         android:id="@+id/mostrar_info"
@@ -78,7 +82,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.605" />
+        app:layout_constraintVertical_bias="0.649" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="204dp"
+        android:layout_height="34dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/ddestino"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/graph"
+        app:layout_constraintVertical_bias="0.388" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -129,9 +129,17 @@ public class HuellaFragment extends Fragment{
 
         BarChart barchart = (BarChart) root.findViewById(R.id.graph);
         ArrayList<BarEntry> entries = null;
+        JSONObject respuesta = null;
+        try {
+            respuesta = llamadaAPI();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         try {
-            entries = entry();
+            entries = entry(respuesta);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -156,7 +164,12 @@ public class HuellaFragment extends Fragment{
         barchart.getAxisRight().setAxisMinimum(0.0f);
         barchart.getAxisRight().setDrawLabels(false);
 
-        Log.d("Checkpoint", "hehe");
+        TextView tw = bindingH.textView2;
+        try {
+            tw.setText("Total CO2 ahorrado = " + nCo2Totales(respuesta));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         Button mostrarInfo = bindingH.mostrarInfo;
         mostrarInfo.setOnClickListener(new View.OnClickListener() {
@@ -187,8 +200,18 @@ public class HuellaFragment extends Fragment{
         return root;
     }
 
-    public ArrayList<BarEntry> entry() throws IOException, JSONException {
-        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+    public String nCo2Totales(JSONObject respuesta2) throws JSONException {
+        if(respuesta2.getString("result").equals("Success")) {
+
+            Log.d("request", "inside");
+            String npuntos = respuesta2.getString("totalSavedCo2");
+            Log.d("request", "puntos" + npuntos);
+            return npuntos;
+        }
+        return null;
+    }
+
+    public JSONObject llamadaAPI() throws IOException, JSONException {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Log.d("variablesglobales", "global variables "+ GlobalVariables.username);
@@ -208,15 +231,15 @@ public class HuellaFragment extends Fragment{
         JSONObject respuesta2 = new JSONObject(response.body().string());
         Log.d("requestLlamada", respuesta2.toString());
 
-        if(respuesta2.getString("result").equals("Success")) {
+        return respuesta2;
 
-            Log.d("request", "inside");
-            String npuntos = respuesta2.getString("totalPoints");
-            Log.d("request", "puntos" + npuntos);
-        }
+    }
 
+    public ArrayList<BarEntry> entry(JSONObject respuesta2) throws IOException, JSONException {
+
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
         JSONObject ja = respuesta2.getJSONObject("days");
-        Log.d("numeroDias", String.valueOf(ja.length()));
+        //Log.d("numeroDias", String.valueOf(ja.length()));
 
         JSONArray dias = ja.names();
 
