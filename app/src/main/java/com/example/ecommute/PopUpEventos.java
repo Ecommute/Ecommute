@@ -1,29 +1,16 @@
 package com.example.ecommute;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.TextView;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.ecommute.databinding.FragmentRutaBinding;
-import com.example.ecommute.ui.ruta.RutaViewModel;
 
 public class PopUpEventos extends AppCompatActivity {
 
@@ -33,12 +20,23 @@ public class PopUpEventos extends AppCompatActivity {
     RecyclerView Eventos;
     RecyclerView.LayoutManager mLayoutManager;
 
+    ImageButton añadir;
 
     public void onCreate(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popup_eventos);
+
+        añadir = findViewById(R.id.añadirEvento);
+
+        añadir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PopUpEventos.this, PopUpAnadirEvento.class);
+                startActivity(intent);
+            }
+        });
 
         Log.d("eventos", "on create de popupeventos");
         try {
