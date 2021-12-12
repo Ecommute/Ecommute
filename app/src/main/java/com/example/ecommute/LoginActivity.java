@@ -3,7 +3,6 @@ package com.example.ecommute;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.ecommute.databinding.ActivityLoginBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.Scope;
@@ -35,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     SignInButton signInButton;
-    private GoogleSignInClient mSignInClient;
     private static final int SIGN_IN = 1;
 
     @Override
@@ -51,13 +48,13 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail().requestScopes(new Scope("https://www.googleapis.com/auth/calendar"), new Scope("https://www.googleapis.com/auth/calendar.events"))
                 .build();
 
-        mSignInClient = GoogleSignIn.getClient(this, gso);
+        GlobalVariables.setClient(GoogleSignIn.getClient(this, gso));
 
          signInButton = findViewById(R.id.registroGoogle);
          signInButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 Intent intent = mSignInClient.getSignInIntent();
+                 Intent intent = GlobalVariables.getClient().getSignInIntent();
                  startActivityForResult(intent, SIGN_IN);
              }
          });
@@ -121,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult (int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == SIGN_IN){
@@ -130,13 +127,38 @@ public class LoginActivity extends AppCompatActivity {
 
             if(task.isSuccessful()) {
                 GoogleSignInAccount account = task.getResult();
-                Log.e("idToken", account.getIdToken());
-                Log.e("AuthCode", account.getServerAuthCode());
-                Log.e("GrantedScopes", account.getGrantedScopes().toString());
                 //API
-                //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                //startActivity(intent);
-                mSignInClient.signOut();
+                JSONObject comprobacion = new JSONObject();
+
+                OkHttpClient client = new OkHttpClient().newBuilder()
+                        .build();
+                Request request = new Request.Builder()
+                        .url("http://10.4.41.35:3000/users/googleToken?code=" + account.getIdToken())
+                        .method("GET", null)
+                        .build();
+                Response response = null;
+                try {
+                    response = client.newCall(request).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    comprobacion = new JSONObject(response.body().string());
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if(comprobacion.getString("result").equals("Success")) {
+                        GlobalVariables.username = account.getGivenName();
+                        GlobalVariables.password = account.getIdToken().substring(0,8);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(this, "Algo no ha salido como se esperaba!", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             } else{
                 Toast.makeText(this, "Algo no ha salido como se esperaba!", Toast.LENGTH_SHORT).show();
             }
