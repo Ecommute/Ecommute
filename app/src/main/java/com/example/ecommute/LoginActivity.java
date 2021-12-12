@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.server_client_id))
+                .requestIdToken(getString(R.string.server_client_id)).requestServerAuthCode(getString(R.string.server_client_id))
                 .requestEmail().requestScopes(new Scope("https://www.googleapis.com/auth/calendar"), new Scope("https://www.googleapis.com/auth/calendar.events"))
                 .build();
 
@@ -130,9 +130,9 @@ public class LoginActivity extends AppCompatActivity {
 
             if(task.isSuccessful()) {
                 GoogleSignInAccount account = task.getResult();
-                Toast.makeText(this, account.getEmail(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, account.getServerAuthCode(), Toast.LENGTH_LONG).show();
-                Log.e("Scopes", account.getRequestedScopes().toString());
+                Log.e("idToken", account.getIdToken());
+                Log.e("AuthCode", account.getServerAuthCode());
+                Log.e("GrantedScopes", account.getGrantedScopes().toString());
                 //API
                 //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 //startActivity(intent);
