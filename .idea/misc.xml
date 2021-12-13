@@ -3,23 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/fragment_foro.xml" value="0.33" />
-        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/fragment_huella.xml" value="0.2115036231884058" />
-        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/item_forum.xml" value="0.33" />
-        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/item_historial.xml" value="0.75" />
-        <entry key="..\:/Users/Clara/AndroidStudioProjects/Ecommute/app/src/main/res/layout/item_rutasfavs.xml" value="0.22392638036809817" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_signup.xml" value="0.25" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/signup_login.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_error_24.xml" value="0.2390625" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2390625" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.2390625" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.2390625" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_star_border_24.xml" value="0.2390625" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/activity_edit.xml" value="0.1984375" />
-        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/activity_rutas.xml" value="0.2713541666666667" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/activity_login.xml" value="0.27760416666666665" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/activity_rutas.xml" value="0.33" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/activity_signup.xml" value="0.2713541666666667" />
-        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/detalles_ruta.xml" value="0.2677083333333333" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/fragment_foro.xml" value="0.215625" />
-        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/fragment_huella.xml" value="0.2677083333333333" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/fragment_huella.xml" value="0.33" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/fragment_perfil.xml" value="0.25" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/fragment_puntos.xml" value="0.25" />
-        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/fragment_ruta.xml" value="0.17708333333333334" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/fragment_ruta.xml" value="0.5" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/item_forum.xml" value="0.22291666666666668" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/item_historial.xml" value="0.2713541666666667" />
         <entry key="..\:/Users/joanm/AndroidStudioProjects/Ecommute/app/src/main/res/layout/activity_edit.xml" value="0.152" />
         <entry key="..\:/Users/joanm/AndroidStudioProjects/Ecommute/app/src/main/res/layout/activity_main.xml" value="0.15760869565217392" />
