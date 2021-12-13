@@ -70,7 +70,7 @@ public class PerfilFragment extends Fragment {
 
         GlobalVariables.setClient(GoogleSignIn.getClient(getActivity(), gso));
 
-        signInButton = signInButton.findViewById(R.id.linkGoogle);
+        signInButton = binding.linkGoogle;
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

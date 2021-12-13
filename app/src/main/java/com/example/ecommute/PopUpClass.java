@@ -149,7 +149,7 @@ public class PopUpClass {
         origen = Jarray.getString("origin");
         destino = Jarray.getString("destination");
         ahorro = Jarray.getString("savedco2");
-        comparacion = Jarray.getString("origin");
+        comparacion = Jarray.getString("comparation");
     }
 
     private void eliminarRuta(int id) throws IOException, JSONException {
