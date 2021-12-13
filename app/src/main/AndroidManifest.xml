@@ -37,6 +37,7 @@
         <activity android:name=".PopUpCoche"
             android:theme ="@style/PopUpCoche" >
         </activity>
+        <activity android:name=".PopUpInfopuntos" android:theme ="@style/PopUpCoche"></activity>
     </application>
 
 </manifest>
