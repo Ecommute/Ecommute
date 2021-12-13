@@ -12,6 +12,7 @@ sonarqube {
 }
 
 android {
+
     compileSdk 31
 
     defaultConfig {
@@ -36,6 +37,9 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
