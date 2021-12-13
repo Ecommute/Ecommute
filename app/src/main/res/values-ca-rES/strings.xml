@@ -32,4 +32,5 @@
     <string name="ConsumoFuel">Consum de Combustible</string>
     <string name="TipoCombustible">Tipus de Combustible</string>
     <string name="CambiarDatos">Editar Dades</string>
+    <string name="textVRutasFav">Rutes Preferides</string>
 </resources>

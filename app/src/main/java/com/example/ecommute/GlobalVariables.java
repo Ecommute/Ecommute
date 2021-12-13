@@ -1,7 +1,7 @@
 package com.example.ecommute;
 
 public class GlobalVariables {
-    public static String username, password, origen, destino;
+    public static String username, password, origen, destino, nombre, profilepic;
 
     public void setPassword(String password) {
         this.password = password;
@@ -19,6 +19,10 @@ public class GlobalVariables {
         this.destino = destino;
     }
 
+    public void setnombre(String nombre) { this.nombre = nombre; }
+
+    public void setprofilepic(String profilepic) { this.profilepic = profilepic; }
+
 
     public String getPassword() {
         return password;
@@ -34,5 +38,13 @@ public class GlobalVariables {
 
     public String getDestino() {
         return destino;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getProfilepic() {
+        return profilepic;
     }
 }

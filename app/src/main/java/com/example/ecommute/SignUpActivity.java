@@ -72,6 +72,7 @@ public class SignUpActivity extends AppCompatActivity{
 
         GlobalVariables.password = pass;
         GlobalVariables.username = username;
+        GlobalVariables.nombre = nombre;
 
         //binding.regApellidos.setText(response[0].body().string());
 

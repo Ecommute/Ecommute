@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.ecommute.EditProfilePicActivity;
 import com.example.ecommute.EditUserActivity;
 import com.example.ecommute.GlobalVariables;
 import com.example.ecommute.LoginActivity;
@@ -46,12 +48,36 @@ public class PerfilFragment extends Fragment {
 
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.textPerfil;
-        perfilViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        
+        /*perfilViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
+            }
+        });*/
+
+        TextView nombre = binding.textPerfil;
+        nombre.setText((GlobalVariables.nombre));
+
+        TextView nombre_user = binding.username;
+        nombre_user.setText((GlobalVariables.username));
+        String image = GlobalVariables.profilepic;
+        switch (image) {
+            case("@drawable/Asset_2.png"):
+                binding.imageView.setImageResource(R.drawable.asset_2);
+                break;
+            case("@drawable/Asset_3.png"):
+                binding.imageView.setImageResource(R.drawable.asset_3);
+                break;
+        }
+
+        Button change_profile_pic = binding.profilepic;
+
+        change_profile_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), EditProfilePicActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -106,6 +132,7 @@ public class PerfilFragment extends Fragment {
     private void logout(){
         GlobalVariables.password = "";
         GlobalVariables.username = "";
+        GlobalVariables.nombre = "";
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
     }
@@ -130,6 +157,7 @@ public class PerfilFragment extends Fragment {
         }
         GlobalVariables.password = "";
         GlobalVariables.username = "";
+        GlobalVariables.nombre = "";
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
     }
