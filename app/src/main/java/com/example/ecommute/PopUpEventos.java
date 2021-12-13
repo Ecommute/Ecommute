@@ -22,25 +22,37 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ecommute.databinding.FragmentRutaBinding;
 import com.example.ecommute.ui.ruta.RutaViewModel;
 
-public class PopUpEventos extends AppCompatActivity {
+public class PopUpEventos extends Activity {
 
     String[] titulos;
     String[] localizaciones;
     String[] horas;
     RecyclerView Eventos;
     RecyclerView.LayoutManager mLayoutManager;
+    int year;
+    int month;
+    int dayOfMonth;
+
+    public PopUpEventos(int year, int month, int dayOfMonth){
+        this.year = year;
+        this.month = month;
+        this.dayOfMonth = dayOfMonth;
+    }
+
+    public PopUpEventos(){
+
+    }
 
 
-    public void onCreate(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public void onCreate(@NonNull Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popup_eventos);
 
-        Log.d("eventos", "on create de popupeventos");
+        Log.d("eventosPopup", "on create de popupeventos");
+        Log.d("eventosPopup", String.valueOf(year));
         try {
             setUpItems();
         } catch (Exception e) {

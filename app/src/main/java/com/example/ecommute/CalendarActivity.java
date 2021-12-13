@@ -29,6 +29,8 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 Log.d("eventos", "on day change!");
+                //PopUpEventos popUp = new PopUpEventos(year, month, dayOfMonth);
+                //popUp.onCreate(savedInstanceState);
                 Intent intent = new Intent(CalendarActivity.this, PopUpEventos.class);
                 startActivity(intent);
             }
