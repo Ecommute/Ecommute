@@ -137,6 +137,7 @@ public class RutasActivity extends AppCompatActivity {
         JSONObject bicicleta = new JSONObject(opciones.getString("bicycling"));
         JSONObject publico = new JSONObject(opciones.getString("transit"));
 
+        System.out.println("      Walking            +" + caminar.getInt("points") + " puntos");
         walking.setText("      Walking            +" + caminar.getInt("points") + " puntos");
         driving.setText("      driving              +" + conducir.getInt("points") + " puntos");
         bicycling.setText("      bicycling          +" + bicicleta.getInt("points") + " puntos");

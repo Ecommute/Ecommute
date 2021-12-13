@@ -1,8 +1,19 @@
 package com.example.ecommute.ui.ruta;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
+import android.location.LocationRequest;
 import android.os.AsyncTask;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -10,10 +21,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.AppCompatImageHelper;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -28,6 +44,11 @@ import com.example.ecommute.RutasActivity;
 
 import com.example.ecommute.R;
 import com.example.ecommute.databinding.FragmentRutaBinding;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 
 import org.json.JSONArray;
@@ -47,14 +68,16 @@ public class RutaFragment extends Fragment {
 
     private RutaViewModel rutaViewModel;
     private static FragmentRutaBinding binding;
+    private LocationRequest locationRequest;
+
 
     String[] arrayOrigenes;
     String[] arrayDestinos;
     Integer[] arrayIds;
     RecyclerView rutasFav;
     RecyclerView.LayoutManager mLayoutManager;
-
-
+    EditText origen;
+    FusedLocationProviderClient client;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,15 +95,40 @@ public class RutaFragment extends Fragment {
             }
         });
 
+        client = LocationServices.getFusedLocationProviderClient(getActivity());
+        ImageButton useLocation = binding.useLocation;
+        useLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Check permissions
+                if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                        ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                    //When permission is granted
+                    Task<Location> ubicacion = client.getCurrentLocation(100, null).addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            origen.setText(location.getLatitude() + ", " + location.getLongitude());
+                        }
+                    });
+                    //Location ubi = ubicacion.getResult();
+
+                    //getCurrentLocation();
+                }else{
+                    System.out.println("No funciona");
+                }
+            }
+        });
+
         TextView confirmacion = binding.confirmador;
         Button buscar = binding.buscarRuta;
-
+        origen = binding.editOrigen;
         buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 crearRuta2();
             }
         });
+
 
         /*buscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,12 +153,40 @@ public class RutaFragment extends Fragment {
         AdapterRutasFav mAdapter = new AdapterRutasFav(this.getActivity(), arrayOrigenes, arrayDestinos, arrayIds);
         rutasFav.setAdapter(mAdapter);
 
-        mLayoutManager=new LinearLayoutManager(this.getActivity());
+        mLayoutManager = new LinearLayoutManager(this.getActivity());
         rutasFav.setLayoutManager(mLayoutManager);
         //END CODI
 
         return root;
     }
+
+    /*@SuppressLint("MissingPermission")
+    private void getCurrentLocation(){
+        //Initialize location manager
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        //Check Condition
+        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+            //When location service is enabled, get last location
+            client.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @RequiresApi(api = Build.VERSION_CODES.S)
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    //Initialize location
+                    Location location = task.getResult();
+                    //Check condition
+                    if(location != null){
+                        //When Location exists
+                        //Set latitude and longitude
+                        EditText origen = binding.editOrigen;
+                        origen.setText(String.valueOf(location.getLatitude()) + ", " + String.valueOf(location.getLongitude()));
+                    }else{
+                        //When location not ok
+                        locationRequest.
+                    }
+                }
+            })
+        }
+    }*/
 
     private void setUpRutasFav() throws Exception {
         String username = GlobalVariables.username;
@@ -132,7 +208,7 @@ public class RutaFragment extends Fragment {
         JSONArray Jarray = Jobject.getJSONArray("routes");
 
         int n;
-        if(Jarray != null) n = Jarray.length();
+        if (Jarray != null) n = Jarray.length();
         else n = 0;
         arrayOrigenes = new String[n];
         arrayDestinos = new String[n];
@@ -157,7 +233,7 @@ public class RutaFragment extends Fragment {
         final Response[] response2 = new Response[1];
         OkHttpClient client = new OkHttpClient().newBuilder().build();
 
-        Request request = new Request.Builder().url("http://10.4.41.35:3000/routes/stats?origin="+origen.getText().toString()+"&destination="+destino.getText().toString()+"&mode=driving&username="+username+"&password="+password)
+        Request request = new Request.Builder().url("http://10.4.41.35:3000/routes/stats?origin=" + origen.getText().toString() + "&destination=" + destino.getText().toString() + "&mode=driving&username=" + username + "&password=" + password)
                 .method("GET", null).build();
         response[0] = client.newCall(request).execute();
         JSONObject respuesta = new JSONObject(response[0].body().string());
@@ -170,7 +246,7 @@ public class RutaFragment extends Fragment {
         MediaType mediaType = MediaType.parse("text/plain");
         RequestBody body = RequestBody.create("", mediaType);
         Request request2 = new Request.Builder()
-                .url("http://10.4.41.35:3000/routes/add?origin="+origen.getText().toString()+"&destination="+destino.getText().toString()+"&time="+duracion+"&mode=walking&username="+username+"&password="+password)
+                .url("http://10.4.41.35:3000/routes/add?origin=" + origen.getText().toString() + "&destination=" + destino.getText().toString() + "&time=" + duracion + "&mode=walking&username=" + username + "&password=" + password)
                 .method("POST", body)
                 .build();
         response2[0] = client2.newCall(request2).execute();
@@ -178,7 +254,7 @@ public class RutaFragment extends Fragment {
         confirmacion.setText("Resultado: " + respuesta2.getString("result"));
     }
 
-    private void crearRuta2(){
+    private void crearRuta2() {
         EditText origen = binding.editOrigen;
         EditText destino = binding.editDestino;
         GlobalVariables.origen = origen.getText().toString();
@@ -202,4 +278,5 @@ public class RutaFragment extends Fragment {
         tvOrigen.setText(origen);
         tvDestino.setText(destino);
     }
+
 }

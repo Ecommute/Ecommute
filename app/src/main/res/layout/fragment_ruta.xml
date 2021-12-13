@@ -96,4 +96,19 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/recyclerRFavs"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/useLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_baseline_my_location_24"
+        app:layout_constraintBottom_toTopOf="@+id/editDestino"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/editOrigen"
+        app:layout_constraintTop_toBottomOf="@+id/text_notifications"
+        app:layout_constraintVertical_bias="0.045" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
