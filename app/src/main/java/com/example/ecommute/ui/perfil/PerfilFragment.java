@@ -147,6 +147,7 @@ public class PerfilFragment extends Fragment {
         }
         GlobalVariables.password = "";
         GlobalVariables.username = "";
+        GlobalVariables.getClient().signOut();
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
     }
