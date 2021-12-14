@@ -1,7 +1,9 @@
 package com.example.ecommute;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.LightingColorFilter;
 import android.graphics.PorterDuff;
 import android.util.Log;
@@ -47,7 +49,6 @@ public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder>
     public AdapterForum.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View v = inflater.inflate(R.layout.item_forum, parent, false);
-
         return new ViewHolder(v);
     }
 
@@ -99,13 +100,16 @@ public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder>
                 }
             });
 
-            /*ImageView background = itemView.findViewById(R.id.background);
+            ImageView background = itemView.findViewById(R.id.background);
             background.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   //abrir post
+                    Intent intent = new Intent((Activity) mContext, PopUpArticulo.class);
+                    intent.putExtra("id", id);
+                    intent.putExtra("liked", liked);
+                    mContext.startActivity(intent);
                 }
-            });*/
+            });
         }
 
         public void setUpLike() {

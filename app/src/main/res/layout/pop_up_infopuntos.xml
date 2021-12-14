@@ -11,6 +11,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:text="Muestra la cantidad de puntos actuales dentro del nivel respecto a la cantidad de puntos necesaria para subir al siguiente."
+        android:justificationMode="inter_word"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -21,6 +22,7 @@
         android:layout_height="109dp"
         android:layout_marginTop="20dp"
         android:text="El icono que se observa en el centro de la pantalla irá mejorando a medida que aumente tu nivel, ¡realiza más rutas para ver cómo crece la planta!"
+        android:justificationMode="inter_word"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -73,6 +75,7 @@
         android:layout_height="21dp"
         android:layout_marginTop="20dp"
         android:text="Muestra el nivel actual, entre 1 y 15"
+        android:justificationMode="inter_word"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />

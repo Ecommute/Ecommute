@@ -10,6 +10,7 @@
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_error_24.xml" value="0.2390625" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2390625" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.2390625" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_forum_24.xml" value="0.2838541666666667" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.2390625" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_star_border_24.xml" value="0.2390625" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/activity_edit.xml" value="0.1984375" />
@@ -23,6 +24,7 @@
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/fragment_ruta.xml" value="0.5" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/item_forum.xml" value="0.22291666666666668" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/item_historial.xml" value="0.2713541666666667" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/pop_up_articulo.xml" value="0.5" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/pop_up_coche.xml" value="0.25625" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/pop_up_infopuntos.xml" value="0.18" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/popup_informe_semanal.xml" value="0.25625" />

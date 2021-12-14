@@ -29,15 +29,17 @@
 
     <ImageButton
         android:id="@+id/liked2"
-        android:layout_width="48dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="47dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="28dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="188dp"
+        android:layout_marginBottom="16dp"
+        android:background="@null"
         android:src="@drawable/ic_baseline_favorite_border_24"
         android:translationZ="90dp"
-        android:background="@null"
         app:layout_constraintBottom_toBottomOf="@+id/background"
-        app:layout_constraintStart_toEndOf="@+id/comments" />
+        app:layout_constraintStart_toEndOf="@+id/comments"
+        app:layout_constraintTop_toBottomOf="@+id/contenido1"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/titulo1"
@@ -68,8 +70,8 @@
         android:id="@+id/numLikes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="27dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="28dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/background"
         app:layout_constraintStart_toEndOf="@+id/liked2" />
