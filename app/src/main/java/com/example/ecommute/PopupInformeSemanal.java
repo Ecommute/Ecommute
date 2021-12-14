@@ -7,47 +7,43 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.BarGraphSeries;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.DataPointInterface;
-import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.OnDataPointTapListener;
-import com.jjoe64.graphview.series.Series;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Date;
 
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class PopupInformeSemanal {
 
     int datos = 0; //0 =puntos; 1=co2; 2=distancia
-    JSONObject respostaRequest ;
+    JSONObject respostaRequestProgress;
+    JSONObject resportaRequestWeek;
+    String month;
 
     public PopupInformeSemanal() throws IOException, JSONException {
-        respostaRequest = respostaRequest();
+        respostaRequestProgress = respostaRequestProgress();
+        resportaRequestWeek = respostaRequestWeek();
+        DateFormat dateFormat = new SimpleDateFormat("MM");
+        Date date = new Date();
+        month = date.toString();
+        Log.d("Gráficospopup",dateFormat.format(date));
     }
     public void showPopupWindow(final View view) throws IOException, JSONException {
 
@@ -76,7 +72,7 @@ public class PopupInformeSemanal {
         BarDataSet barDataSet = null;
 
         try {
-            entries = entryPoints(respostaRequest);
+            entries = entryPoints(respostaRequestProgress);
             barDataSet = new BarDataSet(entries, "puntos");
         } catch (IOException e) {
             e.printStackTrace();
@@ -112,7 +108,7 @@ public class PopupInformeSemanal {
                     ArrayList<BarEntry> entries = null;
                     BarDataSet barDataSet = null;
                     try {
-                        entries = entryCo2(respostaRequest);
+                        entries = entryCo2(respostaRequestProgress);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (JSONException e) {
@@ -133,7 +129,7 @@ public class PopupInformeSemanal {
                     ArrayList<BarEntry> entries = null;
                     BarDataSet barDataSet = null;
                     try {
-                        entries = entryDistance(respostaRequest);
+                        entries = entryDistance(respostaRequestProgress);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (JSONException e) {
@@ -153,7 +149,7 @@ public class PopupInformeSemanal {
                     ArrayList<BarEntry> entries = null;
                     BarDataSet barDataSet = null;
                     try {
-                        entries = entryPoints(respostaRequest);
+                        entries = entryPoints(respostaRequestProgress);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (JSONException e) {
@@ -188,15 +184,12 @@ public class PopupInformeSemanal {
 
     }
 
-    public JSONObject respostaRequest() throws JSONException, IOException {
-
+    public JSONObject respostaRequestProgress() throws JSONException, IOException {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        Log.d("variablesglobales", "global variables "+ GlobalVariables.username);
-        Log.d("variablesglobales", "global variables "+ GlobalVariables.password);
         String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
-        Log.d("request urlParameters", urlParameters);
+
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
@@ -206,18 +199,28 @@ public class PopupInformeSemanal {
         Response response = client.newCall(request).execute();
 
         JSONObject respuesta2 = new JSONObject(response.body().string());
-        Log.d("requestLlamada", respuesta2.toString());
 
-        if(respuesta2.getString("result").equals("Success")) {
-
-            Log.d("request", "inside");
-            String npuntos = respuesta2.getString("totalPoints");
-            Log.d("request", "puntos" + npuntos);
-
-        }
         return respuesta2;
     }
 
+    public JSONObject respostaRequestWeek() throws JSONException, IOException {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
+
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/stats/week?"+urlParameters)
+                .method("GET", null)
+                .build();
+        Response response = client.newCall(request).execute();
+
+        JSONObject respuesta2 = new JSONObject(response.body().string());
+
+        return respuesta2;
+    }
 
     public ArrayList<BarEntry> entryCo2(JSONObject respuesta2) throws IOException, JSONException {
 
