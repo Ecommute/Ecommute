@@ -2,15 +2,20 @@ package com.example.ecommute;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.LightingColorFilter;
+import android.graphics.PorterDuff;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
@@ -26,6 +31,7 @@ public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder>
     String[] mStrTitulos, mStrContenido;
     Integer[] mIntIds, mNumLikes;
     Boolean[] mBoolLiked;
+    TextView textLikes;
 
     public AdapterForum(Context context, String[] strTitulos, String[] strContenido, Boolean[] boolLiked, Integer[] intIds, Integer[] numLikes){
         mContext = context;
@@ -57,6 +63,7 @@ public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder>
         if(nlikes == 1) s = nlikes + " like";
         else s = nlikes + " likes";
         holder.textNumLikes.setText(s);
+        textLikes = holder.textNumLikes;
 
         holder.setUpLike();
 
@@ -102,17 +109,24 @@ public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder>
         }
 
         public void setUpLike() {
-            Button likedButton = itemView.findViewById(R.id.liked2);
-            if(liked == true) likedButton.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
-            else likedButton.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
+            ImageButton likedButton = itemView.findViewById(R.id.liked2);
+            if(liked == true){
+                likedButton.setImageResource(R.drawable.ic_baseline_favorite_24);
+            }
+            else likedButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
 
             likedButton.setOnClickListener(new View.OnClickListener() {
-                @SuppressLint("ResourceAsColor")
                 @Override
                 public void onClick(View v) {
+                    String s = textLikes.getText().toString();
+                    String[] cosas = s.split(" ");
+                    int mg = Integer.valueOf(cosas[0]);
+
                     if(liked == true){
                         liked = false;
-                        likedButton.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
+                        mg--;
+
+                        likedButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
                         //add ruta to favorites
                         final Response[] response = new Response[1];
 
@@ -133,7 +147,8 @@ public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder>
                     }
                     else{
                         liked = true;
-                        likedButton.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
+                        mg++;
+                        likedButton.setImageResource(R.drawable.ic_baseline_favorite_24);
                         //remove from favorites
                         final Response[] response2 = new Response[1];
 
@@ -151,6 +166,9 @@ public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder>
                             e.printStackTrace();
                         }
                     }
+                    if(mg == 1) s = mg + " like";
+                    else s = mg + " likes";
+                    textLikes.setText(s);
                 }
             });
         }
