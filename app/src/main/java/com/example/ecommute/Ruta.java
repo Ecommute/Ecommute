@@ -3,7 +3,7 @@ package com.example.ecommute;
 public class Ruta {
     private String origen;
     private String destino;
-    private int consumo;
+    private int ahorro;
     private int dist = 990; //Se quita y se cambia por llamada a API
     private String comparacion;
     public Ruta(){
@@ -15,8 +15,8 @@ public class Ruta {
         this.destino = destino;
 
         //Posibilidad de guardar la hora / distancia (el segundo necesita API o algo por el estilo)
-        this.consumo = dist * 143; //(143 g/km coche de gasolina medio)
-        this.comparacion = comparar(consumo);
+        this.ahorro = dist * 143; //(143 g/km coche de gasolina medio)
+        this.comparacion = comparar(ahorro);
     }
 
     public String getOrigen(){
@@ -27,8 +27,8 @@ public class Ruta {
         return this.destino;
     }
 
-    public int getConsumo(){
-        return this.consumo;
+    public int getAhorro(){
+        return this.ahorro;
     }
 
     public String getComparacion(){
