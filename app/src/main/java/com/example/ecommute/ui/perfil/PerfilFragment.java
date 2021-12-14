@@ -196,8 +196,6 @@ public class PerfilFragment extends Fragment {
                 try {
                     if(comprobacion.getString("result").equals("Success")) {
                         Toast.makeText(getActivity(), "Cuenta linkeada con exito!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getActivity(), PerfilFragment.class);
-                        startActivity(intent);
                     }else{
                         Toast.makeText(getActivity(), "Algo no ha salido como se esperaba!", Toast.LENGTH_SHORT).show();
                     }
