@@ -37,10 +37,10 @@ public class PopupInformeSemanal {
     JSONObject resportaRequestWeek;
     String month;
     BarChart barchart;
-    ArrayList<BarEntry> entries;
+    ArrayList<BarEntry> entries = null;
     BarDataSet barDataSet = null;
-    BarData barData;
-    int tiempo = 0; // 0 = semana; 1 = mes
+    BarData barData = null;
+    int tiempo = 2; // 0 = semana; 1 = mes; 2 = alltime
 
     public PopupInformeSemanal() throws IOException, JSONException {
         respostaRequestProgress = respostaRequestProgress();
@@ -77,15 +77,13 @@ public class PopupInformeSemanal {
 
         barchart.setFitBars(true);
         barchart.animateY(2000);
-        barchart.getDescription().setText("Puntos conseguidos");
         barchart.getLegend().setEnabled(false);
         barchart.getXAxis().setEnabled(false);
         barchart.getAxisLeft().setAxisMinimum(0.0f);
         barchart.getAxisRight().setAxisMinimum(0.0f);
         barchart.getAxisRight().setDrawLabels(false);
 
-
-
+        setGrafico();
 
 
         Button cambiar = popupView.findViewById(R.id.cambiardatos);
@@ -94,10 +92,13 @@ public class PopupInformeSemanal {
             public void onClick(View v) {
                 if (datos == 0){ //puntos
                     datos++;
+                    cambiar.setText("distancia");
                 }else if (datos ==1){ //co2
                     datos++;
+                    cambiar.setText("puntos");
                 }else if (datos == 2){ //distancia
                     datos = 0;
+                    cambiar.setText("co2 ahorrado");
                 }
             }
         });
@@ -123,17 +124,22 @@ public class PopupInformeSemanal {
     public void setGrafico() throws IOException, JSONException {
         //0 =puntos; 1=co2; 2=distancia
         if(datos == 0){
-            entries = entryPoints(respostaRequestProgress);
-            barDataSet = new BarDataSet(entries, "puntos");
-            barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-            barDataSet.setValueTextColor(Color.BLACK);
-            barData = new BarData(barDataSet);
-            barchart.setData(barData);
+            if(tiempo == 0) entries = alltimePoints();
+            else if (tiempo == 1) entries = alltimePoints();
+            else entries = alltimePoints();
+            barchart.getDescription().setText("Puntos conseguidos");
         }else if (datos == 1){
-
+            barchart.getDescription().setText("Co2 ahorrado");
         }else{
-
+            barchart.getDescription().setText("Distancia recorrida");
         }
+        barDataSet = new BarDataSet(entries, "datos");
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setValueTextColor(Color.BLACK);
+        barData = new BarData(barDataSet);
+
+        barchart.setData(barData);
+
     }
 
     public JSONObject respostaRequestProgress() throws JSONException, IOException {
@@ -174,10 +180,10 @@ public class PopupInformeSemanal {
         return respuesta2;
     }
 
-    public ArrayList<BarEntry> entryCo2(JSONObject respuesta2) throws IOException, JSONException {
+    public ArrayList<BarEntry> alltimeCo2() throws IOException, JSONException {
 
         ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
-        JSONObject ja = respuesta2.getJSONObject("days");
+        JSONObject ja = respostaRequestProgress.getJSONObject("days");
         Log.d("numeroDias", String.valueOf(ja.length()));
 
         JSONArray dias = ja.names();
@@ -193,10 +199,10 @@ public class PopupInformeSemanal {
         return entry;
     }
 
-    public ArrayList<BarEntry> entryPoints(JSONObject respuesta2) throws IOException, JSONException {
+    public ArrayList<BarEntry> alltimePoints() throws IOException, JSONException {
 
         ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
-        JSONObject ja = respuesta2.getJSONObject("days");
+        JSONObject ja = respostaRequestProgress.getJSONObject("days");
 
         JSONArray dias = ja.names();
 
@@ -211,10 +217,10 @@ public class PopupInformeSemanal {
         return entry;
     }
 
-    public ArrayList<BarEntry> entryDistance(JSONObject respuesta2) throws IOException, JSONException {
+    public ArrayList<BarEntry> alltimeDistance() throws IOException, JSONException {
 
         ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
-        JSONObject ja = respuesta2.getJSONObject("days");
+        JSONObject ja = respostaRequestProgress.getJSONObject("days");
 
         JSONArray dias = ja.names();
 

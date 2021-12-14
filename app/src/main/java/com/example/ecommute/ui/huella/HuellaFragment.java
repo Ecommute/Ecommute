@@ -245,7 +245,6 @@ public class HuellaFragment extends Fragment{
             Object dia = dias.get(i);
             if (dia != null){       //no deberia serlo porque uso su lenght
                 String co2 = ja.getJSONObject((String) dia).getString("savedco2");
-                Log.d("Misco2", co2);
                 entry.add(new BarEntry(i, Float.parseFloat(co2)));
             }
         }
