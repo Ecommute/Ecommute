@@ -2,6 +2,7 @@ package com.example.ecommute;
 
 import android.graphics.Color;
 import android.os.StrictMode;
+import android.transition.Transition;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -70,7 +71,7 @@ public class PopupInformeSemanal {
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
         //Set the location of the window on the screen
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        popupWindow.showAtLocation(view, Gravity.FILL, 0, 0);
         popupWindow.setBackgroundDrawable(null);
 
         //respostaRequest = respostaRequest();
