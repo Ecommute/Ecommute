@@ -6,6 +6,10 @@
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_signup.xml" value="0.25" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/fragment_huella.xml" value="0.75" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/fragment_puntos.xml" value="0.1" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/item_historial.xml" value="0.1" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/popup_informe_semanal.xml" value="0.2" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/signup_login.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_error_24.xml" value="0.2390625" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2390625" />
@@ -14,12 +18,11 @@
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.2390625" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_star_border_24.xml" value="0.2390625" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/activity_edit.xml" value="0.1984375" />
-        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/activity_login.xml" value="0.27760416666666665" />
-        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/activity_rutas.xml" value="0.33" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/activity_rutas.xml" value="0.2713541666666667" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/activity_signup.xml" value="0.2713541666666667" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/detalles_ruta.xml" value="0.2677083333333333" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/fragment_foro.xml" value="0.215625" />
-        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/fragment_huella.xml" value="0.33" />
-        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/fragment_perfil.xml" value="0.25" />
+        <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/fragment_huella.xml" value="0.2677083333333333" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/fragment_puntos.xml" value="0.25" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/fragment_ruta.xml" value="0.5" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/layout/item_forum.xml" value="0.75" />

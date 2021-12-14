@@ -8,58 +8,69 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/historial"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_width="405dp"
+        android:layout_height="192dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.99" />
+        app:layout_constraintVertical_bias="0.934" />
 
     <TextView
         android:id="@+id/ddestino"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="171dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="182dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/Historial"
+        android:text="Historial"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/mostrar_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.529" />
+        app:layout_constraintVertical_bias="0.977" />
 
     <TextView
         android:id="@+id/dorigen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="173dp"
-        android:layout_marginEnd="180dp"
-        android:text="@string/Puntosacumulados"
+        android:layout_marginBottom="24dp"
+        android:text="Puntos acumulados"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintVertical_bias="0.15" /><![CDATA[
 
-    <com.jjoe64.graphview.GraphView
+    app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.295" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ]]>
+
+    <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/graph"
-        android:layout_width="341dp"
-        android:layout_height="216dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="363dp"
+        android:layout_height="210dp"
+        app:layout_constraintBottom_toTopOf="@+id/ddestino"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.371"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.108" />
+        app:layout_constraintTop_toBottomOf="@+id/dorigen"
+        app:layout_constraintVertical_bias="0.317" />
 
     <Button
         android:id="@+id/mostrar_info"
@@ -71,7 +82,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.417" />
+        app:layout_constraintVertical_bias="0.649" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="204dp"
+        android:layout_height="34dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/ddestino"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/graph"
+        app:layout_constraintVertical_bias="0.388" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

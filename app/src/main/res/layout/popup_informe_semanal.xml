@@ -4,46 +4,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#66FFFFFF">
+    android:background="#FFFFFF">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="310dp"
-        android:layout_height="593dp"
-        android:layout_marginStart="37dp"
-        android:layout_marginEnd="37dp"
-        android:background="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
-        android:foregroundTint="#BCB9B9"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+    <Button
+        android:id="@+id/cambiardatos"
+        android:layout_width="130dp"
+        android:layout_height="53dp"
+        android:text="CO2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cambiartiempo"
+        app:layout_constraintHorizontal_bias="0.807"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.496">
+        app:layout_constraintVertical_bias="0.764" />
 
-        <com.jjoe64.graphview.GraphView
-            android:id="@+id/graph"
-            android:layout_width="276dp"
-            android:layout_height="365dp"
-            android:layout_marginStart="81dp"
-            android:layout_marginEnd="81dp"
-            android:layout_marginBottom="84dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/cerrar_popup"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:background="#D80A0A"
+        android:foregroundTint="#EC0D0D"
+        android:text="Cerrar informe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.884" />
 
-        <Button
-            android:id="@+id/cerrar_popup"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="67dp"
-            android:layout_marginEnd="67dp"
-            android:text="Cerrar informe" />
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/graph"
+        android:layout_width="276dp"
+        android:layout_height="365dp"
+        app:layout_constraintBottom_toTopOf="@+id/cerrar_popup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.495">
 
-    </LinearLayout>
+    </com.github.mikephil.charting.charts.BarChart>
+
+    <Button
+        android:id="@+id/cambiartiempo"
+        android:layout_width="130dp"
+        android:layout_height="53dp"
+        android:text="Último mes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.758"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.764" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
