@@ -20,7 +20,11 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintVertical_bias="0.3" /><![CDATA[
+
+    app:layout_constraintVertical_bias="0.364" />
+
+    ]]>
 
     <TextView
         android:id="@+id/username"
@@ -33,11 +37,10 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.301" />
-        app:layout_constraintVertical_bias="0.364" />
+        app:layout_constraintVertical_bias="0.35" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -76,9 +79,10 @@
         android:id="@+id/EditProfile"
         android:layout_width="200dp"
         android:layout_height="46dp"
-        android:layout_marginTop="204dp"
+        android:layout_marginTop="216dp"
         android:text="@string/EditarPerfil"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_perfil" />
 
@@ -90,10 +94,10 @@
         android:text="Coche"
         app:layout_constraintBottom_toTopOf="@+id/eliminarPerfil"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.328"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.701"
+        app:layout_constraintVertical_bias="0.67"
         tools:ignore="MissingConstraints" />
 
     <ImageView
@@ -143,6 +147,7 @@
         app:layout_constraintTop_toTopOf="@+id/relativeLayout"
         app:layout_constraintVertical_bias="0.462" />
 
+
     <Button
         android:id="@+id/btncalendario"
         android:layout_width="195dp"
@@ -150,11 +155,9 @@
         android:text="Ver mi calendario"
         app:layout_constraintBottom_toTopOf="@+id/EditProfile"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_perfil"
-        app:layout_constraintVertical_bias="0.925" />
-
+        app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/linkGoogle"

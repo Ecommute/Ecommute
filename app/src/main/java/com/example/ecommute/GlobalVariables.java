@@ -3,7 +3,6 @@ package com.example.ecommute;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
 public class GlobalVariables {
-    public static String username, password, origen, destino;
     public static GoogleSignInClient mSignInClient;
     public static String username, password, origen, destino, nombre, profilepic;
 

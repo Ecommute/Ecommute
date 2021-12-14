@@ -22,9 +22,7 @@
         <activity
             android:name=".EditUserActivity"
             android:exported="true" />
-        <activity
-            android:name=".EditProfilePicActivity"
-            android:exported="true" />
+
         <activity
             android:name=".EditActivity"
             android:exported="true" />
@@ -49,6 +47,7 @@
         <activity android:name=".PopUpEventos"></activity>
         <activity android:name=".PopUpAnadirEvento"
             android:theme ="@style/PopUpCoche" ></activity>
+        <activity android:name=".EditProfilePicActivity"></activity>
     </application>
 
 </manifest>

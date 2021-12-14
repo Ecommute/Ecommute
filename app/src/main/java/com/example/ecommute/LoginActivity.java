@@ -104,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         if(respuesta2.getString("result").equals("Success")) {
             GlobalVariables.password = editPassword.getText().toString();
             GlobalVariables.username = editUsuario.getText().toString();
+            GlobalVariables.profilepic = "2";
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
 
@@ -150,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 try {
                     if(comprobacion.getString("result").equals("Success")) {
-
+                        GlobalVariables.profilepic = "2";
                         GlobalVariables.username = comprobacion.getString("user").toString();
                         GlobalVariables.password = comprobacion.getString("password").toString();
 
