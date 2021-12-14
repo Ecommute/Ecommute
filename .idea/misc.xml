@@ -6,6 +6,17 @@
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_signup.xml" value="0.25" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/fragment_huella.xml" value="0.75" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/fragment_perfil.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/fragment_puntos.xml" value="0.1" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/fragment_ruta.xml" value="0.20885416666666667" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/item_evento.xml" value="0.5919282511210763" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/item_forum.xml" value="0.12552083333333333" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/item_historial.xml" value="0.25" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/popUp_eventos.xml" value="0.20885416666666667" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/pop_up_coche.xml" value="0.18" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/popup_eventos.xml" value="0.22" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/popup_informe_semanal.xml" value="0.2" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/signup_login.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/joanm/AndroidStudioProjects/Ecommute/app/src/main/res/layout/activity_edit.xml" value="0.152" />
         <entry key="..\:/Users/joanm/AndroidStudioProjects/Ecommute/app/src/main/res/layout/activity_main.xml" value="0.15760869565217392" />

@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ecommute.ui.ruta.RutaViewModel;
+
 public class PopUpEventos extends AppCompatActivity {
 
     String[] titulos;
@@ -19,11 +21,23 @@ public class PopUpEventos extends AppCompatActivity {
     String[] horas;
     RecyclerView Eventos;
     RecyclerView.LayoutManager mLayoutManager;
+    int year;
+    int month;
+    int dayOfMonth;
+
+    public PopUpEventos(int year, int month, int dayOfMonth){
+        this.year = year;
+        this.month = month;
+        this.dayOfMonth = dayOfMonth;
+    }
 
     ImageButton añadir;
+    public PopUpEventos(){
 
-    public void onCreate(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    }
+
+
+    public void onCreate(@NonNull Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popup_eventos);
