@@ -36,6 +36,11 @@ public class PopupInformeSemanal {
     JSONObject respostaRequestProgress;
     JSONObject resportaRequestWeek;
     String month;
+    BarChart barchart;
+    ArrayList<BarEntry> entries;
+    BarDataSet barDataSet = null;
+    BarData barData;
+    int tiempo = 0; // 0 = semana; 1 = mes
 
     public PopupInformeSemanal() throws IOException, JSONException {
         respostaRequestProgress = respostaRequestProgress();
@@ -44,6 +49,7 @@ public class PopupInformeSemanal {
         Date date = new Date();
         month = date.toString();
         Log.d("Gráficospopup",dateFormat.format(date)); //se hace bien!!
+
     }
     public void showPopupWindow(final View view) throws IOException, JSONException {
 
@@ -67,27 +73,8 @@ public class PopupInformeSemanal {
 
         //respostaRequest = respostaRequest();
 
-        BarChart barchart = (BarChart) popupView.findViewById(R.id.graph);
-        ArrayList<BarEntry> entries;
-        BarDataSet barDataSet = null;
+        barchart = (BarChart) popupView.findViewById(R.id.graph);
 
-        try {
-            entries = entryPoints(respostaRequestProgress);
-            barDataSet = new BarDataSet(entries, "puntos");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-
-        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        barDataSet.setValueTextColor(Color.BLACK);
-
-        BarData barData = new BarData(barDataSet);
-
-        barchart.setData(barData);
         barchart.setFitBars(true);
         barchart.animateY(2000);
         barchart.getDescription().setText("Puntos conseguidos");
@@ -97,71 +84,20 @@ public class PopupInformeSemanal {
         barchart.getAxisRight().setAxisMinimum(0.0f);
         barchart.getAxisRight().setDrawLabels(false);
 
+
+
+
+
         Button cambiar = popupView.findViewById(R.id.cambiardatos);
         cambiar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (datos == 0){ //puntos
                     datos++;
-
-                    cambiar.setText("Distancia");
-                    ArrayList<BarEntry> entries = null;
-                    BarDataSet barDataSet = null;
-                    try {
-                        entries = entryCo2(respostaRequestProgress);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    barDataSet = new BarDataSet(entries, "savedco2");
-                    barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-                    barDataSet.setValueTextColor(Color.BLACK);
-                    BarData barData = new BarData(barDataSet);
-                    barchart.setData(barData);
-                    barchart.getDescription().setText("CO2 consumido");
-                    barchart.invalidate();
-
                 }else if (datos ==1){ //co2
                     datos++;
-
-                    cambiar.setText("Puntos");
-                    ArrayList<BarEntry> entries = null;
-                    BarDataSet barDataSet = null;
-                    try {
-                        entries = entryDistance(respostaRequestProgress);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    barDataSet = new BarDataSet(entries, "distance");
-                    barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-                    barDataSet.setValueTextColor(Color.BLACK);
-                    BarData barData = new BarData(barDataSet);
-                    barchart.setData(barData);
-                    barchart.getDescription().setText("Distancia recorrida");
-                    barchart.invalidate();
                 }else if (datos == 2){ //distancia
-                    datos=0;
-
-                    cambiar.setText("Co2"); // dos mas
-                    ArrayList<BarEntry> entries = null;
-                    BarDataSet barDataSet = null;
-                    try {
-                        entries = entryPoints(respostaRequestProgress);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    barDataSet = new BarDataSet(entries, "points");
-                    barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-                    barDataSet.setValueTextColor(Color.BLACK);
-                    BarData barData = new BarData(barDataSet);
-                    barchart.setData(barData);
-                    barchart.getDescription().setText("Puntos conseguidos");
-                    barchart.invalidate();
+                    datos = 0;
                 }
             }
         });
@@ -182,6 +118,22 @@ public class PopupInformeSemanal {
 
 
 
+    }
+
+    public void setGrafico() throws IOException, JSONException {
+        //0 =puntos; 1=co2; 2=distancia
+        if(datos == 0){
+            entries = entryPoints(respostaRequestProgress);
+            barDataSet = new BarDataSet(entries, "puntos");
+            barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+            barDataSet.setValueTextColor(Color.BLACK);
+            barData = new BarData(barDataSet);
+            barchart.setData(barData);
+        }else if (datos == 1){
+
+        }else{
+
+        }
     }
 
     public JSONObject respostaRequestProgress() throws JSONException, IOException {
