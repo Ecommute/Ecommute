@@ -208,7 +208,7 @@ public class HuellaFragment extends Fragment{
             Log.d("request", "puntos" + npuntos);
             return npuntos;
         }
-        return null;
+        return "No hay rutas asociadas todavia";
     }
 
     public JSONObject llamadaAPI() throws IOException, JSONException {
@@ -235,21 +235,26 @@ public class HuellaFragment extends Fragment{
     public ArrayList<BarEntry> entry(JSONObject respuesta2) throws IOException, JSONException {
 
         ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
-        JSONObject ja = respuesta2.getJSONObject("days");
-        Log.d("calendarioHuella", ja.toString());
 
-        JSONArray dias = ja.names();
-        Log.d("calendarioHuella", dias.toString());
+        if(respuesta2.getString("result").equals("Success")){
+            JSONObject ja = respuesta2.getJSONObject("days");
+            Log.d("calendarioHuella", ja.toString());
 
-        for (int i = 0; i < ja.length(); i++){
-            Object dia = dias.get(i);
-            if (dia != null){       //no deberia serlo porque uso su lenght
-                String co2 = ja.getJSONObject((String) dia).getString("savedco2");
-                entry.add(new BarEntry(i, Float.parseFloat(co2)));
+            JSONArray dias = ja.names();
+            Log.d("calendarioHuella", dias.toString());
+
+            for (int i = 0; i < ja.length(); i++){
+                Object dia = dias.get(i);
+                if (dia != null){       //no deberia serlo porque uso su lenght
+                    String co2 = ja.getJSONObject((String) dia).getString("savedco2");
+                    entry.add(new BarEntry(i, Float.parseFloat(co2)));
+                }
             }
+        }else{
+            entry.add(new BarEntry(0, 0.0f));
         }
-
         return entry;
+
     }
 
 
