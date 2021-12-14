@@ -48,8 +48,8 @@ public class PerfilFragment extends Fragment {
 
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        
-        /*perfilViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+
+       /* perfilViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
@@ -61,14 +61,31 @@ public class PerfilFragment extends Fragment {
 
         TextView nombre_user = binding.username;
         nombre_user.setText((GlobalVariables.username));
-        String image = GlobalVariables.profilepic;
-        switch (image) {
-            case("@drawable/Asset_2.png"):
+
+        String cambio = GlobalVariables.profilepic;
+        switch (cambio) {
+            case("2"):
                 binding.imageView.setImageResource(R.drawable.asset_2);
                 break;
-            case("@drawable/Asset_3.png"):
+            case("3"):
                 binding.imageView.setImageResource(R.drawable.asset_3);
                 break;
+            case("4"):
+                binding.imageView.setImageResource(R.drawable.asset_4);
+                break;
+            case("5"):
+                binding.imageView.setImageResource(R.drawable.asset_5);
+                break;
+            case("6"):
+                binding.imageView.setImageResource(R.drawable.asset_6);
+                break;
+            case("7"):
+                binding.imageView.setImageResource(R.drawable.asset_7);
+                break;
+            case("8"):
+                binding.imageView.setImageResource(R.drawable.asset_8);
+                break;
+
         }
 
         Button change_profile_pic = binding.profilepic;
@@ -133,6 +150,7 @@ public class PerfilFragment extends Fragment {
         GlobalVariables.password = "";
         GlobalVariables.username = "";
         GlobalVariables.nombre = "";
+        GlobalVariables.profilepic = "";
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
     }
@@ -158,6 +176,7 @@ public class PerfilFragment extends Fragment {
         GlobalVariables.password = "";
         GlobalVariables.username = "";
         GlobalVariables.nombre = "";
+        GlobalVariables.profilepic = "";
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
     }
