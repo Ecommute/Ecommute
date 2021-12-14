@@ -3,16 +3,16 @@ package com.example.ecommute;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ecommute.ui.ruta.RutaViewModel;
+import org.json.JSONException;
+
+import java.io.IOException;
 
 public class PopUpEventos extends AppCompatActivity {
 
@@ -31,7 +31,7 @@ public class PopUpEventos extends AppCompatActivity {
         this.dayOfMonth = dayOfMonth;
     }
 
-    ImageButton añadir;
+    Button añadir;
     public PopUpEventos(){
 
     }
@@ -42,7 +42,7 @@ public class PopUpEventos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popup_eventos);
 
-        añadir = findViewById(R.id.añadirEvento);
+        añadir = findViewById(R.id.button);
 
         añadir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +72,37 @@ public class PopUpEventos extends AppCompatActivity {
         */
     }
 
-    public void setUpItems(){
+    public void setUpItems() throws IOException, JSONException {
         //aqui inicializamos las tres listas
+
+        /*
+
+        final Response[] response = new Response[1];
+
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/routes/list?username=" + GlobalVariables.username + "&password=" + GlobalVariables.password +)
+                .method("GET", null)
+                .build();
+
+        response[0] = client.newCall(request).execute();
+
+        String jsonData = response[0].body().string();
+        JSONObject Jobject = new JSONObject(jsonData);
+        JSONArray Jarray = Jobject.getJSONArray("events");
+
+        int n = Jarray.length();
+        ArrayEventos = new Events[n];
+
+        for (int i = 0; i < n; i++) {
+            JSONObject object = Jarray.getJSONObject(i);
+            titulos[i] = Integer.valueOf(object.getString("title"));
+            localizaciones[i] = object.getString("location");
+            horas[i] = object.getString("startTime");
+        }
+
+        */
     }
 
 }

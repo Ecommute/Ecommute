@@ -47,18 +47,20 @@ public class PopUpAnadirEvento extends Activity {
                 if (!titulo.getText().toString().isEmpty() && !localizacion.getText().toString().isEmpty()
                     && !descripcion.getText().toString().isEmpty()){
 
-                    Calendar calendar = new GregorianCalendar(2021,11,15);
+                    Calendar calendar = new GregorianCalendar();
+                    calendar.set(2021, 11, 25);
 
                     Intent intent = new Intent(Intent.ACTION_INSERT);
                     intent.setData(CalendarContract.Events.CONTENT_URI);
                     intent.putExtra(CalendarContract.Events.TITLE, titulo.getText().toString());
                     intent.putExtra(CalendarContract.Events.EVENT_LOCATION, localizacion.getText().toString());
                     intent.putExtra(CalendarContract.Events.DESCRIPTION, descripcion.getText().toString());
-                    intent.putExtra(CalendarContract.Events.DTSTART, calendar.getTimeInMillis());
-                    intent.putExtra(CalendarContract.Events.DTEND, calendar.getTimeInMillis());
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, calendar.getTimeInMillis());
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calendar.getTimeInMillis());
 
                     if (intent.resolveActivity(getPackageManager()) != null){
                         startActivity(intent);
+                        finish();
                     } else{
                         Toast.makeText(PopUpAnadirEvento.this, "No se encuentra ninguna aplicación capaz de gestionar el evento", Toast.LENGTH_SHORT).show();
                     }
