@@ -239,14 +239,15 @@ public class HuellaFragment extends Fragment{
 
         ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
         JSONObject ja = respuesta2.getJSONObject("days");
-        //Log.d("numeroDias", String.valueOf(ja.length()));
+        Log.d("calendarioHuella", ja.toString());
 
         JSONArray dias = ja.names();
+        Log.d("calendarioHuella", dias.toString());
 
         for (int i = 0; i < ja.length(); i++){
             Object dia = dias.get(i);
             if (dia != null){       //no deberia serlo porque uso su lenght
-                String co2 = ja.getJSONObject((String) dia).getString("co2");
+                String co2 = ja.getJSONObject((String) dia).getString("savedco2");
                 Log.d("Misco2", co2);
                 entry.add(new BarEntry(i, Float.parseFloat(co2)));
             }
