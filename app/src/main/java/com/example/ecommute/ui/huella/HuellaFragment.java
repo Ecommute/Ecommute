@@ -214,12 +214,10 @@ public class HuellaFragment extends Fragment{
     public JSONObject llamadaAPI() throws IOException, JSONException {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        Log.d("variablesglobales", "global variables "+ GlobalVariables.username);
-        Log.d("variablesglobales", "global variables "+ GlobalVariables.password);
         //String urlParameters  = "&username="+username+ "&password="+pass;
         String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
         //String urlParameters  = "&username=marcelurpi&password=password";
-        Log.d("request urlParameters", urlParameters);
+
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
@@ -229,7 +227,6 @@ public class HuellaFragment extends Fragment{
         Response response = client.newCall(request).execute();
 
         JSONObject respuesta2 = new JSONObject(response.body().string());
-        Log.d("requestLlamada", respuesta2.toString());
 
         return respuesta2;
 

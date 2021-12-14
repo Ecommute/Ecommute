@@ -43,7 +43,7 @@ public class PopupInformeSemanal {
         DateFormat dateFormat = new SimpleDateFormat("MM");
         Date date = new Date();
         month = date.toString();
-        Log.d("Gráficospopup",dateFormat.format(date));
+        Log.d("Gráficospopup",dateFormat.format(date)); //se hace bien!!
     }
     public void showPopupWindow(final View view) throws IOException, JSONException {
 
@@ -114,7 +114,7 @@ public class PopupInformeSemanal {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    barDataSet = new BarDataSet(entries, "co2");
+                    barDataSet = new BarDataSet(entries, "savedco2");
                     barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
                     barDataSet.setValueTextColor(Color.BLACK);
                     BarData barData = new BarData(barDataSet);
@@ -233,7 +233,7 @@ public class PopupInformeSemanal {
         for (int i = 0; i < ja.length(); i++){
             Object dia = dias.get(i);
             if (dia != null){       //no deberia serlo porque uso su lenght
-                String co2 = ja.getJSONObject((String) dia).getString("co2");
+                String co2 = ja.getJSONObject((String) dia).getString("savedco2");
                 entry.add(new BarEntry(i, Float.parseFloat(co2)));
             }
         }
