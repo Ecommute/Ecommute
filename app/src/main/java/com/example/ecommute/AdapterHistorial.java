@@ -1,8 +1,5 @@
 package com.example.ecommute;
 
-import static android.content.ContentValues.TAG;
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,12 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -77,8 +69,8 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            mTextOrigen = itemView.findViewById(R.id.origen);
-            mTextDestino = itemView.findViewById(R.id.destino);
+            mTextOrigen = itemView.findViewById(R.id.NombreEvento);
+            mTextDestino = itemView.findViewById(R.id.HoraEvento);
             mTextPuntos = itemView.findViewById(R.id.puntos);
         }
 

@@ -3,6 +3,7 @@ package com.example.ecommute.ui.perfil;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.ecommute.CalendarActivity;
 import com.example.ecommute.EditUserActivity;
 import com.example.ecommute.GlobalVariables;
 import com.example.ecommute.LoginActivity;
@@ -114,6 +116,17 @@ public class PerfilFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 validateedit();
+            }
+        });
+
+        Button calendario = binding.btncalendario;
+        calendario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("botonPulsado", "HEHE");
+                Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                startActivity(intent);
+
             }
         });
 

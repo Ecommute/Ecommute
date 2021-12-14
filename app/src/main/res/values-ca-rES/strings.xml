@@ -32,4 +32,9 @@
     <string name="ConsumoFuel">Consum de Combustible</string>
     <string name="TipoCombustible">Tipus de Combustible</string>
     <string name="CambiarDatos">Editar Dades</string>
+    <string name="Crear">Crear</string>
+    <string name="Localización_evento">Localització</string>
+    <string name="Titulo_evento">Títol</string>
+    <string name="Descripción_evento">Descripció</string>
+
 </resources>
