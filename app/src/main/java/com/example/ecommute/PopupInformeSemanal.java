@@ -34,21 +34,21 @@ public class PopupInformeSemanal {
 
     int datos = 0; //0 =puntos; 1=co2; 2=distancia
     JSONObject respostaRequestProgress;
-    JSONObject resportaRequestWeek;
-    String month;
+    JSONObject respostaRequestWeek;
+    int month;
     BarChart barchart;
     ArrayList<BarEntry> entries = null;
     BarDataSet barDataSet = null;
     BarData barData = null;
-    int tiempo = 2; // 0 = semana; 1 = mes; 2 = alltime
+    int tiempo = 0; // 0 = semana; 1 = mes; 2 = alltime
 
     public PopupInformeSemanal() throws IOException, JSONException {
         respostaRequestProgress = respostaRequestProgress();
-        resportaRequestWeek = respostaRequestWeek();
+        respostaRequestWeek = respostaRequestWeek();
         DateFormat dateFormat = new SimpleDateFormat("MM");
         Date date = new Date();
-        month = date.toString();
-        Log.d("Gráficospopup",dateFormat.format(date)); //se hace bien!!
+        month = Integer.valueOf(dateFormat.format(date));
+        Log.d("Gráficospopup", String.valueOf(month));
 
     }
     public void showPopupWindow(final View view) throws IOException, JSONException {
@@ -86,19 +86,51 @@ public class PopupInformeSemanal {
         setGrafico();
 
 
-        Button cambiar = popupView.findViewById(R.id.cambiardatos);
-        cambiar.setOnClickListener(new View.OnClickListener() {
+        Button cambiarDatos = popupView.findViewById(R.id.cambiardatos);
+        cambiarDatos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (datos == 0){ //puntos
                     datos++;
-                    cambiar.setText("distancia");
+                    cambiarDatos.setText("distancia");
                 }else if (datos ==1){ //co2
                     datos++;
-                    cambiar.setText("puntos");
+                    cambiarDatos.setText("puntos");
                 }else if (datos == 2){ //distancia
                     datos = 0;
-                    cambiar.setText("co2 ahorrado");
+                    cambiarDatos.setText("co2 ahorrado");
+                }
+                try {
+                    setGrafico();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Button cambiarTiempo = popupView.findViewById(R.id.cambiartiempo);
+        cambiarTiempo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 0 = semana; 1 = mes; 2 = alltime
+                if (tiempo == 0){
+                    tiempo++;
+                    cambiarTiempo.setText("Año");
+                }else if (tiempo ==1){
+                    tiempo++;
+                    cambiarTiempo.setText("semana");
+                }else if (tiempo == 2){
+                    tiempo = 0;
+                    cambiarTiempo.setText("mes");
+                }
+                try {
+                    setGrafico();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -124,13 +156,19 @@ public class PopupInformeSemanal {
     public void setGrafico() throws IOException, JSONException {
         //0 =puntos; 1=co2; 2=distancia
         if(datos == 0){
-            if(tiempo == 0) entries = alltimePoints();
+            if(tiempo == 0) entries = semPoints();
             else if (tiempo == 1) entries = alltimePoints();
             else entries = alltimePoints();
             barchart.getDescription().setText("Puntos conseguidos");
         }else if (datos == 1){
+            if(tiempo == 0) entries = semCo2();
+            else if (tiempo == 1) entries = alltimeCo2();
+            else entries = alltimeCo2();
             barchart.getDescription().setText("Co2 ahorrado");
         }else{
+            if(tiempo == 0) entries = semDist();
+            else if (tiempo == 1) entries = alltimePoints(); 
+            else entries = alltimeDistance();
             barchart.getDescription().setText("Distancia recorrida");
         }
         barDataSet = new BarDataSet(entries, "datos");
@@ -235,5 +273,48 @@ public class PopupInformeSemanal {
         return entry;
     }
 
+    public ArrayList<BarEntry>  semPoints() throws JSONException {
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+        JSONArray ja = respostaRequestWeek.getJSONArray("days");
+
+        for (int i = 0; i < ja.length(); i++){
+            String co2 = ja.getJSONObject(i).getJSONObject("totalDay").getString("points");
+            entry.add(new BarEntry(i, Float.parseFloat(co2)));
+        }
+
+        return entry;
+    }
+
+    public ArrayList<BarEntry>  semDist() throws JSONException {
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+        JSONArray ja = respostaRequestWeek.getJSONArray("days");
+
+        for (int i = 0; i < ja.length(); i++){
+            String co2 = ja.getJSONObject(i).getJSONObject("totalDay").getString("distance");
+            entry.add(new BarEntry(i, Float.parseFloat(co2)));
+        }
+
+        return entry;
+    }
+
+    public ArrayList<BarEntry>  semCo2() throws JSONException {
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+        JSONArray ja = respostaRequestWeek.getJSONArray("days");
+
+        for (int i = 0; i < ja.length(); i++){
+            String co2 = ja.getJSONObject(i).getJSONObject("totalDay").getString("co2");
+            entry.add(new BarEntry(i, Float.parseFloat(co2)));
+        }
+
+        return entry;
+    }
+
+    public ArrayList<BarEntry> monthCo2() throws JSONException {
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+        JSONArray ja = respostaRequestProgress.getJSONArray("months");
+        JSONObject datosmes = ja.getJSONObject(month);
+        JSONArray
+        return entry;
+    }
 
 }
