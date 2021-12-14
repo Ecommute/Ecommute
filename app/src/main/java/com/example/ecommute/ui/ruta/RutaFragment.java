@@ -8,7 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationRequest;
@@ -59,6 +61,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 
 import okhttp3.MediaType;
@@ -106,16 +110,30 @@ public class RutaFragment extends Fragment {
                 //Check permissions
                 if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                         ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                    Toast toast = Toast.makeText(getActivity(), "Obteniendo dirección...", Toast.LENGTH_SHORT);
+                    TextView vivi = (TextView) toast.getView().findViewById(android.R.id.message);
+                    if( vivi != null)
+                        toast.setGravity(Gravity.CENTER, 0, -200);
+                    toast.getView().getBackground().setTint(ContextCompat.getColor(getContext(), R.color.light_green));
+                    toast.show();
                     //When permission is granted
                     Task<Location> ubicacion = client.getCurrentLocation(100, null).addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location location) {
-                            origen.setText(location.getLatitude() + ", " + location.getLongitude());
+                            Geocoder geocoder;
+                            List<Address> addresses = null;
+                            geocoder = new Geocoder(getContext(), Locale.getDefault());
+
+                            try {
+                                addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            String dire = addresses.get(0).getAddressLine(0).toString();
+                            String direccion = dire.split(", ")[0] + ", " + dire.split(", ")[1];
+                            origen.setText(direccion);
                         }
                     });
-                    //Location ubi = ubicacion.getResult();
-
-                    //getCurrentLocation();
                 }else{
                     Toast toast = Toast.makeText(getActivity(), "Activa el permiso de ubicación desde los ajustes, por favor", Toast.LENGTH_LONG);
                     TextView vivi = (TextView) toast.getView().findViewById(android.R.id.message);
