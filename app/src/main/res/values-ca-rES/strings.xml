@@ -37,4 +37,5 @@
     <string name="Titulo_evento">Títol</string>
     <string name="Descripción_evento">Descripció</string>
 
+    <string name="textVRutasFav">Rutes Preferides</string>
 </resources>

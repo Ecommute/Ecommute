@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/text_perfil"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="301dp"
+        android:layout_height="38dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -17,10 +17,35 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="200dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.301" />
+        app:layout_constraintVertical_bias="0.364" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="418dp"
+        android:layout_height="140dp"
+        android:background="#2f802f"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/eliminarPerfil"
@@ -51,7 +76,7 @@
         android:id="@+id/EditProfile"
         android:layout_width="200dp"
         android:layout_height="46dp"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="204dp"
         android:text="@string/EditarPerfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,10 +90,10 @@
         android:text="Coche"
         app:layout_constraintBottom_toTopOf="@+id/eliminarPerfil"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.328"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.505"
+        app:layout_constraintVertical_bias="0.701"
         tools:ignore="MissingConstraints" />
 
     <ImageView
@@ -76,22 +101,11 @@
         android:layout_width="131dp"
         android:layout_height="130dp"
         android:layout_marginTop="60dp"
-        android:src="@drawable/asset_7"
         app:layout_constraintBottom_toTopOf="@+id/text_perfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.535" />
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/linkGoogle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Link Con Google"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eliminarPerfil" />
 
     <View
         android:id="@+id/divider2"
@@ -118,6 +132,18 @@
         app:layout_constraintVertical_bias="0.64" />
 
     <Button
+        android:id="@+id/profilepic"
+        android:layout_width="278dp"
+        android:layout_height="42dp"
+        android:text="Edit Profile Pic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.543"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/relativeLayout"
+        app:layout_constraintVertical_bias="0.462" />
+
+    <Button
         android:id="@+id/btncalendario"
         android:layout_width="195dp"
         android:layout_height="51dp"
@@ -128,5 +154,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_perfil"
         app:layout_constraintVertical_bias="0.925" />
+
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/linkGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Link Con Google"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eliminarPerfil" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

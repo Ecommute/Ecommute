@@ -5,6 +5,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 public class GlobalVariables {
     public static String username, password, origen, destino;
     public static GoogleSignInClient mSignInClient;
+    public static String username, password, origen, destino, nombre, profilepic;
 
     public void setPassword(String password) {
         this.password = password;
@@ -26,6 +27,10 @@ public class GlobalVariables {
         mSignInClient = client;
     }
 
+    public void setnombre(String nombre) { this.nombre = nombre; }
+
+    public void setprofilepic(String profilepic) { this.profilepic = profilepic; }
+
 
     public String getPassword() {
         return password;
@@ -45,5 +50,13 @@ public class GlobalVariables {
 
     public static GoogleSignInClient getClient() {
         return mSignInClient;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getProfilepic() {
+        return profilepic;
     }
 }

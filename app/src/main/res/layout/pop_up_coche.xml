@@ -6,8 +6,6 @@
     xmlns:andoid="http://schemas.android.com/apk/res-auto">
 
 
-
-
     <EditText
         android:id="@+id/consumo"
         android:layout_width="wrap_content"
