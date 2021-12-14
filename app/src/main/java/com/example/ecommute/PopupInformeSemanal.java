@@ -2,6 +2,7 @@ package com.example.ecommute;
 
 import android.graphics.Color;
 import android.os.StrictMode;
+import android.transition.Transition;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -32,23 +34,24 @@ import okhttp3.Response;
 
 public class PopupInformeSemanal {
 
-    int datos = 0; //0 =puntos; 1=co2; 2=distancia
+    int datos = 1; //0 =puntos; 1=co2; 2=distancia
     JSONObject respostaRequestProgress;
-    JSONObject resportaRequestWeek;
-    String month;
+    JSONObject respostaRequestWeek;
+    int month;
     BarChart barchart;
+    TextView resumen;
     ArrayList<BarEntry> entries = null;
     BarDataSet barDataSet = null;
     BarData barData = null;
-    int tiempo = 2; // 0 = semana; 1 = mes; 2 = alltime
+    int tiempo = 1; // 0 = semana; 1 = mes; 2 = alltime
 
     public PopupInformeSemanal() throws IOException, JSONException {
         respostaRequestProgress = respostaRequestProgress();
-        resportaRequestWeek = respostaRequestWeek();
+        respostaRequestWeek = respostaRequestWeek();
         DateFormat dateFormat = new SimpleDateFormat("MM");
         Date date = new Date();
-        month = date.toString();
-        Log.d("Gráficospopup",dateFormat.format(date)); //se hace bien!!
+        month = Integer.valueOf(dateFormat.format(date));
+        Log.d("Gráficospopup", String.valueOf(month));
 
     }
     public void showPopupWindow(final View view) throws IOException, JSONException {
@@ -68,12 +71,13 @@ public class PopupInformeSemanal {
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
         //Set the location of the window on the screen
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        popupWindow.showAtLocation(view, Gravity.FILL, 0, 0);
         popupWindow.setBackgroundDrawable(null);
 
         //respostaRequest = respostaRequest();
 
         barchart = (BarChart) popupView.findViewById(R.id.graph);
+        resumen = popupView.findViewById(R.id.resumengrafico);
 
         barchart.setFitBars(true);
         barchart.animateY(2000);
@@ -86,19 +90,51 @@ public class PopupInformeSemanal {
         setGrafico();
 
 
-        Button cambiar = popupView.findViewById(R.id.cambiardatos);
-        cambiar.setOnClickListener(new View.OnClickListener() {
+        Button cambiarDatos = popupView.findViewById(R.id.cambiardatos);
+        cambiarDatos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (datos == 0){ //puntos
                     datos++;
-                    cambiar.setText("distancia");
+                    cambiarDatos.setText("ver distancia");
                 }else if (datos ==1){ //co2
                     datos++;
-                    cambiar.setText("puntos");
+                    cambiarDatos.setText("ver puntos");
                 }else if (datos == 2){ //distancia
                     datos = 0;
-                    cambiar.setText("co2 ahorrado");
+                    cambiarDatos.setText("ver co2 ahorrado");
+                }
+                try {
+                    setGrafico();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Button cambiarTiempo = popupView.findViewById(R.id.cambiartiempo);
+        cambiarTiempo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 0 = semana; 1 = mes; 2 = alltime
+                if (tiempo == 0){
+                    tiempo++;
+                    cambiarTiempo.setText("ver Año");
+                }else if (tiempo ==1){
+                    tiempo++;
+                    cambiarTiempo.setText("ver semana");
+                }else if (tiempo == 2){
+                    tiempo = 0;
+                    cambiarTiempo.setText("ver mes");
+                }
+                try {
+                    setGrafico();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -124,13 +160,46 @@ public class PopupInformeSemanal {
     public void setGrafico() throws IOException, JSONException {
         //0 =puntos; 1=co2; 2=distancia
         if(datos == 0){
-            if(tiempo == 0) entries = alltimePoints();
-            else if (tiempo == 1) entries = alltimePoints();
-            else entries = alltimePoints();
+            if(tiempo == 0) {
+                entries = semPoints();
+                resumen.setText("Puntos conseguidos esta semana");
+            }
+            else if (tiempo == 1){
+                entries = monthPoints();
+                resumen.setText("Puntos conseguidos esta mes");
+            }
+            else{
+                entries = alltimePoints();
+                resumen.setText("Puntos conseguidos este año");
+            }
             barchart.getDescription().setText("Puntos conseguidos");
         }else if (datos == 1){
+            if(tiempo == 0){
+                entries = semCo2();
+                resumen.setText("Co2 ahorrado esta semana");
+            }
+            else if (tiempo == 1) {
+                entries = monthCo2();
+                resumen.setText("Co2 ahorrado este mes");
+            }
+            else {
+                entries = alltimeCo2();
+                resumen.setText("Co2 ahorrado este año");
+            }
             barchart.getDescription().setText("Co2 ahorrado");
         }else{
+            if(tiempo == 0) {
+                entries = semDist();
+                resumen.setText("Distancia recorrida esta semana");
+            }
+            else if (tiempo == 1) {
+                entries = monthDist();
+                resumen.setText("Distancia recorrida este mes");
+            }
+            else {
+                entries = alltimeDistance();
+                resumen.setText("Distancia recorrida este año");
+            }
             barchart.getDescription().setText("Distancia recorrida");
         }
         barDataSet = new BarDataSet(entries, "datos");
@@ -139,7 +208,7 @@ public class PopupInformeSemanal {
         barData = new BarData(barDataSet);
 
         barchart.setData(barData);
-
+        barchart.invalidate();
     }
 
     public JSONObject respostaRequestProgress() throws JSONException, IOException {
@@ -235,5 +304,94 @@ public class PopupInformeSemanal {
         return entry;
     }
 
+    public ArrayList<BarEntry>  semPoints() throws JSONException {
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+        JSONArray ja = respostaRequestWeek.getJSONArray("days");
+
+        for (int i = 0; i < ja.length(); i++){
+            String co2 = ja.getJSONObject(i).getJSONObject("totalDay").getString("points");
+            entry.add(new BarEntry(i, Float.parseFloat(co2)));
+        }
+
+        return entry;
+    }
+
+    public ArrayList<BarEntry>  semDist() throws JSONException {
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+        JSONArray ja = respostaRequestWeek.getJSONArray("days");
+
+        for (int i = 0; i < ja.length(); i++){
+            String co2 = ja.getJSONObject(i).getJSONObject("totalDay").getString("distance");
+            entry.add(new BarEntry(i, Float.parseFloat(co2)));
+        }
+
+        return entry;
+    }
+
+    public ArrayList<BarEntry>  semCo2() throws JSONException {
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+        JSONArray ja = respostaRequestWeek.getJSONArray("days");
+
+        for (int i = 0; i < ja.length(); i++){
+            String co2 = ja.getJSONObject(i).getJSONObject("totalDay").getString("co2");
+            entry.add(new BarEntry(i, Float.parseFloat(co2)));
+        }
+
+        return entry;
+    }
+
+    public ArrayList<BarEntry> monthCo2() throws JSONException {
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+        JSONObject ja = respostaRequestProgress.getJSONObject("days");
+
+        JSONArray dias = ja.names();
+
+        for (int i = 0; i < 30; i++){
+            Object dia = dias.get(i+(month-1)*30);
+            Log.d("monthPopup", dia.toString());
+            if (dia != null){       //no deberia serlo porque uso su lenght
+                String co2 = ja.getJSONObject((String) dia).getString("savedco2");
+                Log.d("monthPopup", co2);
+                entry.add(new BarEntry(i, Float.parseFloat(co2)));
+            }
+        }
+        return entry;
+    }
+
+    public ArrayList<BarEntry> monthDist() throws JSONException {
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+        JSONObject ja = respostaRequestProgress.getJSONObject("days");
+
+        JSONArray dias = ja.names();
+
+        for (int i = 0; i < 30; i++){
+            Object dia = dias.get(i+(month-1)*30);
+            Log.d("monthPopup", dia.toString());
+            if (dia != null){       //no deberia serlo porque uso su lenght
+                String co2 = ja.getJSONObject((String) dia).getString("distance");
+                Log.d("monthPopup", co2);
+                entry.add(new BarEntry(i, Float.parseFloat(co2)));
+            }
+        }
+        return entry;
+    }
+
+    public ArrayList<BarEntry> monthPoints() throws JSONException {
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+        JSONObject ja = respostaRequestProgress.getJSONObject("days");
+
+        JSONArray dias = ja.names();
+
+        for (int i = 0; i < 30; i++){
+            Object dia = dias.get(i+(month-1)*30);
+            Log.d("monthPopup", dia.toString());
+            if (dia != null){       //no deberia serlo porque uso su lenght
+                String co2 = ja.getJSONObject((String) dia).getString("distance");
+                Log.d("monthPopup", co2);
+                entry.add(new BarEntry(i, Float.parseFloat(co2)));
+            }
+        }
+        return entry;
+    }
 
 }
