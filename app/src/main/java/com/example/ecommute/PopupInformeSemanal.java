@@ -34,7 +34,7 @@ import okhttp3.Response;
 
 public class PopupInformeSemanal {
 
-    int datos = 1; //0 =puntos; 1=co2; 2=distancia
+    int datos = 0; //0 =puntos; 1=co2; 2=distancia
     JSONObject respostaRequestProgress;
     JSONObject respostaRequestWeek;
     int month;
@@ -43,7 +43,7 @@ public class PopupInformeSemanal {
     ArrayList<BarEntry> entries = null;
     BarDataSet barDataSet = null;
     BarData barData = null;
-    int tiempo = 1; // 0 = semana; 1 = mes; 2 = alltime
+    int tiempo = 0; // 0 = semana; 1 = mes; 2 = alltime
 
     public PopupInformeSemanal() throws IOException, JSONException {
         respostaRequestProgress = respostaRequestProgress();
@@ -152,55 +152,55 @@ public class PopupInformeSemanal {
         });
 
 
-
-
-
     }
 
     public void setGrafico() throws IOException, JSONException {
         //0 =puntos; 1=co2; 2=distancia
-        if(datos == 0){
-            if(tiempo == 0) {
-                entries = semPoints();
-                resumen.setText("Puntos conseguidos esta semana");
+
+        if(respostaRequestProgress.getString("result").equals("Success") &&
+                respostaRequestWeek.getString("result").equals("Success")) {
+            if (datos == 0) {
+                if (tiempo == 0) {
+                    entries = semPoints();
+                    resumen.setText("Puntos conseguidos esta semana");
+                } else if (tiempo == 1) {
+                    entries = monthPoints();
+                    resumen.setText("Puntos conseguidos esta mes");
+                } else {
+                    entries = alltimePoints();
+                    resumen.setText("Puntos conseguidos este año");
+                }
+                barchart.getDescription().setText("Puntos conseguidos");
+            } else if (datos == 1) {
+                if (tiempo == 0) {
+                    entries = semCo2();
+                    resumen.setText("Co2 ahorrado esta semana");
+                } else if (tiempo == 1) {
+                    entries = monthCo2();
+                    resumen.setText("Co2 ahorrado este mes");
+                } else {
+                    entries = alltimeCo2();
+                    resumen.setText("Co2 ahorrado este año");
+                }
+                barchart.getDescription().setText("Co2 ahorrado");
+            } else {
+                if (tiempo == 0) {
+                    entries = semDist();
+                    resumen.setText("Distancia recorrida esta semana");
+                } else if (tiempo == 1) {
+                    entries = monthDist();
+                    resumen.setText("Distancia recorrida este mes");
+                } else {
+                    entries = alltimeDistance();
+                    resumen.setText("Distancia recorrida este año");
+                }
+                barchart.getDescription().setText("Distancia recorrida");
             }
-            else if (tiempo == 1){
-                entries = monthPoints();
-                resumen.setText("Puntos conseguidos esta mes");
-            }
-            else{
-                entries = alltimePoints();
-                resumen.setText("Puntos conseguidos este año");
-            }
-            barchart.getDescription().setText("Puntos conseguidos");
-        }else if (datos == 1){
-            if(tiempo == 0){
-                entries = semCo2();
-                resumen.setText("Co2 ahorrado esta semana");
-            }
-            else if (tiempo == 1) {
-                entries = monthCo2();
-                resumen.setText("Co2 ahorrado este mes");
-            }
-            else {
-                entries = alltimeCo2();
-                resumen.setText("Co2 ahorrado este año");
-            }
-            barchart.getDescription().setText("Co2 ahorrado");
         }else{
-            if(tiempo == 0) {
-                entries = semDist();
-                resumen.setText("Distancia recorrida esta semana");
-            }
-            else if (tiempo == 1) {
-                entries = monthDist();
-                resumen.setText("Distancia recorrida este mes");
-            }
-            else {
-                entries = alltimeDistance();
-                resumen.setText("Distancia recorrida este año");
-            }
-            barchart.getDescription().setText("Distancia recorrida");
+            entries = new ArrayList<BarEntry>();
+            entries.add(new BarEntry(0, 0.0f));
+            resumen.setText("No se ha hecho ninguna ruta todavía");
+            barchart.getDescription().setText("No hay rutas");
         }
         barDataSet = new BarDataSet(entries, "datos");
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
