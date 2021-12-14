@@ -9,7 +9,7 @@
         android:id="@+id/TipoCombustible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="127dp"
+        android:layout_marginTop="128dp"
         android:ems="10"
         android:hint="@string/TipoCombustible"
         android:inputType="textPersonName"
