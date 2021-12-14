@@ -3,7 +3,6 @@ package com.example.ecommute;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -151,9 +150,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 try {
                     if(comprobacion.getString("result").equals("Success")) {
-                        Log.e("Token", comprobacion.toString());
-                        Log.e("Token", comprobacion.getString("user").toString());
-                        Log.e("Token", comprobacion.getString("password").toString());
+
                         GlobalVariables.username = comprobacion.getString("user").toString();
                         GlobalVariables.password = comprobacion.getString("password").toString();
 
