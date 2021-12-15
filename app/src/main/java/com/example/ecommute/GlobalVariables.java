@@ -5,7 +5,22 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 public class GlobalVariables {
     public static GoogleSignInClient mSignInClient;
     public static String username, password, origen, destino, nombre, profilepic;
+    public GlobalVariables instance;
 
+    /**
+     * Declara la clase Controlador como Singleton
+     */
+    private static class GlobalVariablesHelper{
+        private static final GlobalVariables singletonObject = new GlobalVariables();
+    }
+
+    /**
+     * Facilita el uso del singleton controladorUsuario
+     * @return instancia Singleton del Controlador Usuario
+     */
+    public static GlobalVariables getInstance() {
+        return GlobalVariablesHelper.singletonObject;
+    }
     public void setPassword(String password) {
         this.password = password;
     }

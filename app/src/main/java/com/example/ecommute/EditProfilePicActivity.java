@@ -1,5 +1,6 @@
 package com.example.ecommute;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -13,8 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ecommute.databinding.ActivityEditprofilepicBinding;
 import com.example.ecommute.databinding.ActivityEdituserBinding;
+import com.example.ecommute.databinding.ActivityMainBinding;
 import com.example.ecommute.databinding.ActivitySignupBinding;
 import com.example.ecommute.ui.perfil.PerfilFragment;
+import com.example.ecommute.ui.puntos.PuntosFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +33,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class EditProfilePicActivity extends AppCompatActivity {
+public class EditProfilePicActivity extends Activity {
 
     private @NonNull ActivityEditprofilepicBinding binding;
 
@@ -47,7 +50,8 @@ public class EditProfilePicActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    validate("2");
+                    GlobalVariables.getInstance().setprofilepic("2");
+                    validate();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -60,7 +64,12 @@ public class EditProfilePicActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    validate("3");
+                    Log.d ("editfoto", GlobalVariables.getInstance().getProfilepic());
+
+                    GlobalVariables.getInstance().setprofilepic("3");
+                    Log.d ("editfoto", GlobalVariables.getInstance().getProfilepic());
+
+                    validate();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -72,7 +81,10 @@ public class EditProfilePicActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    validate("4");
+                    Log.d ("editfoto", GlobalVariables.getInstance().getProfilepic());
+                    GlobalVariables.getInstance().setprofilepic("4");
+                    Log.d ("editfoto", GlobalVariables.getInstance().getProfilepic());
+                    validate();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -84,7 +96,12 @@ public class EditProfilePicActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    validate("5");
+                    Log.d ("editfoto", GlobalVariables.getInstance().getProfilepic());
+
+                    GlobalVariables.getInstance().setprofilepic("5");
+                    Log.d ("editfoto", GlobalVariables.getInstance().getProfilepic());
+
+                    validate();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -96,7 +113,8 @@ public class EditProfilePicActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    validate("6");
+                    GlobalVariables.getInstance().setprofilepic("6");
+                    validate();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -108,7 +126,8 @@ public class EditProfilePicActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    validate("7");
+                    GlobalVariables.getInstance().setprofilepic("7");
+                    validate();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -120,7 +139,8 @@ public class EditProfilePicActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    validate("8");
+                    GlobalVariables.getInstance().setprofilepic("8");
+                    validate();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -129,12 +149,12 @@ public class EditProfilePicActivity extends AppCompatActivity {
 
     }
 
-    private void validate(String asset) throws IOException {
+    private void validate() throws IOException {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         Log.d("llamadauseredit", "hola");
-        String urlParameters  = "username="+GlobalVariables.username + "&password="+GlobalVariables.password + "&profilePic="+asset;
+        String urlParameters  = "username="+GlobalVariables.username + "&password="+GlobalVariables.password + "&profilePic="+GlobalVariables.getInstance().getProfilepic();
 
 
         Log.d("llamadauseredit", urlParameters);
@@ -149,11 +169,8 @@ public class EditProfilePicActivity extends AppCompatActivity {
         Response response = client.newCall(request).execute();
         Log.d("llamadauseredit", response.toString());
 
-        GlobalVariables.profilepic = asset;
-
-        Intent intent = new Intent(EditProfilePicActivity.this, PerfilFragment.class);
+        Intent intent = new Intent(EditProfilePicActivity.this, MainActivity.class);
         startActivity(intent);
-
     }
 
 }

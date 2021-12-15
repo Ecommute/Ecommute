@@ -89,7 +89,8 @@ public class PerfilFragment extends Fragment {
         TextView nombre_user = binding.username;
         nombre_user.setText((GlobalVariables.username));
 
-        String cambio = GlobalVariables.profilepic;
+        String cambio = GlobalVariables.getInstance().getProfilepic();
+
         switch (cambio) {
             case("2"):
                 binding.imageView.setImageResource(R.drawable.asset_2);
