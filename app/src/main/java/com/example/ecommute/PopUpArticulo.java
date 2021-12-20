@@ -6,10 +6,12 @@ import android.os.StrictMode;
 import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ecommute.databinding.PopUpArticuloBinding;
 
@@ -25,7 +27,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class PopUpArticulo extends Activity {
+public class PopUpArticulo extends AppCompatActivity {
 
     private PopUpArticuloBinding binding;
     private int id;
@@ -40,20 +42,26 @@ public class PopUpArticulo extends Activity {
         binding = PopUpArticuloBinding.inflate(getLayoutInflater());
         setContentView(R.layout.pop_up_articulo);
 
-        DisplayMetrics dm = new DisplayMetrics();
+        /*DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width*0.8), (int)(height*0.5));
+        getWindow().setLayout((int)(width*0.8), (int)(height*0.5));*/
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             id = Integer.valueOf(extras.getInt("id"));
             liked = extras.getBoolean("liked");
         }
-
+        Button cerrar = findViewById(R.id.buttonCerrar);
+        cerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopUpArticulo.this.finish();
+            }
+        });
 
         try {
             setUpArticulo();
@@ -62,6 +70,8 @@ public class PopUpArticulo extends Activity {
         }
 
         setUpLike();
+
+
 
     }
 
