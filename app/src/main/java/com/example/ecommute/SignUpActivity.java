@@ -3,6 +3,7 @@ package com.example.ecommute;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -67,8 +68,14 @@ public class SignUpActivity extends AppCompatActivity{
                 .url("http://10.4.41.35:3000/users/register?"+urlParameters)
                 .method("POST", body)
                 .build();
-        final Response[] response = new Response[1];
-        response[0] = client.newCall(request).execute();
+
+        Response response= client.newCall(request).execute();
+
+        /*
+        Log.d("DebuggingSignUP", response.message());
+        Log.d("DebuggingSignUP", response.toString());
+        Log.d("DebuggingSignUP", response.body().string());
+        */
 
         GlobalVariables.password = pass;
         GlobalVariables.username = username;
