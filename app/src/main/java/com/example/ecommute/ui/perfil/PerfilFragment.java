@@ -119,6 +119,16 @@ public class PerfilFragment extends Fragment {
             }
         });
 
+        Button reccontra = binding.recContra;
+
+        reccontra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "No implementado todavia!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         Button calendario = binding.btncalendario;
         calendario.setOnClickListener(new View.OnClickListener() {
             @Override
