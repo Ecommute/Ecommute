@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/drawable/ic_baseline_eco_24.xml" value="0.23692307692307693" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.23692307692307693" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/drawable/ic_launcher_background.xml" value="0.23692307692307693" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.23692307692307693" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_editprofilepic.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/activity_main.xml" value="0.33" />
@@ -16,6 +20,8 @@
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/item_historial.xml" value="0.1" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/popup_informe_semanal.xml" value="0.25" />
         <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/layout/signup_login.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.11875" />
+        <entry key="..\:/Users/Tatiana/Ecommute/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.11875" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_error_24.xml" value="0.2390625" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2390625" />
         <entry key="..\:/Users/carlo/StudioProjects/Ecommute/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.2390625" />
