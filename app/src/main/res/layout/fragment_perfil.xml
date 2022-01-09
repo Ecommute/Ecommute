@@ -4,7 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.perfil.PerfilFragment">
+    tools:context=".ui.perfil.PerfilFragment"><![CDATA[
+
+
+
+    app:layout_constraintVertical_bias="0.364" />
+
+
+
+
+
+    ]]>
 
     <TextView
         android:id="@+id/text_perfil"
@@ -17,14 +27,9 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" /><![CDATA[
-
-    app:layout_constraintVertical_bias="0.364" />
-
-    ]]>
+        app:layout_constraintVertical_bias="0.321" />
 
     <TextView
         android:id="@+id/username"
@@ -40,15 +45,7 @@
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35" />
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="418dp"
-        android:layout_height="140dp"
-        android:background="#2f802f"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintVertical_bias="0.37" />
 
     <Button
         android:id="@+id/eliminarPerfil"
@@ -59,9 +56,10 @@
         android:text="@string/Eliminarperfil"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_perfil"
-        app:layout_constraintVertical_bias="0.662" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.737" />
 
     <Button
         android:id="@+id/logout"
@@ -71,9 +69,10 @@
         android:text="@string/Logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.767" />
+        app:layout_constraintVertical_bias="0.885" />
 
     <Button
         android:id="@+id/EditProfile"
@@ -81,23 +80,25 @@
         android:layout_height="46dp"
         android:layout_marginTop="216dp"
         android:text="@string/EditarPerfil"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_perfil" />
+        app:layout_constraintTop_toBottomOf="@+id/text_perfil"
+        app:layout_constraintVertical_bias="0.049" />
 
     <Button
         android:id="@+id/car"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#FF6004"
-        android:text="Coche"
+        android:text="@string/Coche"
         app:layout_constraintBottom_toTopOf="@+id/eliminarPerfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.67"
+        app:layout_constraintVertical_bias="0.731"
         tools:ignore="MissingConstraints" />
 
     <ImageView
@@ -135,29 +136,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.64" />
 
+
     <Button
         android:id="@+id/profilepic"
         android:layout_width="278dp"
         android:layout_height="42dp"
-        android:text="Edit Profile Pic"
+        android:text="@string/EditProfilePic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.543"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/relativeLayout"
-        app:layout_constraintVertical_bias="0.462" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.458" />
 
     <Button
         android:id="@+id/btncalendario"
-        android:layout_width="195dp"
+        android:layout_width="209dp"
         android:layout_height="51dp"
-        android:text="Ver mi calendario"
-        app:layout_constraintBottom_toTopOf="@+id/EditProfile"
+        android:layout_marginTop="160dp"
+        android:text="@string/Vermicalendario"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_perfil"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.003" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/linkGoogle"
@@ -167,6 +170,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eliminarPerfil" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

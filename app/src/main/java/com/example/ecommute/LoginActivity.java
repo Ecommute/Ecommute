@@ -3,6 +3,8 @@ package com.example.ecommute;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -101,10 +103,24 @@ public class LoginActivity extends AppCompatActivity {
         Response response = client.newCall(request).execute();
 
         JSONObject respuesta2 = new JSONObject(response.body().string());
+
         if(respuesta2.getString("result").equals("Success")) {
+
             GlobalVariables.password = editPassword.getText().toString();
             GlobalVariables.username = editUsuario.getText().toString();
-            GlobalVariables.getInstance().setprofilepic("4");
+
+            OkHttpClient client2 = new OkHttpClient().newBuilder()
+                    .build();
+            Request request2 = new Request.Builder()
+                    .url("10.4.41.35:3000/users/getUser?username="+GlobalVariables.username+"&password="+ GlobalVariables.password)
+                    .method("GET", null)
+                    .build();
+            Response response2 = client.newCall(request).execute();
+
+            respuesta2 = new JSONObject(response2.body().string());
+
+            GlobalVariables.nombre = respuesta2.getString("name");
+            GlobalVariables.profilepic = respuesta2.getString("profilePic");
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
 

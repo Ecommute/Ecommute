@@ -62,7 +62,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editDestino"
-        app:layout_constraintVertical_bias="0.079" />
+        app:layout_constraintVertical_bias="0.044" />
 
     <TextView
         android:id="@+id/confirmador"
@@ -73,7 +73,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buscar_ruta"
-        app:layout_constraintVertical_bias="0.073" />
+        app:layout_constraintVertical_bias="0.174" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerRFavs"
@@ -88,7 +88,7 @@
         android:id="@+id/textVRutasFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
+        android:layout_marginStart="156dp"
         android:layout_marginBottom="20dp"
         android:text="@string/textVRutasFav"
         android:textAlignment="center"
@@ -110,5 +110,14 @@
         app:layout_constraintStart_toEndOf="@+id/editOrigen"
         app:layout_constraintTop_toBottomOf="@+id/text_notifications"
         app:layout_constraintVertical_bias="0.045" />
+
+    <Button
+        android:id="@+id/export"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/exportroute"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buscar_ruta" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

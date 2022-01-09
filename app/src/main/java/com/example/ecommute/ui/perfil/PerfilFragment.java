@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -89,11 +91,13 @@ public class PerfilFragment extends Fragment {
         TextView nombre_user = binding.username;
         nombre_user.setText((GlobalVariables.username));
 
-        String cambio = GlobalVariables.getInstance().getProfilepic();
+        ImageView image = binding.imageView;
 
-        switch (cambio) {
+        String cambio = GlobalVariables.profilepic;
+        if (cambio != null ) Log.d("cambiofoto", cambio);
+        switch (Objects.requireNonNull(cambio)) {
             case("2"):
-                binding.imageView.setImageResource(R.drawable.asset_2);
+                image.setImageResource(R.drawable.asset_2);
                 break;
             case("3"):
                 binding.imageView.setImageResource(R.drawable.asset_3);
@@ -113,6 +117,8 @@ public class PerfilFragment extends Fragment {
             case("8"):
                 binding.imageView.setImageResource(R.drawable.asset_8);
                 break;
+            default:
+                Log.d("cualquier cosa", "default case");
 
         }
 
@@ -132,7 +138,11 @@ public class PerfilFragment extends Fragment {
         logoutb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logout();
+                try {
+                    logout();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -177,7 +187,24 @@ public class PerfilFragment extends Fragment {
         return root;
     }
 
-    private void logout(){
+    private void logout() throws IOException {
+        String urlParameters  =
+                "username="+GlobalVariables.username +
+                "&password="+GlobalVariables.password +
+                "&profilePic="+GlobalVariables.profilepic +
+                        "&name="+GlobalVariables.nombre;
+
+
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("text/plain");
+        RequestBody body = RequestBody.create("", mediaType);
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/users/edit?" + urlParameters)
+                .method("POST", body)
+                .build();
+        client.newCall(request).execute();
+
         GlobalVariables.password = "";
         GlobalVariables.username = "";
         GlobalVariables.nombre = "";

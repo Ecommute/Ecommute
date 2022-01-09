@@ -37,6 +37,7 @@
         </activity>
         <activity android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan"></activity>
+
         <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".PopUpCoche"
             android:theme ="@style/PopUpCoche" >
