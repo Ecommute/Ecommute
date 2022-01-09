@@ -12,9 +12,12 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecommute.databinding.PopUpArticuloBinding;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
@@ -27,11 +30,15 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class PopUpArticulo extends AppCompatActivity {
+public class  PopUpArticulo extends AppCompatActivity {
 
     private PopUpArticuloBinding binding;
     private int id;
     private boolean liked;
+
+    //COMMENT STUFF
+    private RecyclerView comments;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,8 +78,57 @@ public class PopUpArticulo extends AppCompatActivity {
 
         setUpLike();
 
+        try {
+            setUpCommentsRecycler();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+    }
 
+    private void setUpCommentsRecycler() throws IOException, JSONException {
+        String username = GlobalVariables.username;
+        String password = GlobalVariables.password;
+
+        final Response[] response = new Response[1];
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+
+        Request request = new Request.Builder()
+                .url("10.4.41.35:3000/articles/1?username=" + username + "password=" + password)
+                .method("GET", null)
+                .build();
+        response[0] = client.newCall(request).execute();
+
+        String jsonData = response[0].body().string();
+        JSONObject Jobject = new JSONObject(jsonData);
+        JSONArray Jarray = Jobject.getJSONArray("comments");
+
+        int n = Jarray.length();
+
+        Integer[] arrayIds = new Integer[n];
+        String[] arrayAuthors = new String[n];
+        String[] arrayContents = new String[n];
+        String[] arrayCreatedAts = new String[n];
+        Boolean[] arrayOwns = new Boolean[n];
+        Boolean[] arrayReporteds = new Boolean[n];
+
+        for(int i = 0; i < n; i++){
+            JSONObject object = Jarray.getJSONObject(i);
+            arrayIds[i] = Integer.valueOf((object.getString("id")));
+            arrayAuthors[i] = object.getString("author");
+            arrayContents[i] = object.getString("content");
+            arrayCreatedAts[i] = object.getString("createdAt");
+            arrayOwns[i] = Boolean.valueOf(object.getString("own"));
+            arrayReporteds[i] = Boolean.valueOf(object.getString("reported"));
+        }
+
+        //FALLA AQUI EL GET ACTIVITY I NO SE COM FERHO, SI AIXO S'ARREGLA LO ALTRE FUNCIONA
+        comments = binding.commentsRV;
+        AdapterComments mAdapter = new AdapterComments(this.getActivity, arrayIds, arrayAuthors, arrayContents, arrayCreatedAts, arrayOwns, arrayReporteds)
+        comments.setAdapter(mAdapter);
+
+        mLayoutManager = new LinearLayoutManager(this.getActivity());
+        comments.setLayoutManager(mLayoutManager);
     }
 
     public void setUpArticulo() throws IOException, JSONException {
