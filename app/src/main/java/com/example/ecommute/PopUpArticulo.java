@@ -77,7 +77,14 @@ public class  PopUpArticulo extends AppCompatActivity {
         }
 
         setUpLike();
-
+        System.out.println("a");
+        System.out.println("b");
+        System.out.println("c");
+        System.out.println("d");
+        System.out.println("e");
+        System.out.println("f");
+        System.out.println("g");
+        System.out.println("h");
         try {
             setUpCommentsRecycler();
         } catch (Exception e) {
@@ -94,14 +101,17 @@ public class  PopUpArticulo extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
 
         Request request = new Request.Builder()
-                .url("10.4.41.35:3000/articles/1?username=" + username + "password=" + password)
+                .url("http://10.4.41.35:3000/articles/" + id + "?username=" + username + "&password=" + password)
                 .method("GET", null)
                 .build();
         response[0] = client.newCall(request).execute();
 
         String jsonData = response[0].body().string();
         JSONObject Jobject = new JSONObject(jsonData);
-        JSONArray Jarray = Jobject.getJSONArray("comments");
+
+        JSONObject info = new JSONObject(Jobject.getString("article"));
+        JSONArray Jarray = info.getJSONArray("comments");
+        System.out.println(Jarray);
 
         int n = Jarray.length();
 
@@ -124,10 +134,10 @@ public class  PopUpArticulo extends AppCompatActivity {
 
         //FALLA AQUI EL GET ACTIVITY I NO SE COM FERHO, SI AIXO S'ARREGLA LO ALTRE FUNCIONA
         comments = binding.commentsRV;
-        AdapterComments mAdapter = new AdapterComments(this.getActivity, arrayIds, arrayAuthors, arrayContents, arrayCreatedAts, arrayOwns, arrayReporteds)
+        AdapterComments mAdapter = new AdapterComments(this, arrayIds, arrayAuthors, arrayContents, arrayCreatedAts, arrayOwns, arrayReporteds);
         comments.setAdapter(mAdapter);
 
-        mLayoutManager = new LinearLayoutManager(this.getActivity());
+        mLayoutManager = new LinearLayoutManager(this);
         comments.setLayoutManager(mLayoutManager);
     }
 
