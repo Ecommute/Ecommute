@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ecommute.databinding.PopUpArticuloBinding;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
@@ -42,6 +43,7 @@ public class PopUpArticulo extends AppCompatActivity {
         binding = PopUpArticuloBinding.inflate(getLayoutInflater());
         setContentView(R.layout.pop_up_articulo);
 
+        //Esto era para hacer que fuera un popup, ya no se usa
         /*DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -75,6 +77,10 @@ public class PopUpArticulo extends AppCompatActivity {
 
     }
 
+    public void comentar(){
+
+    }
+
     public void setUpArticulo() throws IOException, JSONException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -90,7 +96,6 @@ public class PopUpArticulo extends AppCompatActivity {
         TextView contenido = findViewById(R.id.content);
         contenido.setText(articulo.getString("content"));
         contenido.setMovementMethod(new ScrollingMovementMethod());
-        System.out.println(articulo.getString("title"));
         TextView autor = findViewById(R.id.author);
         autor.setText(articulo.getString("author"));
         TextView numLikes = findViewById(R.id.likes);
@@ -101,6 +106,23 @@ public class PopUpArticulo extends AppCompatActivity {
         numLikes.setText(s);
         TextView fecha = findViewById(R.id.date);
         fecha.setText(articulo.getString("createdAt").substring(0, 10));
+
+
+        JSONArray Jarray = articulo.getJSONArray("comments");
+        String comentarios = "";
+        for(int i = 0; i < Jarray.length(); i++){
+            JSONObject comment = Jarray.getJSONObject(i);
+            comentarios += comment.getString("author");
+            comentarios += ": ";
+            comentarios += comment.getString("content");
+            comentarios += "\n";
+            comentarios += "----------------------------------";
+            comentarios += "\n";
+        }
+        TextView tvComentarios = findViewById(R.id.comentarios);
+        tvComentarios.setText(comentarios);
+        tvComentarios.setMovementMethod(new ScrollingMovementMethod());
+
     }
 
     public void setUpLike() {
