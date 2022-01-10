@@ -8,6 +8,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ public class PopUpArticulo extends AppCompatActivity {
     private PopUpArticuloBinding binding;
     private int id;
     private boolean liked;
+    EditText contenido;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class PopUpArticulo extends AppCompatActivity {
             }
         });
 
+        contenido = findViewById(R.id.textoMensaje);
         try {
             setUpArticulo();
         } catch (IOException | JSONException e) {
@@ -76,21 +79,42 @@ public class PopUpArticulo extends AppCompatActivity {
 
         setUpLike();
 
-        ImageButton enviar = binding.buttonEnviar;
+        ImageButton enviar = findViewById(R.id.buttonEnviar);
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                comentar();
+                try {
+                    comentar();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
 
     }
 
-    public void comentar(){
-        System.out.println(GlobalVariables.username);
-        System.out.println(GlobalVariables.username);
-        System.out.println(GlobalVariables.username);
+    public void comentar() throws IOException {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("text/plain");
+        RequestBody body = RequestBody.create("", mediaType);
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/articles/"+id+"/comment?username="+GlobalVariables.username+"&password="+GlobalVariables.password+"&content="+contenido.getText())
+                .method("POST", body)
+                .build();
+        Response response = client.newCall(request).execute();
+
+
+
+
+        Intent i = new Intent(PopUpArticulo.this, PopUpArticulo.class);
+        i.putExtra("id", id);
+        i.putExtra("liked", liked);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(i);
+        overridePendingTransition(0, 0);
     }
 
     public void setUpArticulo() throws IOException, JSONException {
