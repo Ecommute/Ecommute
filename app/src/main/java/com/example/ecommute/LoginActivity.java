@@ -162,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            } else{
+            } else{ //
                 Toast.makeText(this, "Algo no ha salido como se esperaba!", Toast.LENGTH_SHORT).show();
             }
         }
