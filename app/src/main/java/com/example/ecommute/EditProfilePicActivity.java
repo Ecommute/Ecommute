@@ -169,8 +169,8 @@ public class EditProfilePicActivity extends Activity {
         Response response = client.newCall(request).execute();
         Log.d("llamadauseredit", response.toString());
 
-
         Intent intent = new Intent(EditProfilePicActivity.this, MainActivity.class);
+        intent.putExtra("page", 5);
         startActivity(intent);
     }
 

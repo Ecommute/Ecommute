@@ -112,15 +112,16 @@ public class LoginActivity extends AppCompatActivity {
             OkHttpClient client2 = new OkHttpClient().newBuilder()
                     .build();
             Request request2 = new Request.Builder()
-                    .url("10.4.41.35:3000/users/getUser?username="+GlobalVariables.username+"&password="+ GlobalVariables.password)
+                    .url("http://10.4.41.35:3000/users/getUser?username="+GlobalVariables.username+"&password="+ GlobalVariables.password)
                     .method("GET", null)
                     .build();
-            Response response2 = client.newCall(request).execute();
+            Response response2 = client2.newCall(request2).execute();
 
             respuesta2 = new JSONObject(response2.body().string());
 
-            GlobalVariables.nombre = respuesta2.getString("name");
-            GlobalVariables.profilepic = respuesta2.getString("profilePic");
+            JSONObject usuario = new JSONObject(respuesta2.getString("user"));
+            GlobalVariables.nombre = usuario.getString("name");
+            GlobalVariables.profilepic = usuario.getString("profile");
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
 
