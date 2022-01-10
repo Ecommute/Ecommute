@@ -1,6 +1,7 @@
 package com.example.ecommute;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.method.ScrollingMovementMethod;
@@ -61,7 +62,9 @@ public class PopUpArticulo extends AppCompatActivity {
         cerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopUpArticulo.this.finish();
+                Intent intent = new Intent(PopUpArticulo.this, MainActivity.class);
+                intent.putExtra("page", 1);
+                startActivity(intent);
             }
         });
 
@@ -73,12 +76,21 @@ public class PopUpArticulo extends AppCompatActivity {
 
         setUpLike();
 
+        ImageButton enviar = binding.buttonEnviar;
+        enviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                comentar();
+            }
+        });
 
 
     }
 
     public void comentar(){
-
+        System.out.println(GlobalVariables.username);
+        System.out.println(GlobalVariables.username);
+        System.out.println(GlobalVariables.username);
     }
 
     public void setUpArticulo() throws IOException, JSONException {
