@@ -39,13 +39,6 @@ public class  PopUpArticulo extends AppCompatActivity {
     private boolean liked;
 
     //COMMENT STUFF
-
-    private Integer[] arrayIds;
-    private String[] arrayAuthors;
-    private String[] arrayContents;
-    private String[] arrayCreatedAts;
-    private Boolean[] arrayOwns;
-    private Boolean[] arrayReporteds;
     private Integer idArticle;
 
     @Override
@@ -86,9 +79,15 @@ public class  PopUpArticulo extends AppCompatActivity {
 
         setUpLike();
 
+        try {
+            setUpComments();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    private void setUpCommentsRecycler() throws IOException, JSONException {
+    private void setUpComments() throws IOException, JSONException {
         String username = GlobalVariables.username;
         String password = GlobalVariables.password;
 
@@ -109,29 +108,18 @@ public class  PopUpArticulo extends AppCompatActivity {
 
         idArticle = Integer.valueOf(info.getString("id"));
 
+        ArticleCommentsFragment commentsFragment = ArticleCommentsFragment.newInstance(idArticle);
+        //getFragmentManager().beginTransaction().add(R.id.fragmentContainerView, commentsFragment);
+
+        /*Bundle bundle = new Bundle();
+        bundle.putInt("idArticle", idArticle);
+
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .add(R.id.fragmentContainerView, ArticleCommentsFragment.class, bundle)
+                .commit();*/
+
         System.out.println(Jarray);
-
-        int n = Jarray.length();
-
-        arrayIds = new Integer[n];
-        arrayAuthors = new String[n];
-        arrayContents = new String[n];
-        arrayCreatedAts = new String[n];
-        arrayOwns = new Boolean[n];
-        arrayReporteds = new Boolean[n];
-
-        for(int i = 0; i < n; i++){
-            JSONObject object = Jarray.getJSONObject(i);
-            arrayIds[i] = Integer.valueOf((object.getString("id")));
-            arrayAuthors[i] = object.getString("author");
-            arrayContents[i] = object.getString("content");
-            arrayCreatedAts[i] = object.getString("createdAt");
-            arrayOwns[i] = Boolean.valueOf(object.getString("own"));
-            arrayReporteds[i] = Boolean.valueOf(object.getString("reported"));
-        }
-
-        Log.d("test comments", "num comments: " + String.valueOf(arrayIds.length));
-
     }
 
 

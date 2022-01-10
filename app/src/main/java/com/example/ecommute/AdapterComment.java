@@ -4,10 +4,19 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHolder> {
 
@@ -73,9 +82,50 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
             content = itemView.findViewById(R.id.commContent);
             createdAt = itemView.findViewById(R.id.commCreatedAt);
 
+            Button report = itemView.findViewById(R.id.report);
+            report.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final Response[] response2 = new Response[1];
 
+                    OkHttpClient client = new OkHttpClient().newBuilder().build();
+                    MediaType mediaType = MediaType.parse("text/plain");
+                    RequestBody body = RequestBody.create("", mediaType);
+                    Request request = new Request.Builder()
+                            .url("10.4.41.35:3000/articles/" + idArticle + "/comment/" + id + "/report?username=" + username + "&password=" + password)
+                            .method("POST", body)
+                            .build();
+                    try {
+                        response2[0] = client.newCall(request).execute();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
+                }
+            });
 
+            Button delete = itemView.findViewById(R.id.delete);
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final Response[] response2 = new Response[1];
+
+                    OkHttpClient client = new OkHttpClient().newBuilder().build();
+
+                    MediaType mediaType = MediaType.parse("text/plain");
+                    RequestBody body = RequestBody.create("", mediaType);
+                    Request request = new Request.Builder()
+                            .url("10.4.41.35:3000/articles/" + idArticle + "/comment/" + id + "?username=" + username + "&password=" + password)
+                            .method("DELETE", body)
+                            .build();
+                    try {
+                        response2[0] = client.newCall(request).execute();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
         }
     }
 }

@@ -140,4 +140,24 @@
         app:layout_constraintTop_toBottomOf="@+id/likes"
         app:srcCompat="@drawable/ic_baseline_send_24" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/commentsRV"
+        android:layout_width="346dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintEnd_toEndOf="@+id/buttonEnviar"
+        app:layout_constraintStart_toStartOf="@+id/textView16"
+        app:layout_constraintTop_toBottomOf="@+id/textoMensaje" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.example.ecommute.ArticleCommentsFragment"
+        android:layout_width="340dp"
+        android:layout_height="148dp"
+        android:layout_marginBottom="21dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonCerrar"
+        app:layout_constraintEnd_toEndOf="@+id/buttonEnviar"
+        app:layout_constraintStart_toStartOf="@+id/textView16" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
