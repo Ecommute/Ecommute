@@ -123,7 +123,7 @@ public class HuellaFragment extends Fragment{
         AdapterHistorial mAdapter = new AdapterHistorial(this.getActivity(), arrayOrigenes, arrayDestinos, arrayPuntos, arrayIds, arrayFavs);
         historial.setAdapter(mAdapter);
 
-        mLayoutManager=new LinearLayoutManager(this.getActivity());
+        mLayoutManager = new LinearLayoutManager(this.getActivity());
         historial.setLayoutManager(mLayoutManager);
 
 

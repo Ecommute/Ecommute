@@ -39,7 +39,6 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
     public AdapterHistorial.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View v = inflater.inflate(R.layout.item_historial, parent, false);
-
         return new MyViewHolder(v);
     }
 

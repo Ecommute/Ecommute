@@ -123,6 +123,7 @@ public class ForoFragment extends Fragment {
             arrayNumLikes[i] = Integer.valueOf(object.getString("numLikes"));
         }
 
+
         forum = binding.forum;
         AdapterForum mAdapter = new AdapterForum(this.getActivity(), arrayTitulos, arrayContenido, arrayLiked, arrayIds, arrayNumLikes);
         forum.setAdapter((mAdapter));

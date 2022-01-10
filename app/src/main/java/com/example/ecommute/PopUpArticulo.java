@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.example.ecommute.databinding.PopUpArticuloBinding;
 
@@ -37,8 +39,16 @@ public class  PopUpArticulo extends AppCompatActivity {
     private boolean liked;
 
     //COMMENT STUFF
-    private RecyclerView comments;
-    private RecyclerView.LayoutManager mLayoutManager;
+    RecyclerView comments;
+    RecyclerView.LayoutManager mLayoutManager;
+
+    private Integer[] arrayIds;
+    private String[] arrayAuthors;
+    private String[] arrayContents;
+    private String[] arrayCreatedAts;
+    private Boolean[] arrayOwns;
+    private Boolean[] arrayReporteds;
+    private Integer idArticle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,20 +87,19 @@ public class  PopUpArticulo extends AppCompatActivity {
         }
 
         setUpLike();
-        System.out.println("a");
-        System.out.println("b");
-        System.out.println("c");
-        System.out.println("d");
-        System.out.println("e");
-        System.out.println("f");
-        System.out.println("g");
-        System.out.println("h");
+
         try {
             setUpCommentsRecycler();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        comments = binding.commentsRV;
+        AdapterComments mAdapter = new AdapterComments(getApplicationContext(), idArticle, arrayIds, arrayAuthors, arrayContents, arrayCreatedAts, arrayOwns, arrayReporteds);
+        comments.setAdapter(mAdapter);
+
+        mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        comments.setLayoutManager(mLayoutManager);
     }
 
     private void setUpCommentsRecycler() throws IOException, JSONException {
@@ -111,16 +120,19 @@ public class  PopUpArticulo extends AppCompatActivity {
 
         JSONObject info = new JSONObject(Jobject.getString("article"));
         JSONArray Jarray = info.getJSONArray("comments");
+
+        idArticle = Integer.valueOf(info.getString("id"));
+
         System.out.println(Jarray);
 
         int n = Jarray.length();
 
-        Integer[] arrayIds = new Integer[n];
-        String[] arrayAuthors = new String[n];
-        String[] arrayContents = new String[n];
-        String[] arrayCreatedAts = new String[n];
-        Boolean[] arrayOwns = new Boolean[n];
-        Boolean[] arrayReporteds = new Boolean[n];
+        arrayIds = new Integer[n];
+        arrayAuthors = new String[n];
+        arrayContents = new String[n];
+        arrayCreatedAts = new String[n];
+        arrayOwns = new Boolean[n];
+        arrayReporteds = new Boolean[n];
 
         for(int i = 0; i < n; i++){
             JSONObject object = Jarray.getJSONObject(i);
@@ -132,14 +144,10 @@ public class  PopUpArticulo extends AppCompatActivity {
             arrayReporteds[i] = Boolean.valueOf(object.getString("reported"));
         }
 
-        //FALLA AQUI EL GET ACTIVITY I NO SE COM FERHO, SI AIXO S'ARREGLA LO ALTRE FUNCIONA
-        comments = binding.commentsRV;
-        AdapterComments mAdapter = new AdapterComments(this, arrayIds, arrayAuthors, arrayContents, arrayCreatedAts, arrayOwns, arrayReporteds);
-        comments.setAdapter(mAdapter);
+        Log.d("test comments", "num comments: " + String.valueOf(arrayIds.length));
 
-        mLayoutManager = new LinearLayoutManager(this);
-        comments.setLayoutManager(mLayoutManager);
     }
+
 
     public void setUpArticulo() throws IOException, JSONException {
         OkHttpClient client = new OkHttpClient().newBuilder()

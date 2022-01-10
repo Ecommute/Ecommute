@@ -10,13 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class AdapterComments extends RecyclerView.Adapter<AdapterComments.ViewHolder> {
     Context mContext;
     Integer[] mIds;
     String[] mAuthors, mContents, mCreatedAt;
     Boolean[] mOwn, mReported;
+    Integer mIdArticle;
 
-    public AdapterComments(Context context, Integer[] ids, String[] authors, String[] contents, String[] createdAts, Boolean[] owns, Boolean[] reported){
+    public AdapterComments(Context context, Integer idArticle, Integer[] ids, String[] authors, String[] contents, String[] createdAts, Boolean[] owns, Boolean[] reported){
         mContext = context;
         mIds = ids;
         mAuthors = authors;
@@ -24,11 +33,12 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.ViewHo
         mCreatedAt = createdAts;
         mOwn = owns;
         mReported = reported;
+        mIdArticle = idArticle;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdapterComments.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View v = inflater.inflate(R.layout.item_comment, parent, false);
         return new ViewHolder(v);
@@ -42,6 +52,7 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.ViewHo
         holder.id = mIds[position];
         holder.own = mOwn[position];
         holder.reported = mReported[position];
+        holder.idArticle = mIdArticle;
     }
 
     @Override
@@ -55,7 +66,7 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.ViewHo
 
         public TextView tvContent, tvAuthor;
         public String strCreatedAt;
-        public int id;
+        public int id, idArticle;
         public Boolean own, reported;
 
         public ViewHolder(@NonNull View itemView) {
@@ -70,6 +81,20 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.ViewHo
             report.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    final Response[] response2 = new Response[1];
+
+                    OkHttpClient client = new OkHttpClient().newBuilder().build();
+                    MediaType mediaType = MediaType.parse("text/plain");
+                    RequestBody body = RequestBody.create("", mediaType);
+                    Request request = new Request.Builder()
+                            .url("10.4.41.35:3000/articles/" + idArticle + "/comment/" + id + "/report?username=" + username + "&password=" + password)
+                            .method("POST", body)
+                            .build();
+                    try {
+                        response2[0] = client.newCall(request).execute();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                 }
             });
@@ -78,6 +103,21 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.ViewHo
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    final Response[] response2 = new Response[1];
+
+                    OkHttpClient client = new OkHttpClient().newBuilder().build();
+
+                    MediaType mediaType = MediaType.parse("text/plain");
+                    RequestBody body = RequestBody.create("", mediaType);
+                    Request request = new Request.Builder()
+                            .url("10.4.41.35:3000/articles/" + idArticle + "/comment/" + id + "?username=" + username + "&password=" + password)
+                            .method("DELETE", body)
+                            .build();
+                    try {
+                        response2[0] = client.newCall(request).execute();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                 }
             });
