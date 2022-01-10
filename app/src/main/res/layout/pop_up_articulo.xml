@@ -111,11 +111,10 @@
         android:id="@+id/buttonCerrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
         android:text="Cerrar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/commentsRV" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/textoMensaje"
@@ -140,14 +139,5 @@
         app:layout_constraintStart_toEndOf="@+id/textoMensaje"
         app:layout_constraintTop_toBottomOf="@+id/likes"
         app:srcCompat="@drawable/ic_baseline_send_24" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/commentsRV"
-        android:layout_width="336dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="7dp"
-        app:layout_constraintStart_toEndOf="@+id/textView16"
-        app:layout_constraintStart_toStartOf="@+id/textView16"
-        app:layout_constraintTop_toBottomOf="@+id/textoMensaje" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

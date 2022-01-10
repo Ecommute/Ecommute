@@ -39,8 +39,6 @@ public class  PopUpArticulo extends AppCompatActivity {
     private boolean liked;
 
     //COMMENT STUFF
-    RecyclerView comments;
-    RecyclerView.LayoutManager mLayoutManager;
 
     private Integer[] arrayIds;
     private String[] arrayAuthors;
@@ -88,18 +86,6 @@ public class  PopUpArticulo extends AppCompatActivity {
 
         setUpLike();
 
-        try {
-            setUpCommentsRecycler();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        comments = binding.commentsRV;
-        AdapterComments mAdapter = new AdapterComments(getApplicationContext(), idArticle, arrayIds, arrayAuthors, arrayContents, arrayCreatedAts, arrayOwns, arrayReporteds);
-        comments.setAdapter(mAdapter);
-
-        mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        comments.setLayoutManager(mLayoutManager);
     }
 
     private void setUpCommentsRecycler() throws IOException, JSONException {
