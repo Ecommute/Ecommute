@@ -42,6 +42,7 @@ public class ArticleCommentsFragment extends Fragment {
     private String[] arrayCreatedAts;
     private Boolean[] arrayOwns;
     private Boolean[] arrayReporteds;
+    private int countNulls;
 
     /**
      * Use this factory method to create a new instance of
@@ -65,9 +66,7 @@ public class ArticleCommentsFragment extends Fragment {
 
         try {
             setUpDataSet();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
     }
@@ -83,7 +82,7 @@ public class ArticleCommentsFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new AdapterComment(getActivity(), arrayIds, arrayAuthors, arrayContents, arrayCreatedAts, arrayOwns, arrayReporteds, idArticle);
+        mAdapter = new AdapterComment(getActivity(), arrayIds, arrayAuthors, arrayContents, arrayCreatedAts, arrayOwns, arrayReporteds, idArticle, countNulls);
         mRecyclerView.setAdapter(mAdapter);
 
         return rootView;
@@ -109,7 +108,7 @@ public class ArticleCommentsFragment extends Fragment {
         JSONObject info = new JSONObject(Jobject.getString("article"));
         JSONArray Jarray = info.getJSONArray("comments");
 
-        idArticle = Integer.valueOf(info.getString("id"));
+        idArticle = Integer.parseInt(info.getString("id"));
 
         Bundle bundle = new Bundle();
         bundle.putInt("idArticle", idArticle);
@@ -122,15 +121,19 @@ public class ArticleCommentsFragment extends Fragment {
         arrayCreatedAts = new String[n];
         arrayOwns = new Boolean[n];
         arrayReporteds = new Boolean[n];
+        countNulls = 0;
 
         for(int i = 0; i < n; i++){
+
             JSONObject object = Jarray.getJSONObject(i);
+
             arrayIds[i] = Integer.valueOf((object.getString("id")));
             arrayAuthors[i] = object.getString("author");
             arrayContents[i] = object.getString("content");
             arrayCreatedAts[i] = object.getString("createdAt");
             arrayOwns[i] = Boolean.valueOf(object.getString("own"));
             arrayReporteds[i] = Boolean.valueOf(object.getString("reported"));
+
         }
     }
 }

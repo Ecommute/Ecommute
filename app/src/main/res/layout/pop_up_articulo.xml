@@ -143,9 +143,9 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="com.example.ecommute.ArticleCommentsFragment"
-        android:layout_width="414dp"
-        android:layout_height="196dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="411dp"
+        android:layout_height="231dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="@+id/buttonEnviar"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

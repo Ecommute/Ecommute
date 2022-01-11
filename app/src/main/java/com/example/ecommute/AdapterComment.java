@@ -36,8 +36,9 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
     private Boolean[] mOwns;
     private Boolean[] mReporteds;
     private Integer midArticle;
+    private int mCountNulls;
 
-    public AdapterComment(Context context, Integer[] ids, String[] authors, String[] contents, String[] createdAts, Boolean[] owns, Boolean[] reporteds, Integer idArticle){
+    public AdapterComment(Context context, Integer[] ids, String[] authors, String[] contents, String[] createdAts, Boolean[] owns, Boolean[] reporteds, Integer idArticle, int countNulls){
         mContext = context;
         mIds = ids;
         mAuthors = authors;
@@ -46,6 +47,7 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
         mOwns = owns;
         mReporteds = reporteds;
         midArticle = idArticle;
+        mCountNulls = countNulls;
     }
 
     @NonNull
@@ -59,21 +61,19 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if(mOwns[position]) {
-            holder.itemView.setVisibility(View.GONE);
-        }
-        else {
-            holder.author.setText(mAuthors[position]);
-            holder.content.setText(mContents[position]);
-            holder.createdAt = mCreatedAts[position];
-            holder.id = mIds[position];
-            holder.idArticle = midArticle;
-            holder.own = mOwns[position];
-            holder.reported = mReporteds[position];
+         holder.author.setText(mAuthors[position]);
+         holder.content.setText(mContents[position]);
+         holder.createdAt = mCreatedAts[position];
+         holder.id = mIds[position];
+         holder.idArticle = midArticle;
+         holder.own = mOwns[position];
+         holder.reported = mReporteds[position];
 
-            if(mOwns[position]) holder.report.setVisibility(View.GONE);
-            else holder.delete.setVisibility(View.GONE);
-        }
+         if(mOwns[position]) holder.report.setVisibility(View.GONE);
+         else holder.delete.setVisibility(View.GONE);
+
+        if(mReporteds[position]) holder.report.setImageResource(R.drawable.ic_baseline_error_red);
+
     }
 
     @Override
@@ -97,6 +97,12 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
             author = itemView.findViewById(R.id.commAuthor);
             content = itemView.findViewById(R.id.commContent);
             createdAtPretty = itemView.findViewById(R.id.commCreatedAt);
+
+            /*java.sql.Timestamp ts2 = java.sql.Timestamp.valueOf(createdAt);
+            long tsTime2 = ts2.getTime();
+            String t = (String) getRelativeTimeSpanString (tsTime2);*/
+
+            createdAtPretty.setText(createdAt);
 
             report = itemView.findViewById(R.id.report);
             delete = itemView.findViewById(R.id.delete);
