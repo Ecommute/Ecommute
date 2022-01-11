@@ -143,10 +143,12 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="com.example.ecommute.ArticleCommentsFragment"
-        android:layout_width="340dp"
-        android:layout_height="198dp"
-        android:layout_marginTop="26dp"
-        app:layout_constraintStart_toStartOf="@+id/textView16"
+        android:layout_width="414dp"
+        android:layout_height="196dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="@+id/buttonEnviar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textoMensaje" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
