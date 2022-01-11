@@ -8,33 +8,25 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class PopUpEventos extends AppCompatActivity {
 
-    String[] titulos;
-    String[] localizaciones;
-    String[] horas;
-    RecyclerView Eventos;
+    RecyclerView ListaEventos;
     RecyclerView.LayoutManager mLayoutManager;
-    int year;
-    int month;
-    int dayOfMonth;
-
-    public PopUpEventos(int year, int month, int dayOfMonth){
-        this.year = year;
-        this.month = month;
-        this.dayOfMonth = dayOfMonth;
-    }
 
     Button añadir;
-    public PopUpEventos(){
-
-    }
 
 
     public void onCreate(@NonNull Bundle savedInstanceState) {
@@ -54,35 +46,23 @@ public class PopUpEventos extends AppCompatActivity {
 
         Log.d("eventos", "on create de popupeventos");
         try {
-            setUpItems();
+            setUpRecycler();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // TODO ESTO ES INSPO DE RUTA FRAGMEN PARA INICIALIZAR LOS ELEMENTOS DEL RECYCLER VIEW
-        /*
-        rutasFav = binding.recyclerRFavs;
-        AdapterRutasFav mAdapter = new AdapterRutasFav(this.getActivity(), arrayOrigenes, arrayDestinos, arrayIds);
-        rutasFav.setAdapter(mAdapter);
-
-        mLayoutManager=new LinearLayoutManager(this.getActivity());
-        rutasFav.setLayoutManager(mLayoutManager);
-
-
-        return root;
-        */
     }
 
-    public void setUpItems() throws IOException, JSONException {
-        //aqui inicializamos las tres listas
+    private void setUpRecycler() throws IOException, JSONException {
 
-        /*
+        Log.d("Auth", GlobalVariables.authcode);
 
         final Response[] response = new Response[1];
 
         OkHttpClient client = new OkHttpClient().newBuilder().build();
 
         Request request = new Request.Builder()
-                .url("http://10.4.41.35:3000/routes/list?username=" + GlobalVariables.username + "&password=" + GlobalVariables.password +)
+                .url("http://10.4.41.35:3000/calendar/getEvent?time=" + GlobalVariables.fecha + "&code=" + GlobalVariables.authcode
+                        + "&username=" + GlobalVariables.username + "&password=" + GlobalVariables.password)
                 .method("GET", null)
                 .build();
 
@@ -93,16 +73,25 @@ public class PopUpEventos extends AppCompatActivity {
         JSONArray Jarray = Jobject.getJSONArray("events");
 
         int n = Jarray.length();
-        ArrayEventos = new Events[n];
+        String[] arrayTitulos = new String[n];
+        String[] arrayLocalitzacions = new String[n];
 
         for (int i = 0; i < n; i++) {
             JSONObject object = Jarray.getJSONObject(i);
-            titulos[i] = Integer.valueOf(object.getString("title"));
-            localizaciones[i] = object.getString("location");
-            horas[i] = object.getString("startTime");
+            if (object.has("summary")) {
+                arrayTitulos[i] = object.getString("summary");
+            } else arrayTitulos[i] = "No title";
+            if (object.has("location")) {
+                arrayLocalitzacions[i] = object.getString("location");
+            } else arrayLocalitzacions[i] = "No location";
         }
 
-        */
+        ListaEventos = findViewById(R.id.EventosView);
+        AdapterEvents mAdapter = new AdapterEvents(this, arrayTitulos, arrayLocalitzacions);
+        ListaEventos.setAdapter((mAdapter));
+
+        mLayoutManager = new LinearLayoutManager(this);
+        ListaEventos.setLayoutManager(mLayoutManager);
     }
 
 }

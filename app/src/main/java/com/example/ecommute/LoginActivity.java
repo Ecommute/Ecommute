@@ -46,8 +46,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.server_client_id)).requestServerAuthCode(getString(R.string.server_client_id))
-                .requestEmail().requestScopes(new Scope("https://www.googleapis.com/auth/calendar"), new Scope("https://www.googleapis.com/auth/calendar.events"))
+                .requestScopes(new Scope("https://www.googleapis.com/auth/calendar.events.readonly"), new Scope("https://www.googleapis.com/auth/calendar.readonly"))
+                .requestIdToken(getString(R.string.server_client_id))
+                .requestServerAuthCode(getString(R.string.server_client_id))
+                .requestEmail()
                 .build();
 
         GlobalVariables.setClient(GoogleSignIn.getClient(this, gso));
@@ -166,11 +168,15 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
+
                 try {
                     if(comprobacion.getString("result").equals("Success")) {
                         GlobalVariables.profilepic = "2";
                         GlobalVariables.username = comprobacion.getString("user").toString();
                         GlobalVariables.password = comprobacion.getString("password").toString();
+                        GlobalVariables.authcode = account.getServerAuthCode();
+
+                        Log.d("AuthCode", account.getServerAuthCode());
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);

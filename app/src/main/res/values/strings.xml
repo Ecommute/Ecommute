@@ -39,7 +39,6 @@
 
 
     <string name="textVRutasFav">Rutas Favoritas</string>
-    <string name="server_client_id">60686683765-v58iemvsluk42sp8gd8co48tjk2mv5nk.apps.googleusercontent.com</string>
     <string name="Último_mes">Ultimo Mes</string>
     <string name="TextView">TextView</string>
     <string name="Mis_gráficos">Mis gráficos</string>
@@ -55,4 +54,5 @@
     <string name="Vermicalendario">Ver mi Calendario</string>
     <string name="EditProfilePic">Editar foto de perfil</string>
     <string name="exportroute">Exportar ruta</string>
+    <string name="server_client_id" translatable="false">60686683765-v58iemvsluk42sp8gd8co48tjk2mv5nk.apps.googleusercontent.com</string>
 </resources>
