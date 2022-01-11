@@ -29,12 +29,19 @@ import okhttp3.Response;
  *
  */
 public class ArticleCommentsFragment extends Fragment {
+    private static final String TAG = "RecyclerViewFragment";
+
+    protected RecyclerView mRecyclerView;
+    protected RecyclerView.LayoutManager mLayoutManager;
+    protected AdapterComment mAdapter;
+
     private static int idArticle;
-
-    private RecyclerView comments;
-    private RecyclerView.LayoutManager mLayoutManager;
-
-    private FragmentArticleCommentsBinding binding;
+    private Integer[] arrayIds;
+    private String[] arrayAuthors;
+    private String[] arrayContents;
+    private String[] arrayCreatedAts;
+    private Boolean[] arrayOwns;
+    private Boolean[] arrayReporteds;
 
     /**
      * Use this factory method to create a new instance of
@@ -56,30 +63,34 @@ public class ArticleCommentsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = FragmentArticleCommentsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        //idArticle = requireArguments().getInt("idArticle");
-
-
         try {
-            setUpRecycler();
+            setUpDataSet();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        // Inflate the layout for this fragment
-        return root;
     }
 
-    private void setUpRecycler() throws IOException, JSONException {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_article_comments, container, false);
+        rootView.setTag(TAG);
+
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.commentsRV);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new AdapterComment(getActivity(), arrayIds, arrayAuthors, arrayContents, arrayCreatedAts, arrayOwns, arrayReporteds, idArticle);
+        mRecyclerView.setAdapter(mAdapter);
+
+        return rootView;
+    }
+
+
+    private void setUpDataSet() throws IOException, JSONException {
         String username = GlobalVariables.username;
         String password = GlobalVariables.password;
 
@@ -105,12 +116,12 @@ public class ArticleCommentsFragment extends Fragment {
 
         int n = Jarray.length();
 
-        Integer[] arrayIds = new Integer[n];
-        String[] arrayAuthors = new String[n];
-        String[] arrayContents = new String[n];
-        String[] arrayCreatedAts = new String[n];
-        Boolean[] arrayOwns = new Boolean[n];
-        Boolean[] arrayReporteds = new Boolean[n];
+        arrayIds = new Integer[n];
+        arrayAuthors = new String[n];
+        arrayContents = new String[n];
+        arrayCreatedAts = new String[n];
+        arrayOwns = new Boolean[n];
+        arrayReporteds = new Boolean[n];
 
         for(int i = 0; i < n; i++){
             JSONObject object = Jarray.getJSONObject(i);
@@ -121,14 +132,5 @@ public class ArticleCommentsFragment extends Fragment {
             arrayOwns[i] = Boolean.valueOf(object.getString("own"));
             arrayReporteds[i] = Boolean.valueOf(object.getString("reported"));
         }
-
-        Log.d("test comments", "num comments: " + String.valueOf(arrayIds.length));
-
-        comments = binding.commentsRV;
-        AdapterComment mAdapter = new AdapterComment(this.getActivity(), arrayIds, arrayAuthors, arrayContents, arrayCreatedAts, arrayOwns, arrayReporteds, idArticle);
-        comments.setAdapter(mAdapter);
-
-        mLayoutManager = new LinearLayoutManager(this.getActivity());
-        comments.setLayoutManager(mLayoutManager);
     }
 }

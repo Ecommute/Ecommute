@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -80,14 +81,14 @@ public class  PopUpArticulo extends AppCompatActivity {
         setUpLike();
 
         try {
-            setUpComments();
+            setUpComments(savedInstanceState);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
     }
 
-    private void setUpComments() throws IOException, JSONException {
+    private void setUpComments(@Nullable Bundle savedInstanceState) throws IOException, JSONException {
         String username = GlobalVariables.username;
         String password = GlobalVariables.password;
 
@@ -108,16 +109,12 @@ public class  PopUpArticulo extends AppCompatActivity {
 
         idArticle = Integer.valueOf(info.getString("id"));
 
-        ArticleCommentsFragment commentsFragment = ArticleCommentsFragment.newInstance(idArticle);
-        //getFragmentManager().beginTransaction().add(R.id.fragmentContainerView, commentsFragment);
-
-        /*Bundle bundle = new Bundle();
-        bundle.putInt("idArticle", idArticle);
-
-        getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.fragmentContainerView, ArticleCommentsFragment.class, bundle)
-                .commit();*/
+        if(savedInstanceState == null){
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            ArticleCommentsFragment fragment = ArticleCommentsFragment.newInstance(idArticle);
+            transaction.replace(R.id.fragmentContainerView, fragment);
+            transaction.commit();
+        }
 
         System.out.println(Jarray);
     }

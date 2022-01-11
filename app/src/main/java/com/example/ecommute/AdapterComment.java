@@ -1,6 +1,7 @@
 package com.example.ecommute;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,7 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         holder.author.setText(mAuthors[position]);
         holder.content.setText(mContents[position]);
         holder.createdAt.setText(mCreatedAts[position]);
@@ -58,8 +60,6 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
         holder.idArticle = midArticle;
         holder.own = mOwns[position];
         holder.reported = mReporteds[position];
-
-
     }
 
     @Override
@@ -78,11 +78,11 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            author = itemView.findViewById(R.id.author);
+            author = itemView.findViewById(R.id.commAuthor);
             content = itemView.findViewById(R.id.commContent);
             createdAt = itemView.findViewById(R.id.commCreatedAt);
 
-            Button report = itemView.findViewById(R.id.report);
+            /*Button report = itemView.findViewById(R.id.report);
             report.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -125,7 +125,7 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
                     }
 
                 }
-            });
+            });*/
         }
     }
 }
