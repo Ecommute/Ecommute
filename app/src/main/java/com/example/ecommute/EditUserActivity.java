@@ -115,6 +115,7 @@ public class EditUserActivity extends AppCompatActivity {
         Log.d("llamadauseredit", response.toString());
         if(new_user) {
             Intent intent = new Intent(EditUserActivity.this, MainActivity.class);
+            intent.putExtra("page", 5);
             startActivity(intent);
         }
     }

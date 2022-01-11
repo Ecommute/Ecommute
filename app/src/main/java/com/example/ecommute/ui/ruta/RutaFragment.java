@@ -301,7 +301,8 @@ public class RutaFragment extends Fragment {
     }
 
     public void export() {
-        Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + binding.editDestino.getText().toString());
+        //Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + binding.editDestino.getText().toString());
+        Uri gmmIntentUri = Uri.parse("https://www.google.com/maps/dir/?api=1&origin="+binding.editOrigen.getText().toString()+"&destination="+binding.editDestino.getText().toString());
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         startActivity(mapIntent);
