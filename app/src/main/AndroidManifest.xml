@@ -20,6 +20,10 @@
             android:name=".RutasActivity"
             android:exported="true" />
         <activity
+            android:name=".EditUserActivity"
+            android:exported="true" />
+
+        <activity
             android:name=".EditActivity"
             android:exported="true" />
         <activity
@@ -33,6 +37,7 @@
         </activity>
         <activity android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan"></activity>
+
         <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".PopUpCoche"
             android:theme ="@style/PopUpCoche" >
@@ -41,8 +46,10 @@
         <activity android:name=".PopUpArticulo"></activity>
         <activity android:name=".CalendarActivity"></activity>
         <activity android:name=".PopUpEventos"></activity>
-        <activity android:name=".PopUpAnadirEvento"
-            android:theme ="@style/PopUpCoche" ></activity>
+        <activity
+            android:name=".PopUpAnadirEvento"
+            android:theme="@style/PopUpCoche" />
+        <activity android:name=".EditProfilePicActivity" />
     </application>
 
 </manifest>

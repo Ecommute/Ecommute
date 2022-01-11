@@ -14,6 +14,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationRequest;
+import android.net.Uri;
 import android.os.AsyncTask;
 
 import android.os.Build;
@@ -99,6 +100,15 @@ public class RutaFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 titulo.setText(s);
+            }
+        });
+
+        Button export = binding.export;
+
+        export.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                export();
             }
         });
 
@@ -288,6 +298,14 @@ public class RutaFragment extends Fragment {
 
         Intent intent = new Intent(getActivity(), RutasActivity.class);
         startActivity(intent);
+    }
+
+    public void export() {
+        //Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + binding.editDestino.getText().toString());
+        Uri gmmIntentUri = Uri.parse("https://www.google.com/maps/dir/?api=1&origin="+binding.editOrigen.getText().toString()+"&destination="+binding.editDestino.getText().toString());
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
     }
 
     @Override

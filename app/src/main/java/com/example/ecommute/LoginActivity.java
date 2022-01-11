@@ -3,6 +3,8 @@ package com.example.ecommute;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -101,9 +103,25 @@ public class LoginActivity extends AppCompatActivity {
         Response response = client.newCall(request).execute();
 
         JSONObject respuesta2 = new JSONObject(response.body().string());
+
         if(respuesta2.getString("result").equals("Success")) {
+
             GlobalVariables.password = editPassword.getText().toString();
             GlobalVariables.username = editUsuario.getText().toString();
+
+            OkHttpClient client2 = new OkHttpClient().newBuilder()
+                    .build();
+            Request request2 = new Request.Builder()
+                    .url("http://10.4.41.35:3000/users/getUser?username="+GlobalVariables.username+"&password="+ GlobalVariables.password)
+                    .method("GET", null)
+                    .build();
+            Response response2 = client2.newCall(request2).execute();
+
+            respuesta2 = new JSONObject(response2.body().string());
+
+            JSONObject usuario = new JSONObject(respuesta2.getString("user"));
+            GlobalVariables.nombre = usuario.getString("name");
+            GlobalVariables.profilepic = usuario.getString("profile");
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
 
@@ -150,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 try {
                     if(comprobacion.getString("result").equals("Success")) {
-
+                        GlobalVariables.profilepic = "2";
                         GlobalVariables.username = comprobacion.getString("user").toString();
                         GlobalVariables.password = comprobacion.getString("password").toString();
 

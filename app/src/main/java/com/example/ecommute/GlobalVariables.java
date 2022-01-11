@@ -3,9 +3,24 @@ package com.example.ecommute;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
 public class GlobalVariables {
-    public static String username, password, origen, destino;
     public static GoogleSignInClient mSignInClient;
+    public static String username, password, origen, destino, nombre, profilepic;
+    public GlobalVariables instance;
 
+    /**
+     * Declara la clase Controlador como Singleton
+     */
+    private static class GlobalVariablesHelper{
+        private static final GlobalVariables singletonObject = new GlobalVariables();
+    }
+
+    /**
+     * Facilita el uso del singleton controladorUsuario
+     * @return instancia Singleton del Controlador Usuario
+     */
+    public static GlobalVariables getInstance() {
+        return GlobalVariablesHelper.singletonObject;
+    }
     public void setPassword(String password) {
         this.password = password;
     }
@@ -26,6 +41,10 @@ public class GlobalVariables {
         mSignInClient = client;
     }
 
+    public void setnombre(String nombre) { this.nombre = nombre; }
+
+    public void setprofilepic(String profilepic) { this.profilepic = profilepic; }
+
 
     public String getPassword() {
         return password;
@@ -45,5 +64,13 @@ public class GlobalVariables {
 
     public static GoogleSignInClient getClient() {
         return mSignInClient;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getProfilepic() {
+        return profilepic;
     }
 }

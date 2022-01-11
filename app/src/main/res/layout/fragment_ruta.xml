@@ -27,43 +27,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/Origen"
         android:inputType="textPostalAddress"
+        android:hint="@string/Origen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.138"
+        app:layout_constraintVertical_bias="0.218"
         tools:ignore="TouchTargetSizeCheck" />
-
-    <ImageButton
-        android:id="@+id/useLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:src="@drawable/ic_baseline_my_location_24"
-        app:layout_constraintBottom_toTopOf="@+id/editDestino"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editOrigen"
-        app:layout_constraintTop_toBottomOf="@+id/text_notifications"
-        app:layout_constraintVertical_bias="0.43" />
 
     <EditText
         android:id="@+id/editDestino"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/Destino"
         android:inputType="textPostalAddress"
+        android:hint="@string/Destino"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editOrigen"
-        app:layout_constraintVertical_bias="0.069"
+        app:layout_constraintVertical_bias="0.081"
         tools:ignore="TouchTargetSizeCheck" />
 
     <Button
@@ -76,7 +62,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editDestino"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintVertical_bias="0.044" />
 
     <TextView
         android:id="@+id/confirmador"
@@ -91,12 +77,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerRFavs"
-        android:layout_width="356dp"
-        android:layout_height="277dp"
-        android:layout_marginBottom="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="241dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -109,10 +94,29 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/recyclerRFavs"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/useLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_baseline_my_location_24"
+        app:layout_constraintBottom_toTopOf="@+id/editDestino"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buscar_ruta"
         app:layout_constraintVertical_bias="0.864" />
+
+    <Button
+        android:id="@+id/export"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/exportroute"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buscar_ruta" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

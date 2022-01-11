@@ -8,16 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ecommute.CalendarActivity;
+import com.example.ecommute.EditProfilePicActivity;
 import com.example.ecommute.EditUserActivity;
 import com.example.ecommute.GlobalVariables;
 import com.example.ecommute.LoginActivity;
@@ -35,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -59,6 +61,7 @@ public class PerfilFragment extends Fragment {
 
         final TextView textView = binding.textPerfil;
         /*perfilViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+       /* perfilViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
@@ -82,13 +85,64 @@ public class PerfilFragment extends Fragment {
             }
         });
 
+        TextView nombre = binding.textPerfil;
+        nombre.setText((GlobalVariables.nombre));
+
+        TextView nombre_user = binding.username;
+        nombre_user.setText((GlobalVariables.username));
+
+        ImageView image = binding.imageView;
+
+        String cambio = GlobalVariables.profilepic;
+        if (cambio != null ) Log.d("cambiofoto", cambio);
+        switch (Objects.requireNonNull(cambio)) {
+            case("2"):
+                image.setImageResource(R.drawable.asset_2);
+                break;
+            case("3"):
+                binding.imageView.setImageResource(R.drawable.asset_3);
+                break;
+            case("4"):
+                binding.imageView.setImageResource(R.drawable.asset_4);
+                break;
+            case("5"):
+                binding.imageView.setImageResource(R.drawable.asset_5);
+                break;
+            case("6"):
+                binding.imageView.setImageResource(R.drawable.asset_6);
+                break;
+            case("7"):
+                binding.imageView.setImageResource(R.drawable.asset_7);
+                break;
+            case("8"):
+                binding.imageView.setImageResource(R.drawable.asset_8);
+                break;
+            default:
+                Log.d("cualquier cosa", "default case");
+
+        }
+
+        Button change_profile_pic = binding.profilepic;
+
+        change_profile_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), EditProfilePicActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         Button logoutb = binding.logout;
 
         logoutb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logout();
+                try {
+                    logout();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -110,12 +164,12 @@ public class PerfilFragment extends Fragment {
             }
         });
 
-        Button editb = binding.EditProfile;
-
-        editb.setOnClickListener(new View.OnClickListener() {
+        Button edit = binding.EditProfile;
+        edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validateedit();
+                Intent intent = new Intent(getActivity(), EditUserActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -143,9 +197,28 @@ public class PerfilFragment extends Fragment {
         return root;
     }
 
-    private void logout(){
+    private void logout() throws IOException {
+        String urlParameters  =
+                "username="+GlobalVariables.username +
+                "&password="+GlobalVariables.password +
+                "&profilePic="+GlobalVariables.profilepic +
+                        "&name="+GlobalVariables.nombre;
+
+
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("text/plain");
+        RequestBody body = RequestBody.create("", mediaType);
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/users/edit?" + urlParameters)
+                .method("POST", body)
+                .build();
+        client.newCall(request).execute();
+
         GlobalVariables.password = "";
         GlobalVariables.username = "";
+        GlobalVariables.nombre = "";
+        GlobalVariables.profilepic = "";
         GlobalVariables.getClient().signOut();
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
@@ -171,15 +244,13 @@ public class PerfilFragment extends Fragment {
         }
         GlobalVariables.password = "";
         GlobalVariables.username = "";
+        GlobalVariables.nombre = "";
+        GlobalVariables.profilepic = "";
         GlobalVariables.getClient().signOut();
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
     }
 
-    private void validateedit(){
-        Intent intent = new Intent(getActivity(), EditUserActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public void onDestroyView() {

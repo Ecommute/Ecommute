@@ -38,4 +38,18 @@
     <string name="Descripción_evento">Description</string>
 
 
+    <string name="textVRutasFav">Favourite Routes</string>
+    <string name="Coche">Car</string>
+    <string name="Vermicalendario">My Calendar</string>
+    <string name="EditProfilePic">Change Profile Pic</string>
+    <string name="Mis_gráficos">My graphics</string>
+    <string name="CO2">CO2</string>
+    <string name="Cerrar_informe">Close review</string>
+    <string name="Nivel">Level</string>
+    <string name="explnivel">Shows the current level, between 1 and 15</string>
+    <string name="Puntos">Points</string>
+    <string name="Puntosexp">"Shows the quantity of actual points in the level "</string>
+    <string name="Icono">Icon</string>
+    <string name="explicono">The icon seen in the center of the screen it will be updated as soon as you incremetn your level, make more routes if you want to see your plant grow!</string>
+    <string name="Último_mes">Last month</string>
 </resources>
