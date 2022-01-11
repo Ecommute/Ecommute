@@ -4,22 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.perfil.PerfilFragment"><![CDATA[
+    android:paddingBottom="0dp"
+    tools:context=".ui.perfil.PerfilFragment">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="131dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/asset_7"
+        app:layout_constraintBottom_toTopOf="@+id/text_perfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="125dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/text_perfil"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.556" />
 
-    app:layout_constraintVertical_bias="0.364" />
-
-
-
-
-
-    ]]>
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="125dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/text_perfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.411"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.556" />
 
     <TextView
         android:id="@+id/text_perfil"
-        android:layout_width="301dp"
-        android:layout_height="38dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -27,25 +54,80 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.321" />
+        app:layout_constraintVertical_bias="0.245" />
 
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="200dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="14sp"
+    <Button
+        android:id="@+id/btncalendario"
+        android:layout_width="195dp"
+        android:layout_height="51dp"
+        android:text="Ver mi calendario"
+        app:layout_constraintBottom_toTopOf="@+id/EditProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_perfil"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/EditProfile"
+        android:layout_width="147dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="152dp"
+        android:text="@string/EditarPerfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.821"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_perfil" />
+
+    <Button
+        android:id="@+id/profilepic"
+        android:layout_width="154dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="152dp"
+        android:text="Cambiar Foto"
+        app:layout_constraintEnd_toStartOf="@+id/EditProfile"
+        app:layout_constraintHorizontal_bias="0.725"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_perfil" />
+
+    <Button
+        android:id="@+id/recContra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recuperar Contraseña"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.37" />
+        app:layout_constraintTop_toBottomOf="@+id/EditProfile"
+        app:layout_constraintVertical_bias="0.006" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="168dp"
+        android:layout_height="44dp"
+        android:backgroundTint="@color/red"
+        android:text="@string/Logout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_perfil"
+        app:layout_constraintVertical_bias="0.578" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/linkGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:text="Link Con Google"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eliminarPerfil"
+        app:layout_constraintVertical_bias="0.369" />
 
     <Button
         android:id="@+id/eliminarPerfil"
@@ -58,119 +140,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.737" />
-
-    <Button
-        android:id="@+id/logout"
-        android:layout_width="168dp"
-        android:layout_height="44dp"
-        android:backgroundTint="@color/red"
-        android:text="@string/Logout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.885" />
-
-    <Button
-        android:id="@+id/EditProfile"
-        android:layout_width="200dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="216dp"
-        android:text="@string/EditarPerfil"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_perfil"
-        app:layout_constraintVertical_bias="0.049" />
+        app:layout_constraintVertical_bias="0.441" />
 
     <Button
         android:id="@+id/car"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#FF6004"
-        android:text="@string/Coche"
+        android:text="Coche"
         app:layout_constraintBottom_toTopOf="@+id/eliminarPerfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.731"
+        app:layout_constraintTop_toBottomOf="@+id/text_perfil"
+        app:layout_constraintVertical_bias="0.155"
         tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="131dp"
-        android:layout_height="130dp"
-        android:layout_marginTop="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/text_perfil"
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="386dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="6dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/car"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.535" />
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="125dp"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/text_perfil"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.645" />
-
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="125dp"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/text_perfil"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.64" />
-
-
-    <Button
-        android:id="@+id/profilepic"
-        android:layout_width="278dp"
-        android:layout_height="42dp"
-        android:text="@string/EditProfilePic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.458" />
-
-    <Button
-        android:id="@+id/btncalendario"
-        android:layout_width="209dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="160dp"
-        android:text="@string/Vermicalendario"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_perfil"
-        app:layout_constraintVertical_bias="0.003" />
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/linkGoogle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Link Con Google"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

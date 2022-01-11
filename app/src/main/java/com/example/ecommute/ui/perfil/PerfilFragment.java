@@ -122,6 +122,7 @@ public class PerfilFragment extends Fragment {
 
         }
 
+
         Button change_profile_pic = binding.profilepic;
 
         change_profile_pic.setOnClickListener(new View.OnClickListener() {
