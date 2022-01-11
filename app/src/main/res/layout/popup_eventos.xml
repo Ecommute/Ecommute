@@ -3,30 +3,29 @@
     xmlns:andoid="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/EventosView"
-        android:layout_width="274dp"
-        android:layout_height="258dp"
+        android:layout_width="380dp"
+        android:layout_height="495dp"
         andoid:layout_constraintBottom_toBottomOf="parent"
         andoid:layout_constraintEnd_toEndOf="parent"
-        andoid:layout_constraintHorizontal_bias="0.0"
         andoid:layout_constraintStart_toStartOf="parent"
         andoid:layout_constraintTop_toTopOf="parent"
-        andoid:layout_constraintVertical_bias="0.34" />
+        andoid:layout_constraintVertical_bias="0.113" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
-        android:text="Button"
+        android:text="Crear Evento"
         andoid:layout_constraintBottom_toBottomOf="parent"
-        andoid:layout_constraintEnd_toEndOf="@+id/EventosView"
+        andoid:layout_constraintEnd_toEndOf="parent"
+        andoid:layout_constraintHorizontal_bias="0.498"
         andoid:layout_constraintStart_toStartOf="parent"
         andoid:layout_constraintTop_toBottomOf="@+id/EventosView"
-        andoid:layout_constraintVertical_bias="0.0" />
+        andoid:layout_constraintVertical_bias="0.308" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

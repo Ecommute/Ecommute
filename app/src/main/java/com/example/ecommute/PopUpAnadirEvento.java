@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,8 +17,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class PopUpAnadirEvento extends Activity {
-
-
 
     EditText titulo;
     EditText localizacion;
@@ -47,16 +46,18 @@ public class PopUpAnadirEvento extends Activity {
                 if (!titulo.getText().toString().isEmpty() && !localizacion.getText().toString().isEmpty()
                     && !descripcion.getText().toString().isEmpty()){
 
-                    Calendar calendar = new GregorianCalendar();
-                    calendar.set(2021, 11, 25);
+                    Calendar fecha = new GregorianCalendar();
+                    fecha.set(Integer.parseInt(GlobalVariables.fecha.substring(0,4)),
+                            Integer.parseInt(GlobalVariables.fecha.substring(5,7)) - 1,
+                            Integer.parseInt(GlobalVariables.fecha.substring(8,10)));
 
                     Intent intent = new Intent(Intent.ACTION_INSERT);
                     intent.setData(CalendarContract.Events.CONTENT_URI);
                     intent.putExtra(CalendarContract.Events.TITLE, titulo.getText().toString());
                     intent.putExtra(CalendarContract.Events.EVENT_LOCATION, localizacion.getText().toString());
                     intent.putExtra(CalendarContract.Events.DESCRIPTION, descripcion.getText().toString());
-                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, calendar.getTimeInMillis());
-                    intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calendar.getTimeInMillis());
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, fecha.getTimeInMillis());
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, fecha.getTimeInMillis());
 
                     if (intent.resolveActivity(getPackageManager()) != null){
                         startActivity(intent);

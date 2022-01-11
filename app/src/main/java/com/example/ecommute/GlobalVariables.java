@@ -4,7 +4,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
 public class GlobalVariables {
     public static GoogleSignInClient mSignInClient;
-    public static String username, password, origen, destino, nombre, profilepic;
+    public static String username, password, origen, destino, nombre, profilepic, authcode;
+    public static String fecha;
     public GlobalVariables instance;
 
     /**
@@ -33,6 +34,10 @@ public class GlobalVariables {
         this.origen = origen;
     }
 
+    public void setAuthCode(String authcode) {
+        this.authcode = authcode;
+    }
+
     public void setdestino(String destino) {
         this.destino = destino;
     }
@@ -43,11 +48,19 @@ public class GlobalVariables {
 
     public void setnombre(String nombre) { this.nombre = nombre; }
 
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
     public void setprofilepic(String profilepic) { this.profilepic = profilepic; }
 
 
     public String getPassword() {
         return password;
+    }
+
+    public String getFecha() {
+        return fecha;
     }
 
     public String getUsername() {
@@ -56,6 +69,10 @@ public class GlobalVariables {
 
     public String getOrigen() {
         return origen;
+    }
+
+    public String getAuthCode() {
+        return authcode;
     }
 
     public String getDestino() {
