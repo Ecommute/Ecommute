@@ -111,7 +111,7 @@ public class  PopUpArticulo extends AppCompatActivity {
 
         if(savedInstanceState == null){
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            ArticleCommentsFragment fragment = ArticleCommentsFragment.newInstance(idArticle);
+            ArticleCommentsFragment fragment = ArticleCommentsFragment.newInstance(idArticle, liked);
             transaction.replace(R.id.fragmentContainerView, fragment);
             transaction.commit();
         }

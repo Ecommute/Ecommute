@@ -43,6 +43,7 @@ public class ArticleCommentsFragment extends Fragment {
     private Boolean[] arrayOwns;
     private Boolean[] arrayReporteds;
     private int countNulls;
+    private static boolean liked;
 
     /**
      * Use this factory method to create a new instance of
@@ -50,9 +51,10 @@ public class ArticleCommentsFragment extends Fragment {
      * @return A new instance of fragment ArticleCommentsFragment.
      * @param idA
      */
-    public static ArticleCommentsFragment newInstance(Integer idA) {
+    public static ArticleCommentsFragment newInstance(Integer idA, boolean likeda) {
         ArticleCommentsFragment fragment = new ArticleCommentsFragment();
         idArticle = idA;
+        liked = likeda;
         return fragment;
     }
 
@@ -82,7 +84,7 @@ public class ArticleCommentsFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new AdapterComment(getActivity(), arrayIds, arrayAuthors, arrayContents, arrayCreatedAts, arrayOwns, arrayReporteds, idArticle, countNulls);
+        mAdapter = new AdapterComment(getActivity(), arrayIds, arrayAuthors, arrayContents, arrayCreatedAts, arrayOwns, arrayReporteds, idArticle, countNulls, liked);
         mRecyclerView.setAdapter(mAdapter);
 
         return rootView;

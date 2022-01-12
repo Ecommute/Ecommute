@@ -1,14 +1,14 @@
 package com.example.ecommute;
 
-import android.content.Context;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.StrictMode;
+import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -18,66 +18,75 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class PopUpEditComment {
-    public String username = GlobalVariables.username;
-    public String password = GlobalVariables.password;
+import androidx.annotation.Nullable;
 
-    private Integer mId, mIdArticle;
+public class PopUpEditComment extends Activity {
 
-    public void showPopUpWindow(final View view, Context context, Integer id, Integer idArticle, String contentOG){
-        View popUpView = LayoutInflater.from(context).inflate(R.layout.pop_up_editcomment, null);
+    int id = 0;
+    int idArticle = 0;
+    boolean liked;
+    TextView content;
 
-        //Specify the length and width through constants
-        int width = LinearLayout.LayoutParams.MATCH_PARENT;
-        int height = LinearLayout.LayoutParams.MATCH_PARENT;
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
-        //Make Inactive Items Outside Of PopupWindow
-        boolean focusable = true;
+        setContentView(R.layout.pop_up_editcomment);
 
-        //Create a window with our parameters
-        final PopupWindow popupWindow = new PopupWindow(popUpView, width, height, focusable);
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        //Set the location of the window on the screen
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-        popupWindow.setBackgroundDrawable(null);
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
 
-        EditText editText = popUpView.findViewById(R.id.editCommentInput);
-        editText.setHint(contentOG);
+        Button confirmar = findViewById(R.id.confirmButton);
 
-        Button confirm = popUpView.findViewById(R.id.confirmButton);
-        ImageButton close = popUpView.findViewById(R.id.closeButton);
+        getWindow().setLayout((int)(width*0.8), (int)(height*0.2));
 
-        confirm.setOnClickListener(new View.OnClickListener() {
+        content = findViewById(R.id.editCommentInput);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            id = Integer.valueOf(extras.getInt("id"));
+            idArticle = Integer.valueOf(extras.getInt("idArticle"));
+            liked = extras.getBoolean("liked");
+        }
+
+        confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                final Response[] response = new Response[1];
-                OkHttpClient client = new OkHttpClient().newBuilder()
-                        .build();
-                MediaType mediaType = MediaType.parse("text/plain");
-                RequestBody body = RequestBody.create("", mediaType);
-                Request request = new Request.Builder()
-                        .url("http://10.4.41.35:3000/articles/" + idArticle + "/comment/" + id +
-                                "?username=" + username + "&password=" + password + "&content=" + contentOG)
-                        .method("PUT", body)
-                        .build();
+            public void onClick(View v) {
                 try {
-                    response[0] = client.newCall(request).execute();
+                    confirm();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-                popupWindow.dismiss();
             }
         });
-
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popupWindow.dismiss();
-            }
-        });
-
 
     }
+
+
+public void confirm() throws IOException {
+    final Response[] response = new Response[1];
+    OkHttpClient client = new OkHttpClient().newBuilder()
+            .build();
+    MediaType mediaType = MediaType.parse("text/plain");
+    RequestBody body = RequestBody.create("", mediaType);
+    Request request = new Request.Builder()
+            .url("http://10.4.41.35:3000/articles/" + idArticle + "/comment/" + id +
+                    "?username=" + GlobalVariables.username + "&password=" + GlobalVariables.password + "&content=" + content.getText())
+            .method("PUT", body)
+            .build();
+    response[0] = client.newCall(request).execute();
+
+    //PopUpEditComment.this.finish();
+
+    Intent intent = new Intent(PopUpEditComment.this, PopUpArticulo.class);
+    intent.putExtra("id", idArticle);
+    intent.putExtra("liked", liked);
+    startActivity(intent);
+}
 
 }

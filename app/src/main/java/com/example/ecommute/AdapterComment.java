@@ -2,7 +2,9 @@ package com.example.ecommute;
 
 import static android.text.format.DateUtils.getRelativeTimeSpanString;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +34,9 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
     private Boolean[] mReporteds;
     private Integer midArticle;
     private int mCountNulls;
+    private boolean liked;
 
-    public AdapterComment(Context context, Integer[] ids, String[] authors, String[] contents, String[] createdAts, Boolean[] owns, Boolean[] reporteds, Integer idArticle, int countNulls){
+    public AdapterComment(Context context, Integer[] ids, String[] authors, String[] contents, String[] createdAts, Boolean[] owns, Boolean[] reporteds, Integer idArticle, int countNulls, boolean likeda){
         mContext = context;
         mIds = ids;
         mAuthors = authors;
@@ -43,6 +46,7 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
         mReporteds = reporteds;
         midArticle = idArticle;
         mCountNulls = countNulls;
+        liked = likeda;
     }
 
     @NonNull
@@ -156,11 +160,11 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /*PopUpClass popUpClass = new PopUpClass();
-                    popUpClass.showPopupWindow(vp, mContext, id, fav);*/
-
-                    PopUpEditComment popUp = new PopUpEditComment();
-                    popUp.showPopUpWindow(view, mContext, id, idArticle, contentSt);
+                    Intent intent = new Intent((Activity) mContext, PopUpEditComment.class);
+                    intent.putExtra("id", id);
+                    intent.putExtra("idArticle", idArticle);
+                    intent.putExtra("liked", liked);
+                    mContext.startActivity(intent);
                 }
             });
         }

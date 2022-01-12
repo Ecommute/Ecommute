@@ -16,28 +16,18 @@
         app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toTopOf="@+id/background" />
 
-    <Button
-        android:id="@+id/comments"
-        android:layout_width="52dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:icon="@drawable/ic_baseline_forum_24"
-        app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/contenido1"
-        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/liked2"
         android:layout_width="28dp"
         android:layout_height="41dp"
-        android:layout_marginStart="188dp"
+        android:layout_marginStart="256dp"
         android:layout_marginBottom="16dp"
         android:background="@null"
         android:src="@drawable/ic_baseline_favorite_border_24"
         android:translationZ="90dp"
         app:layout_constraintBottom_toBottomOf="@+id/background"
-        app:layout_constraintStart_toEndOf="@+id/comments"
+        app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toBottomOf="@+id/contenido1"
         app:layout_constraintVertical_bias="1.0" />
 
