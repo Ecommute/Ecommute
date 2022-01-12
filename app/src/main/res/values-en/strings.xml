@@ -36,6 +36,7 @@
     <string name="Localización_evento">Location</string>
     <string name="Titulo_evento">Title</string>
     <string name="Descripción_evento">Description</string>
+    <string name="Crear_Evento">Create Event</string>
 
 
     <string name="textVRutasFav">Favourite Routes</string>

@@ -2,7 +2,6 @@ package com.example.ecommute;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -48,7 +47,6 @@ public class PopUpEventos extends AppCompatActivity {
             }
         });
 
-        Log.d("eventos", "on create de popupeventos");
         try {
             setUpRecycler();
         } catch (Exception e) {

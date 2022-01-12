@@ -36,6 +36,7 @@
     <string name="Localización_evento">Localització</string>
     <string name="Titulo_evento">Títol</string>
     <string name="Descripción_evento">Descripció</string>
+    <string name="Crear_Evento">Crear Event</string>
 
     <string name="textVRutasFav">Rutes Preferides</string>
     <string name="Coche">Cotxe</string>
