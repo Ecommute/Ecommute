@@ -7,8 +7,8 @@
 
     <TextView
         android:id="@+id/contenido1"
-        android:layout_width="350dp"
-        android:layout_height="53dp"
+        android:layout_width="322dp"
+        android:layout_height="52dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="56dp"
         android:text="TextView"
@@ -21,15 +21,13 @@
         android:id="@+id/liked2"
         android:layout_width="28dp"
         android:layout_height="41dp"
-        android:layout_marginStart="256dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="6dp"
         android:background="@null"
         android:src="@drawable/ic_baseline_favorite_border_24"
         android:translationZ="90dp"
-        app:layout_constraintBottom_toBottomOf="@+id/background"
         app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/contenido1"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/contenido1" />
 
     <TextView
         android:id="@+id/titulo1"
@@ -38,15 +36,15 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:text="TextView"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toTopOf="@+id/background" />
 
     <ImageView
         android:id="@+id/background"
-        android:layout_width="382dp"
-        android:layout_height="182dp"
+        android:layout_width="361dp"
+        android:layout_height="174dp"
         android:layout_marginStart="13dp"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="13dp"
@@ -64,9 +62,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="10dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/background"
+        app:layout_constraintBottom_toBottomOf="@+id/liked2"
         app:layout_constraintStart_toEndOf="@+id/liked2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

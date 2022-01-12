@@ -115,22 +115,45 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
             report.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    report.setImageResource(R.drawable.ic_baseline_error_red);
+                    if(!reported){
+                        report.setImageResource(R.drawable.ic_baseline_error_red);
 
-                    final Response[] response2 = new Response[1];
+                        final Response[] response2 = new Response[1];
 
-                    OkHttpClient client = new OkHttpClient().newBuilder().build();
-                    MediaType mediaType = MediaType.parse("text/plain");
-                    RequestBody body = RequestBody.create("", mediaType);
-                    Request request = new Request.Builder()
-                            .url("http://10.4.41.35:3000/articles/" + idArticle + "/comment/" + id + "/report?username=" + username + "&password=" + password)
-                            .method("POST", body)
-                            .build();
-                    try {
-                        response2[0] = client.newCall(request).execute();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        OkHttpClient client = new OkHttpClient().newBuilder().build();
+                        MediaType mediaType = MediaType.parse("text/plain");
+                        RequestBody body = RequestBody.create("", mediaType);
+                        Request request = new Request.Builder()
+                                .url("http://10.4.41.35:3000/articles/" + idArticle + "/comment/" + id + "/report?username=" + username + "&password=" + password)
+                                .method("POST", body)
+                                .build();
+                        try {
+                            response2[0] = client.newCall(request).execute();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        reported = true;
                     }
+                    /*else{
+                        report.setImageResource(R.drawable.ic_baseline_error_24);
+
+                        final Response[] response2 = new Response[1];
+                        OkHttpClient client = new OkHttpClient().newBuilder()
+                                .build();
+                        MediaType mediaType = MediaType.parse("text/plain");
+                        RequestBody body = RequestBody.create("", mediaType);
+                        Request request = new Request.Builder()
+                                .url("http://10.4.41.35:3000/articles/" + idArticle + "/comment/" + id + "/report?username=" + username + "password=" + password)
+                                .method("DELETE", body)
+                                .build();
+                        try {
+                            response2[0] = client.newCall(request).execute();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        reported = false;
+                    }*/
+
                 }
             });
 

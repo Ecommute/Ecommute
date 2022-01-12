@@ -297,8 +297,16 @@ public class RutaFragment extends Fragment {
     private void crearRuta2() throws IOException, JSONException {
         EditText origen = binding.editOrigen;
         EditText destino = binding.editDestino;
-        GlobalVariables.origen = origen.getText().toString();
-        GlobalVariables.destino = destino.getText().toString();
+        String strOrigen = origen.getText().toString();
+        String strDestino = destino.getText().toString();
+
+
+        if(strOrigen.equals("") || strDestino.equals("")) {
+            Toast.makeText(this.getActivity(), "Debes rellenar ambos campos", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            GlobalVariables.origen = strOrigen;
+            GlobalVariables.destino = strDestino;
 
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -319,6 +327,8 @@ public class RutaFragment extends Fragment {
             Intent intent = new Intent(getActivity(), RutasActivity.class);
             startActivity(intent);
         }
+
+    }
 
 
     }
