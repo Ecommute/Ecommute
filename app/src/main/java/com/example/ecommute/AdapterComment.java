@@ -65,7 +65,10 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
          holder.reported = mReporteds[position];
 
          if(mOwns[position]) holder.report.setVisibility(View.GONE);
-         else holder.delete.setVisibility(View.GONE);
+         else {
+             holder.delete.setVisibility(View.GONE);
+             holder.edit.setVisibility(View.GONE);
+         }
 
 
          /*java.sql.Timestamp ts = java.sql.Timestamp.valueOf(mCreatedAts[position]);
