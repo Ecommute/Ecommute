@@ -3,18 +3,13 @@ package com.example.ecommute;
 import static android.text.format.DateUtils.getRelativeTimeSpanString;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
@@ -63,7 +58,7 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
          holder.author.setText(mAuthors[position]);
          holder.content.setText(mContents[position]);
-         holder.createdAt = mCreatedAts[position];
+
          holder.id = mIds[position];
          holder.idArticle = midArticle;
          holder.own = mOwns[position];
@@ -72,8 +67,16 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
          if(mOwns[position]) holder.report.setVisibility(View.GONE);
          else holder.delete.setVisibility(View.GONE);
 
+
+         /*java.sql.Timestamp ts = java.sql.Timestamp.valueOf(mCreatedAts[position]);
+         long tsTime = ts.getTime();
+         String t = (String) getRelativeTimeSpanString (tsTime);*/
+
+        holder.createdAtPretty.setText(mCreatedAts[position]);
+
         if(mReporteds[position]) holder.report.setImageResource(R.drawable.ic_baseline_error_red);
 
+        holder.contentSt = mContents[position];
     }
 
     @Override
@@ -86,10 +89,10 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
         public String password = GlobalVariables.password;
 
         public TextView author, content, createdAtPretty;
-        public String createdAt;
+        public String createdAt, contentSt;
         public Integer id, idArticle;
         public Boolean own, reported;
-        public ImageButton report, delete;
+        public ImageButton report, delete, edit;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,14 +101,9 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
             content = itemView.findViewById(R.id.commContent);
             createdAtPretty = itemView.findViewById(R.id.commCreatedAt);
 
-            /*java.sql.Timestamp ts2 = java.sql.Timestamp.valueOf(createdAt);
-            long tsTime2 = ts2.getTime();
-            String t = (String) getRelativeTimeSpanString (tsTime2);*/
-
-            createdAtPretty.setText(createdAt);
-
             report = itemView.findViewById(R.id.report);
             delete = itemView.findViewById(R.id.delete);
+            edit = itemView.findViewById(R.id.editCommButton);
 
             report.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -149,6 +147,17 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
                         e.printStackTrace();
                     }
 
+                }
+            });
+
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    /*PopUpClass popUpClass = new PopUpClass();
+                    popUpClass.showPopupWindow(vp, mContext, id, fav);*/
+
+                    PopUpEditComment popUp = new PopUpEditComment();
+                    popUp.showPopUpWindow(view, mContext, id, idArticle, contentSt);
                 }
             });
         }

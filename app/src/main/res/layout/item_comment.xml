@@ -2,13 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="339dp"
-        android:layout_height="124dp"
+        android:layout_height="130dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="44dp"
@@ -35,8 +36,8 @@
         android:id="@+id/commContent"
         android:layout_width="301dp"
         android:layout_height="61dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="52dp"
         android:text="TextView"
         android:translationZ="10dp"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
@@ -46,11 +47,12 @@
         android:id="@+id/commCreatedAt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:text="TextView"
+        android:textSize="12sp"
+        android:textStyle="italic"
         android:translationZ="10dp"
-        app:layout_constraintStart_toEndOf="@+id/commAuthor"
+        app:layout_constraintStart_toStartOf="@+id/commAuthor"
         app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
     <ImageButton
@@ -74,4 +76,16 @@
         app:layout_constraintTop_toTopOf="@+id/imageView3"
         app:srcCompat="@android:drawable/ic_menu_delete"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/editCommButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="55dp"
+        android:backgroundTint="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:srcCompat="@android:drawable/ic_menu_edit"
+        tools:ignore="SpeakableTextPresentCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
