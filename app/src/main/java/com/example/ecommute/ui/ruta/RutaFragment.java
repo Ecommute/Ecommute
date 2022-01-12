@@ -161,7 +161,11 @@ public class RutaFragment extends Fragment {
         buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                crearRuta2();
+                try {
+                    crearRuta2();
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -290,14 +294,33 @@ public class RutaFragment extends Fragment {
         confirmacion.setText("Resultado: " + respuesta2.getString("result"));
     }
 
-    private void crearRuta2() {
+    private void crearRuta2() throws IOException, JSONException {
         EditText origen = binding.editOrigen;
         EditText destino = binding.editDestino;
         GlobalVariables.origen = origen.getText().toString();
         GlobalVariables.destino = destino.getText().toString();
 
-        Intent intent = new Intent(getActivity(), RutasActivity.class);
-        startActivity(intent);
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/users/cardetails?username=test&password=test")
+                .method("GET", null)
+                .build();
+        Response response = client.newCall(request).execute();
+        JSONObject respuesta2 = new JSONObject(response.body().string());
+        if(respuesta2.getString("fuelType") == "null" || respuesta2.getString("fuelConsumption") == "null"){
+            Toast toast = Toast.makeText(getActivity(), "No has introducido detalles de tu coche", Toast.LENGTH_SHORT);
+            TextView vivi = (TextView) toast.getView().findViewById(android.R.id.message);
+            if( vivi != null)
+                toast.setGravity(Gravity.CENTER, 0, -200);
+            toast.getView().getBackground().setTint(ContextCompat.getColor(getContext(), R.color.light_green));
+            toast.show();
+        }else{
+            Intent intent = new Intent(getActivity(), RutasActivity.class);
+            startActivity(intent);
+        }
+
+
     }
 
     public void export() {
