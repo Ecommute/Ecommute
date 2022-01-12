@@ -1,6 +1,7 @@
 package com.example.ecommute;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.method.ScrollingMovementMethod;
@@ -8,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -38,6 +40,7 @@ public class  PopUpArticulo extends AppCompatActivity {
     private PopUpArticuloBinding binding;
     private int id;
     private boolean liked;
+    EditText contenido;
 
     //COMMENT STUFF
     private Integer idArticle;
@@ -51,6 +54,7 @@ public class  PopUpArticulo extends AppCompatActivity {
         binding = PopUpArticuloBinding.inflate(getLayoutInflater());
         setContentView(R.layout.pop_up_articulo);
 
+        //Esto era para hacer que fuera un popup, ya no se usa
         /*DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -68,10 +72,13 @@ public class  PopUpArticulo extends AppCompatActivity {
         cerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopUpArticulo.this.finish();
+                Intent intent = new Intent(PopUpArticulo.this, MainActivity.class);
+                intent.putExtra("page", 1);
+                startActivity(intent);
             }
         });
 
+        contenido = findViewById(R.id.textoMensaje);
         try {
             setUpArticulo();
         } catch (IOException | JSONException e) {
@@ -79,6 +86,18 @@ public class  PopUpArticulo extends AppCompatActivity {
         }
 
         setUpLike();
+
+        ImageButton enviar = findViewById(R.id.buttonEnviar);
+        enviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    comentar();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         try {
             setUpComments(savedInstanceState);
@@ -117,6 +136,29 @@ public class  PopUpArticulo extends AppCompatActivity {
         }
 
         System.out.println(Jarray);
+    }
+
+    public void comentar() throws IOException {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("text/plain");
+        RequestBody body = RequestBody.create("", mediaType);
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/articles/"+id+"/comment?username="+GlobalVariables.username+"&password="+GlobalVariables.password+"&content="+contenido.getText())
+                .method("POST", body)
+                .build();
+        Response response = client.newCall(request).execute();
+
+
+
+
+        Intent i = new Intent(PopUpArticulo.this, PopUpArticulo.class);
+        i.putExtra("id", id);
+        i.putExtra("liked", liked);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(i);
+        overridePendingTransition(0, 0);
     }
 
 
