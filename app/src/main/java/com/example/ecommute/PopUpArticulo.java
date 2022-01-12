@@ -105,6 +105,28 @@ public class  PopUpArticulo extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        try {
+            isBanned();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void isBanned() throws IOException, JSONException {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/users/isbanned?username="+GlobalVariables.username+"&password="+GlobalVariables.password)
+                .method("GET", null)
+                .build();
+        Response response = client.newCall(request).execute();
+        String jsonData = response.body().string();
+        JSONObject Jobject = new JSONObject(jsonData);
+        if(Jobject.getBoolean("isBanned")){
+            contenido.setText("Has sido baneado");
+            contenido.setFocusable(false);
+        }
     }
 
     private void setUpComments(@Nullable Bundle savedInstanceState) throws IOException, JSONException {
