@@ -91,14 +91,6 @@ public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder>
             textTitulo.bringToFront();
             textContenido.bringToFront();
 
-            Button comments = itemView.findViewById(R.id.comments);
-            comments.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    //abrir post / view de comentar?
-                }
-            });
 
             ImageView background = itemView.findViewById(R.id.background);
             background.setOnClickListener(new View.OnClickListener() {

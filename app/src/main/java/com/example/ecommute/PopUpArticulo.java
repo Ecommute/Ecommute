@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -12,9 +13,14 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.example.ecommute.databinding.PopUpArticuloBinding;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
@@ -27,11 +33,14 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class PopUpArticulo extends AppCompatActivity {
+public class  PopUpArticulo extends AppCompatActivity {
 
     private PopUpArticuloBinding binding;
     private int id;
     private boolean liked;
+
+    //COMMENT STUFF
+    private Integer idArticle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,9 +80,45 @@ public class PopUpArticulo extends AppCompatActivity {
 
         setUpLike();
 
-
+        try {
+            setUpComments(savedInstanceState);
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
 
     }
+
+    private void setUpComments(@Nullable Bundle savedInstanceState) throws IOException, JSONException {
+        String username = GlobalVariables.username;
+        String password = GlobalVariables.password;
+
+        final Response[] response = new Response[1];
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/articles/" + id + "?username=" + username + "&password=" + password)
+                .method("GET", null)
+                .build();
+        response[0] = client.newCall(request).execute();
+
+        String jsonData = response[0].body().string();
+        JSONObject Jobject = new JSONObject(jsonData);
+
+        JSONObject info = new JSONObject(Jobject.getString("article"));
+        JSONArray Jarray = info.getJSONArray("comments");
+
+        idArticle = Integer.valueOf(info.getString("id"));
+
+        if(savedInstanceState == null){
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            ArticleCommentsFragment fragment = ArticleCommentsFragment.newInstance(idArticle, liked);
+            transaction.replace(R.id.fragmentContainerView, fragment);
+            transaction.commit();
+        }
+
+        System.out.println(Jarray);
+    }
+
 
     public void setUpArticulo() throws IOException, JSONException {
         OkHttpClient client = new OkHttpClient().newBuilder()
