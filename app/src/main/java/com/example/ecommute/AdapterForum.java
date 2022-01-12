@@ -106,7 +106,7 @@ public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder>
 
         public void setUpLike() {
             ImageButton likedButton = itemView.findViewById(R.id.liked2);
-            if(liked == true){
+            if(liked){
                 likedButton.setImageResource(R.drawable.ic_baseline_favorite_24);
             }
             else likedButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
@@ -114,11 +114,11 @@ public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder>
             likedButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String s = textLikes.getText().toString();
+                    String s = textNumLikes.getText().toString();
                     String[] cosas = s.split(" ");
-                    int mg = Integer.valueOf(cosas[0]);
+                    int mg = Integer.parseInt(cosas[0]);
 
-                    if(liked == true){
+                    if(liked){
                         liked = false;
                         mg--;
 
@@ -164,7 +164,7 @@ public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder>
                     }
                     if(mg == 1) s = mg + " like";
                     else s = mg + " likes";
-                    textLikes.setText(s);
+                    textNumLikes.setText(s);
                 }
             });
         }
