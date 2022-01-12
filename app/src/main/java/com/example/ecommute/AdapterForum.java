@@ -90,6 +90,8 @@ public class AdapterForum  extends RecyclerView.Adapter<AdapterForum.ViewHolder>
             textNumLikes = itemView.findViewById(R.id.numLikes);
             textTitulo.bringToFront();
             textContenido.bringToFront();
+            ImageView back = itemView.findViewById(R.id.background);
+            back.setClipToOutline(true);
 
 
             ImageView background = itemView.findViewById(R.id.background);
