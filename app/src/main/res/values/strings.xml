@@ -5,8 +5,8 @@
     <string name="title_ruta">Ruta</string>
     <string name="title_perfil">Perfil</string>
     <string name="title_puntos">Puntos</string>
-    <string name="pre_origen">De: </string>
-    <string name="pre_destino">A: </string>
+    <string name="pre_origen">De: \u0020</string>
+    <string name="pre_destino">A: \u0020</string>
     <string name="textTitle">Detalles ruta</string>
     <string name="textButton">Eliminar</string>
     <string name="textEditar">Editar</string>
@@ -31,7 +31,30 @@
     <string name="ConsumoFuel">Consumo de Combustible</string>
     <string name="TipoCombustible">Tipo de Combustible</string>
     <string name="CambiarDatos">Editar Datos</string>
+    <string name="Crear">Crear</string>
+    <string name="Titulo_evento">Título</string>
+    <string name="Localización_evento">Localización</string>
+    <string name="Descripción_evento">Descripción</string>
+    <string name="Crear_Evento">Crear Evento</string>
+
 
     <string name="textVRutasFav">Rutas Favoritas</string>
-    <string name="server_client_id">60686683765-v58iemvsluk42sp8gd8co48tjk2mv5nk.apps.googleusercontent.com</string>
+    <string name="Último_mes">Ultimo Mes</string>
+    <string name="TextView">TextView</string>
+    <string name="Mis_gráficos">Mis gráficos</string>
+    <string name="CO2">CO2</string>
+    <string name="Cerrar_informe">Cerrar Informe</string>
+    <string name="Nivel">Nivel</string>
+    <string name="explnivel">Muestra el nivel actual, entre 1 y 15</string>
+    <string name="Puntos">Puntos</string>
+    <string name="Puntosexp">Muestra la cantidad de puntos actuales dentro del nivel respecto a la cantidad de puntos necesarios para subir al siguiente.</string>
+    <string name="Icono">Icono</string>
+    <string name="explicono">El icono que se observa en el centro de la pantalla irá mejorando a medida que aumente tu nivel, ¡realiza más rutas para ver cómo crece la planta!</string>
+    <string name="Coche">Coche</string>
+    <string name="Vermicalendario">Ver mi Calendario</string>
+    <string name="EditProfilePic">Editar foto de perfil</string>
+    <string name="exportroute">Exportar ruta</string>
+    <string name="server_client_id" translatable="false">60686683765-v58iemvsluk42sp8gd8co48tjk2mv5nk.apps.googleusercontent.com</string>
+    <string name="editar_comentario">Editar Comentario</string>
+
 </resources>

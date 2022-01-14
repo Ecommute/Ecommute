@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/contenido1"
+        android:layout_width="322dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="56dp"
+        android:text="TextView"
+        android:translationZ="10dp"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toTopOf="@+id/background" />
+
+
+    <ImageButton
+        android:id="@+id/liked2"
+        android:layout_width="28dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="6dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_favorite_border_24"
+        android:translationZ="90dp"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/contenido1" />
+
+    <TextView
+        android:id="@+id/titulo1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toTopOf="@+id/background" />
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="361dp"
+        android:layout_height="174dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="13dp"
+        android:clickable="true"
+        android:background="@drawable/round_outline"
+        android:clipToOutline="true"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backgrouncolor" />
+
+    <TextView
+        android:id="@+id/numLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="10dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/liked2"
+        app:layout_constraintStart_toEndOf="@+id/liked2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

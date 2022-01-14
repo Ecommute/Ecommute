@@ -1,5 +1,6 @@
 package com.example.ecommute;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 
@@ -35,9 +36,17 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_foro, R.id.navigation_huella, R.id.navigation_ruta, R.id.navigation_puntos, R.id.navigation_perfil)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            Integer page = Integer.valueOf(extras.getInt("page"));
+            if(page == 5)
+                navController.navigate(R.id.navigation_perfil);
+            if(page == 1)
+                navController.navigate(R.id.navigation_foro);
+        }
     }
 
 

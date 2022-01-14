@@ -1,8 +1,5 @@
 package com.example.ecommute;
 
-import static android.content.ContentValues.TAG;
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,12 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -47,7 +39,6 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
     public AdapterHistorial.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View v = inflater.inflate(R.layout.item_historial, parent, false);
-
         return new MyViewHolder(v);
     }
 
@@ -60,9 +51,6 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         holder.id = mIntIds[position];
 
         holder.setUp();
-
-        Log.d("RID BINDING", String.valueOf(mIntIds[position]));
-        Log.d("RID BINDING F", String.valueOf(mIntFavs[position]));
     }
 
     @Override
@@ -80,39 +68,9 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            mTextOrigen = itemView.findViewById(R.id.origen);
-            mTextDestino = itemView.findViewById(R.id.destino);
+            mTextOrigen = itemView.findViewById(R.id.NombreEvento);
+            mTextDestino = itemView.findViewById(R.id.HoraEvento);
             mTextPuntos = itemView.findViewById(R.id.puntos);
-
-            //setUp();
-
-            /*final Response[] response = new Response[1];
-
-            OkHttpClient client = new OkHttpClient().newBuilder().build();
-            Request request = new Request.Builder()
-                    .url("http://10.4.41.35:3000/routes/show/" + id + "?username=" + username + "&password=" + password)
-                    .method("GET", null)
-                    .build();
-            try {
-                response[0] = client.newCall(request).execute();
-            } catch (IOException e) {
-
-                e.printStackTrace();
-            }
-            Log.d("RID:", String.valueOf(id));
-            String jsonData;
-
-            fav = -1;
-            try {
-                jsonData = Objects.requireNonNull(response[0].body()).string();
-                JSONObject jo = new JSONObject((jsonData));
-                JSONObject routes = jo.getJSONObject("route");
-
-                fav = Integer.parseInt(routes.getString("favourite"));
-
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-            }*/
         }
 
         private void setUp() {

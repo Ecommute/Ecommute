@@ -1,10 +1,14 @@
 package com.example.ecommute.ui.puntos;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +18,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ecommute.GlobalVariables;
+import com.example.ecommute.PopUpCoche;
+import com.example.ecommute.PopUpInfopuntos;
 import com.example.ecommute.R;
 import com.example.ecommute.databinding.FragmentPuntosBinding;
 
@@ -42,6 +48,15 @@ public class PuntosFragment extends Fragment {
 
         binding = FragmentPuntosBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        ImageButton infopuntos = binding.informacion;
+        infopuntos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PopUpInfopuntos.class);
+                startActivity(intent);
+            }
+        });
 
         try {
             verPuntos();

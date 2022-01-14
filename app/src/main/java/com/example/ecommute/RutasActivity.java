@@ -61,6 +61,14 @@ public class RutasActivity extends AppCompatActivity {
         transit = binding.transit;
         guardar = binding.guardar;
 
+        try {
+            getOptions();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         walking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,12 +114,35 @@ public class RutasActivity extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
-                .url("http://10.4.41.35:3000/routes/map?origin="+GlobalVariables.origen+"&destination="+GlobalVariables.destino+"&mode=driving&username="+GlobalVariables.username+"&password="+GlobalVariables.password)
+                .url("http://10.4.41.35:3000/routes/map?origin="+GlobalVariables.origen+"&destination="+GlobalVariables.destino+"&mode=driving&username="+GlobalVariables.username+"&password="+GlobalVariables.password+"&width=390&height=400")
                 .method("GET", null)
                 .build();
         Response response = client.newCall(request).execute();
         JSONObject respuesta = new JSONObject(response.body().string());
         iframe = respuesta.getString("iframe");
+    }
+
+    private void getOptions() throws IOException, JSONException {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        Request request = new Request.Builder()
+                .url("http://10.4.41.35:3000/routes/options?username="+GlobalVariables.username+"&password="+GlobalVariables.password+"&origin="+GlobalVariables.origen+"&destination="+GlobalVariables.destino)
+                .method("GET", null)
+                .build();
+        Response response = client.newCall(request).execute();
+        JSONObject respuesta = new JSONObject(response.body().string());
+        JSONObject opciones = new JSONObject(respuesta.getString("options"));
+        JSONObject conducir = new JSONObject(opciones.getString("driving"));
+        JSONObject caminar = new JSONObject(opciones.getString("walking"));
+        JSONObject bicicleta = new JSONObject(opciones.getString("bicycling"));
+        JSONObject publico = new JSONObject(opciones.getString("transit"));
+
+        System.out.println("      Walking            +" + caminar.getInt("points") + " puntos");
+        walking.setText("      Walking            +" + caminar.getInt("points") + " puntos");
+        driving.setText("      driving              +" + conducir.getInt("points") + " puntos");
+        bicycling.setText("      bicycling          +" + bicicleta.getInt("points") + " puntos");
+        transit.setText("      transit              +" + publico.getInt("points") + " puntos");
+
     }
 
     private void clickWalking(){

@@ -1,5 +1,6 @@
 package com.example.ecommute.ui.huella;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -29,6 +30,13 @@ import com.example.ecommute.Usuario;
 import com.example.ecommute.databinding.FragmentHuellaBinding;
 import com.example.ecommute.databinding.ItemHistorialBinding;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -62,7 +70,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import okhttp3.Call;
@@ -113,50 +123,53 @@ public class HuellaFragment extends Fragment{
         AdapterHistorial mAdapter = new AdapterHistorial(this.getActivity(), arrayOrigenes, arrayDestinos, arrayPuntos, arrayIds, arrayFavs);
         historial.setAdapter(mAdapter);
 
-        mLayoutManager=new LinearLayoutManager(this.getActivity());
+        mLayoutManager = new LinearLayoutManager(this.getActivity());
         historial.setLayoutManager(mLayoutManager);
 
 
-        GraphView graph;
-        LineGraphSeries<DataPoint> series;       //an Object of the PointsGraphSeries for plotting scatter graphs
-        graph = (GraphView) root.findViewById(R.id.graph);
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMaxX(12);
-
-/*
-        graph.getViewport().setScrollable(true); // enables horizontal scrolling
-        graph.getViewport().setScrollableY(true); // enables vertical scrolling
-        graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
-        graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
-*/
-        List<String> points = new ArrayList<>();
+        BarChart barchart = (BarChart) root.findViewById(R.id.graph);
+        ArrayList<BarEntry> entries = null;
+        JSONObject respuesta = null;
         try {
-            points = getDataGraficoGeneral();
-            Log.d("points en try catch", points.toString());
+            respuesta = llamadaAPI();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (points != null){
-            series= new LineGraphSeries(dataGrafico(points));   //initializing/defining series to get the data from the method 'data()'
 
-        }else{
-            series= new LineGraphSeries(dataDefault());   //initializing/defining series to get the data from the method 'data()'
+        try {
+            entries = entry(respuesta);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        series.setDrawDataPoints(true);
-        graph.addSeries(series);                   //adding the series to the GraphView
 
+        Log.d("Valores del dataset", entries.toString());
 
-        series.setOnDataPointTapListener(new OnDataPointTapListener() {
-            @Override
-            public void onTap(Series series, DataPointInterface dataPoint) {
-                Toast.makeText(getActivity(), "Puntos: "+dataPoint.getY(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        BarDataSet barDataSet = new BarDataSet(entries, "co2");
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setValueTextColor(Color.BLACK);
 
+        BarData barData = new BarData(barDataSet);
 
+        barchart.setData(barData);
+        barchart.setFitBars(true);
+        barchart.animateY(2000);
+        barchart.getDescription().setText("CO2 consumido");
+        barchart.getLegend().setEnabled(false);
+        barchart.getXAxis().setEnabled(false);
+        barchart.getAxisLeft().setAxisMinimum(0.0f);
+        barchart.getAxisRight().setAxisMinimum(0.0f);
+        barchart.getAxisRight().setDrawLabels(false);
 
+        TextView tw = bindingH.textView2;
+        try {
+            tw.setText("Total CO2 ahorrado = " + nCo2Totales(respuesta));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         Button mostrarInfo = bindingH.mostrarInfo;
         mostrarInfo.setOnClickListener(new View.OnClickListener() {
@@ -164,8 +177,21 @@ public class HuellaFragment extends Fragment{
             @Override
             public void onClick(View v) {
 
-                PopupInformeSemanal popUpClass = new PopupInformeSemanal();
-                popUpClass.showPopupWindow(v);
+                PopupInformeSemanal popUpClass = null;
+                try {
+                    popUpClass = new PopupInformeSemanal();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    popUpClass.showPopupWindow(v);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -174,13 +200,23 @@ public class HuellaFragment extends Fragment{
         return root;
     }
 
-    public List<String> getDataGraficoGeneral() throws IOException, JSONException {
+    public String nCo2Totales(JSONObject respuesta2) throws JSONException {
+        if(respuesta2.getString("result").equals("Success")) {
+
+            Log.d("request", "inside");
+            String npuntos = respuesta2.getString("totalSavedCo2");
+            Log.d("request", "puntos" + npuntos);
+            return npuntos;
+        }
+        return "No hay rutas asociadas todavia";
+    }
+
+    public JSONObject llamadaAPI() throws IOException, JSONException {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
         //String urlParameters  = "&username="+username+ "&password="+pass;
-        //String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
-        String urlParameters  = "&username=marcelurpi&password=password";
+        String urlParameters  = "&username="+ GlobalVariables.username+ "&password="+GlobalVariables.password;
+        //String urlParameters  = "&username=marcelurpi&password=password";
 
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -191,67 +227,36 @@ public class HuellaFragment extends Fragment{
         Response response = client.newCall(request).execute();
 
         JSONObject respuesta2 = new JSONObject(response.body().string());
-        Log.d("request", respuesta2.toString());
 
-        if(respuesta2.getString("result").equals("Success")) {
+        return respuesta2;
 
-            Log.d("request", "inside");
-            String npuntos = respuesta2.getString("totalPoints");
-            Log.d("request", "puntos"+ npuntos);
-            List<String> list = new ArrayList<String>();
-            JSONObject months = respuesta2.getJSONObject("months");
-
-            //CAMBIAR ESTA COSA TAN HORRIBLE. HACER MONTHS ARRAY
-            list.add(months.getJSONObject("1").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("2").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("3").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("4").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("5").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("6").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("7").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("8").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("9").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("10").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("11").getJSONObject("totalDay").getString("points"));
-            list.add(months.getJSONObject("12").getJSONObject("totalDay").getString("points"));
-
-            Log.d("request", "list "+ list.toString());
-            return list;
-        }
-        return null;
     }
 
-    public DataPoint[] dataGrafico(List<String> valores){
-        int nentradas = valores.size();
-        double[] x= new double[nentradas];
-        double[] y= new double[nentradas];
-        for (int i= 0; i<nentradas; i++){
-            x[i]= i;
-            y[i]= Double.parseDouble(valores.get(i));
+    public ArrayList<BarEntry> entry(JSONObject respuesta2) throws IOException, JSONException {
+
+        ArrayList<BarEntry> entry = new ArrayList<BarEntry>();
+
+        if(respuesta2.getString("result").equals("Success")){
+            JSONObject ja = respuesta2.getJSONObject("days");
+            Log.d("calendarioHuella", ja.toString());
+
+            JSONArray dias = ja.names();
+            Log.d("calendarioHuella", dias.toString());
+
+            for (int i = 0; i < ja.length(); i++){
+                Object dia = dias.get(i);
+                if (dia != null){       //no deberia serlo porque uso su lenght
+                    String co2 = ja.getJSONObject((String) dia).getString("savedco2");
+                    entry.add(new BarEntry(i, Float.parseFloat(co2)));
+                }
+            }
+        }else{
+            entry.add(new BarEntry(0, 0.0f));
         }
-        DataPoint[] values = new DataPoint[nentradas];
-        for(int i=0;i<nentradas;i++){
-            DataPoint v = new DataPoint(x[i],y[i]);
-            values[i] = v;
-        }
-        return values;
+        return entry;
+
     }
 
-    public DataPoint[] dataDefault(){
-        double[] x= new double[10];
-        double[] y= new double[10];
-        for (int i= 0; i<10; i++){
-            x[i]= i;
-            y[i]= i;
-        }
-        int n=10;     //to find out the no. of data-points
-        DataPoint[] values = new DataPoint[n];     //creating an object of type DataPoint[] of size 'n'
-        for(int i=0;i<n;i++){
-            DataPoint v = new DataPoint(Double.parseDouble(String.valueOf(x[i])),Double.parseDouble(String.valueOf(y[i])));
-            values[i] = v;
-        }
-        return values;
-    }
 
     private void setUpHistorial() throws Exception {
 

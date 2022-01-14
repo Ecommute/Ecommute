@@ -6,45 +6,54 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/bicycling"
+        android:id="@+id/driving"
         android:layout_width="376dp"
         android:layout_height="59dp"
-        android:text="Bicycling"
+        android:layout_marginTop="4dp"
         android:backgroundTint="@color/light_green"
+        android:text="Driving"
         android:textColor="@color/black"
+        android:textAlignment="viewStart"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/driving" />
+        app:layout_constraintTop_toBottomOf="@+id/walking" />
 
     <Button
         android:id="@+id/walking"
         android:layout_width="376dp"
         android:layout_height="59dp"
-        android:text="Walking"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/light_green"
+        android:text="Walking"
         android:textColor="@color/black"
+        android:textAlignment="viewStart"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/googlemap_webView" />
 
     <Button
-        android:id="@+id/driving"
+        android:id="@+id/bicycling"
         android:layout_width="376dp"
         android:layout_height="59dp"
-        android:text="Driving"
+        android:layout_marginTop="4dp"
         android:backgroundTint="@color/light_green"
+        android:text="Bicycling"
         android:textColor="@color/black"
+        android:textAlignment="viewStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/walking" />
+        app:layout_constraintTop_toBottomOf="@+id/driving" />
 
     <Button
         android:id="@+id/transit"
         android:layout_width="376dp"
         android:layout_height="59dp"
-        android:text="Transit"
         android:backgroundTint="@color/light_green"
+        android:text="Transit"
         android:textColor="@color/black"
+        android:textAlignment="viewStart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +63,7 @@
     <WebView
         android:id="@+id/googlemap_webView"
         android:layout_width="409dp"
-        android:layout_height="300dp"
+        android:layout_height="420dp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,11 +73,12 @@
         android:id="@+id/guardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Guardar Ruta"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/main_green"
+        android:text="Guardar Ruta"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transit" />
 

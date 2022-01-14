@@ -32,4 +32,24 @@
     <string name="ConsumoFuel">Consum de Combustible</string>
     <string name="TipoCombustible">Tipus de Combustible</string>
     <string name="CambiarDatos">Editar Dades</string>
+    <string name="Crear">Crear</string>
+    <string name="Localización_evento">Localització</string>
+    <string name="Titulo_evento">Títol</string>
+    <string name="Descripción_evento">Descripció</string>
+    <string name="Crear_Evento">Crear Event</string>
+
+    <string name="textVRutasFav">Rutes Preferides</string>
+    <string name="Coche">Cotxe</string>
+    <string name="Vermicalendario">Veure el meu calendari</string>
+    <string name="EditProfilePic">Editar foto de perfil</string>
+    <string name="Mis_gráficos">Els meus gráfics</string>
+    <string name="CO2">CO2</string>
+    <string name="Cerrar_informe">Tancar informe</string>
+    <string name="Nivel">Nivell</string>
+    <string name="explnivel">Mostra el nivel actual, entre 1 i 15</string>
+    <string name="Puntos">Punts</string>
+    <string name="Puntosexp">Mostra la quantitat de punts actuals dins del nivell respecte a la quantitat de punts necessaris per pujar al seguent</string>
+    <string name="Icono">Icona</string>
+    <string name="explicono">La icona que s\'observa en el centre de la pantalla anirá millorant a mesura que augmenti el teu nivell, realitza més rutes per veure com creix la teva planta!</string>
+    <string name="Último_mes">"Últim mes "</string>
 </resources>

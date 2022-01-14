@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:andoid="http://schemas.android.com/apk/res-auto">
+
+
+    <EditText
+        android:id="@+id/titulo"
+        android:layout_width="307dp"
+        android:layout_height="48dp"
+        android:layout_above="@id/localizacion_evento"
+        android:ems="10"
+        android:hint="@string/Titulo_evento"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        tools:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/localizacion_evento"
+        android:layout_width="307dp"
+        android:layout_height="48dp"
+        android:layout_above="@id/descripcion_evento"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="@string/Localización_evento" />
+
+    <EditText
+        android:id="@+id/descripcion_evento"
+        android:layout_width="307dp"
+        android:layout_height="150dp"
+
+        android:layout_centerInParent="true"
+        android:ems="10"
+        android:hint="@string/Descripción_evento" />
+
+    <Button
+        android:id="@+id/crear_evento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/descripcion_evento"
+        android:text="@string/Crear"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+</RelativeLayout>

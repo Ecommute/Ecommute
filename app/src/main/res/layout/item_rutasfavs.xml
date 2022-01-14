@@ -7,67 +7,87 @@
 
     <Button
         android:id="@+id/item_button2"
-        android:layout_width="379dp"
-        android:layout_height="93dp"
-        android:layout_marginStart="19dp"
+        android:layout_width="376dp"
+        android:layout_height="99dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginBottom="12dp"
-        android:backgroundTint="#DADADA"
+        android:backgroundTint="#EBFFEB"
         android:clickable="true"
         android:translationZ="-10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.006"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/origen2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="TextView"
-        android:textColor="?android:attr/textColorHint"
+        android:textSize="16sp"
         android:translationZ="10dp"
         app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/item_button2" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/pre_origen"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:translationZ="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/originIcon"
+        app:layout_constraintTop_toTopOf="@+id/item_button2" />
 
     <TextView
         android:id="@+id/destino2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="17dp"
         android:text="TextView"
+        android:textSize="16sp"
         android:translationZ="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/dconsumo2" />
+        app:layout_constraintBottom_toBottomOf="@+id/item_button2"
+        app:layout_constraintStart_toEndOf="@+id/textView" />
 
     <TextView
         android:id="@+id/dconsumo2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="17dp"
         android:text="@string/pre_destino"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:translationZ="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/item_button2"
+        app:layout_constraintStart_toEndOf="@+id/destIcon" />
+
+    <ImageView
+        android:id="@+id/destIcon"
+        android:layout_width="28dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="18dp"
+        android:background="#008BC34A"
+        android:foregroundTint="#003F51B5"
+        android:translationZ="50dp"
+        app:layout_constraintStart_toStartOf="@+id/item_button2"
+        app:layout_constraintTop_toBottomOf="@+id/originIcon"
+        app:srcCompat="@drawable/ic_baseline_place_24" />
+
+    <ImageView
+        android:id="@+id/originIcon"
+        android:layout_width="28dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="9dp"
+        android:translationZ="50dp"
+        app:layout_constraintStart_toStartOf="@+id/item_button2"
+        app:layout_constraintTop_toTopOf="@+id/item_button2"
+        app:srcCompat="@drawable/start" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

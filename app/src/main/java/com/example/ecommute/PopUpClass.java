@@ -1,7 +1,7 @@
 package com.example.ecommute;
 
-import android.content.Intent;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -11,7 +11,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +30,8 @@ public class PopUpClass {
     //PopupWindow display method
     String origen = "Origen";
     String destino = "Destino";
+    String ahorro = "Ahorro";
+    String comparacion = "Comparacion";
     public String username = GlobalVariables.username;
     public String password = GlobalVariables.password;
 
@@ -69,10 +70,10 @@ public class PopUpClass {
         origen1.setText(origen);
         TextView destino1 = popupView.findViewById(R.id.ddestino);
         destino1.setText(destino);
-        TextView consumo = popupView.findViewById(R.id.dconsumo);
-        consumo.setText("consumo");
-        TextView comparacion = popupView.findViewById(R.id.dcomparacion);
-        comparacion.setText("comparacion");
+        TextView ahorro1 = popupView.findViewById(R.id.dahorro);
+        ahorro1.setText(ahorro);
+        TextView comparacion1 = popupView.findViewById(R.id.dcomparacion);
+        comparacion1.setText(comparacion);
 
         Button buttonEliminar = popupView.findViewById(R.id.messageButton);
         buttonEliminar.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +148,8 @@ public class PopUpClass {
         JSONObject Jarray = new JSONObject(Jobject.getString("route"));
         origen = Jarray.getString("origin");
         destino = Jarray.getString("destination");
+        ahorro = Jarray.getString("savedco2");
+        comparacion = Jarray.getString("comparation");
     }
 
     private void eliminarRuta(int id) throws IOException, JSONException {
