@@ -2,7 +2,8 @@ name: Build
 on:
   push:
     branches:
-      - Sprint2
+      - master
+      - clara_Sprint3
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
